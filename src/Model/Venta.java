@@ -10,13 +10,15 @@ public class Venta {
     private Cliente cliente;
     private List<ItemVenta> listaDetalle;
     private double total;
+    private boolean atendida;
 
-    public Venta(int idVenta, Date fecha, Cliente cliente, List<ItemVenta> listaDetalle, double total) {
+    public Venta(int idVenta, Date fecha, Cliente cliente, List<ItemVenta> listaDetalle, double total, boolean atendida) {
         this.idVenta = idVenta;
         this.fecha = fecha;
         this.cliente = cliente;
         this.listaDetalle = listaDetalle;
         this.total = total;
+        this.atendida = atendida;
     }
 
     public int getIdVenta() {
@@ -58,10 +60,17 @@ public class Venta {
     public void setTotal(double total) {
         this.total = total;
     }
+
+    public boolean isAtendida() {
+        return atendida;
+    }
+
+    public void setAtendida(boolean atendida) {
+        this.atendida = atendida;
+    }
     
     
-    
-    
+   
     
     
     

@@ -10,6 +10,8 @@ public class Proveedor {
     private String telefono;
     private String correo;
     private int aniosExperiencia;
+    
+    
 
     private String usuario;
     private String contraseña;

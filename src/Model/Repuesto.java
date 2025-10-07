@@ -1,5 +1,7 @@
 package Model;
 
+import EstructuraDeDatos.Lista;
+
 public class Repuesto {
 
     private int idRepuesto;
@@ -10,6 +12,10 @@ public class Repuesto {
     private double precio;
     private int stock;
     private String proovedor;
+    
+    //Creación de la lista!
+     private Lista listaRepuestos; // usa la misma estructura
+
 
     public Repuesto(int idRepuesto, String nombre, String descripcion, String marca, String categoria, double precio, int stock, String proovedor) {
         this.idRepuesto = idRepuesto;
