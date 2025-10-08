@@ -1,4 +1,4 @@
-package EstructuraDeDatos;
+package ListaDoble;
 
 public class Nodo {
     
@@ -6,7 +6,7 @@ public class Nodo {
     private Nodo siguiente;
     private Nodo anterior;
     
-    public Nodo(String dato){
+    public Nodo(Object dato){
         this.dato = dato;
         this.siguiente = null;
         this.anterior = null;

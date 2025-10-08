@@ -1,6 +1,6 @@
 package Model;
 
-import EstructuraDeDatos.Lista;
+import ListaDoble.Lista;
 
 public class Repuesto {
 
