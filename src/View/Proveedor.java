@@ -28,8 +28,6 @@ public class Proveedor extends javax.swing.JFrame {
     private void initComponents() {
 
         panelNegro = new javax.swing.JPanel();
-        labelApartadoDe = new javax.swing.JLabel();
-        labelRecepcionisa = new javax.swing.JLabel();
         panelDecoración = new javax.swing.JPanel();
         panelBtnMenuP = new javax.swing.JPanel();
         iconInicio = new javax.swing.JLabel();
@@ -59,30 +57,54 @@ public class Proveedor extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         panelDecoración1 = new javax.swing.JPanel();
         panelDecoración2 = new javax.swing.JPanel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
         panelGris = new javax.swing.JPanel();
+        labelRecepcionisa1 = new javax.swing.JLabel();
         PanelNegro2 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         panelMenu = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        PanelAgregar = new javax.swing.JPanel();
         PanelActualizar = new javax.swing.JPanel();
         panelEliminar = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        PanelAgregar = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        panelDecoración3 = new javax.swing.JPanel();
+        panelDecoración4 = new javax.swing.JPanel();
+        panelDecoración5 = new javax.swing.JPanel();
+        lblRepuesto = new javax.swing.JLabel();
+        cboMarcaRepuesto = new javax.swing.JComboBox<>();
+        lblCOP = new javax.swing.JLabel();
+        cboCategoria = new javax.swing.JComboBox<>();
+        lblCategoria = new javax.swing.JLabel();
+        txtPrecio = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jtxtareaDescripcion = new javax.swing.JTextArea();
+        lblMarcaRepuesto = new javax.swing.JLabel();
+        lblDescripcionRepuesto = new javax.swing.JLabel();
+        txtNombreRepuesto = new javax.swing.JTextField();
+        lblStock = new javax.swing.JLabel();
+        lblPrecioRepuesto = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jspinnerStock = new javax.swing.JSpinner();
+        lblNombreRepuesto = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jLabel21 = new javax.swing.JLabel();
+        txtIdRepuesto = new javax.swing.JTextField();
+        jPanel3 = new javax.swing.JPanel();
+        jButton2 = new javax.swing.JButton();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         panelNegro.setBackground(new java.awt.Color(0, 0, 0));
-
-        labelApartadoDe.setBackground(new java.awt.Color(255, 255, 255));
-        labelApartadoDe.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 30)); // NOI18N
-        labelApartadoDe.setForeground(new java.awt.Color(255, 255, 255));
-        labelApartadoDe.setText("APARTADO DE LOS");
-
-        labelRecepcionisa.setBackground(new java.awt.Color(255, 255, 255));
-        labelRecepcionisa.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 30)); // NOI18N
-        labelRecepcionisa.setForeground(new java.awt.Color(255, 255, 255));
-        labelRecepcionisa.setText("PROOVEDORES.");
 
         panelDecoración.setBackground(new java.awt.Color(0, 153, 0));
 
@@ -352,6 +374,20 @@ public class Proveedor extends javax.swing.JFrame {
             .addGap(0, 9, Short.MAX_VALUE)
         );
 
+        jLabel13.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 15)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/social.png"))); // NOI18N
+        jLabel13.setText("SOMOSJAOWORKSHOP");
+
+        jLabel14.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 15)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/facebook.png"))); // NOI18N
+        jLabel14.setText("JAO_WORKSHOP_COL");
+
+        jLabel15.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel15.setText("¡ENCUÉNTRANOS!");
+
         javax.swing.GroupLayout panelNegroLayout = new javax.swing.GroupLayout(panelNegro);
         panelNegro.setLayout(panelNegroLayout);
         panelNegroLayout.setHorizontalGroup(
@@ -364,33 +400,39 @@ public class Proveedor extends javax.swing.JFrame {
             .addGroup(panelNegroLayout.createSequentialGroup()
                 .addGroup(panelNegroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(panelDecoración, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(panelDecoración1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(panelDecoración2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(panelDecoración2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelDecoración, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(panelNegroLayout.createSequentialGroup()
                 .addGroup(panelNegroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelNegroLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(panelNegroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelApartadoDe)
-                            .addComponent(labelRecepcionisa)))
                     .addGroup(panelNegroLayout.createSequentialGroup()
                         .addGap(110, 110, 110)
                         .addComponent(iconRecepcinista))
                     .addGroup(panelNegroLayout.createSequentialGroup()
                         .addGap(32, 32, 32)
-                        .addComponent(labelMenúOpciones)))
+                        .addComponent(labelMenúOpciones))
+                    .addGroup(panelNegroLayout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addComponent(jLabel13))
+                    .addGroup(panelNegroLayout.createSequentialGroup()
+                        .addGap(80, 80, 80)
+                        .addComponent(jLabel15)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(panelNegroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelNegroLayout.createSequentialGroup()
+                    .addGap(34, 34, 34)
+                    .addComponent(jLabel14)
+                    .addContainerGap(190, Short.MAX_VALUE)))
         );
         panelNegroLayout.setVerticalGroup(
             panelNegroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelNegroLayout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(labelApartadoDe, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelRecepcionisa, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(20, 20, 20)
+                .addComponent(jLabel15)
+                .addGap(39, 39, 39)
+                .addComponent(jLabel13)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(panelDecoración, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelDecoración1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -398,7 +440,7 @@ public class Proveedor extends javax.swing.JFrame {
                 .addComponent(panelDecoración2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(44, 44, 44)
                 .addComponent(iconRecepcinista)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                 .addComponent(labelMenúOpciones)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(panelBtnMenuP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -412,21 +454,36 @@ public class Proveedor extends javax.swing.JFrame {
                 .addComponent(panelBtnCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(106, 106, 106)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(panelNegroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelNegroLayout.createSequentialGroup()
+                    .addGap(41, 41, 41)
+                    .addComponent(jLabel14)
+                    .addContainerGap(595, Short.MAX_VALUE)))
         );
 
         getContentPane().add(panelNegro, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 290, 660));
 
         panelGris.setBackground(new java.awt.Color(51, 51, 51));
 
+        labelRecepcionisa1.setBackground(new java.awt.Color(255, 255, 255));
+        labelRecepcionisa1.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 85)); // NOI18N
+        labelRecepcionisa1.setForeground(new java.awt.Color(255, 255, 255));
+        labelRecepcionisa1.setText("-PROVEEDORES-");
+
         javax.swing.GroupLayout panelGrisLayout = new javax.swing.GroupLayout(panelGris);
         panelGris.setLayout(panelGrisLayout);
         panelGrisLayout.setHorizontalGroup(
             panelGrisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 690, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelGrisLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(labelRecepcionisa1)
+                .addGap(48, 48, 48))
         );
         panelGrisLayout.setVerticalGroup(
             panelGrisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 80, Short.MAX_VALUE)
+            .addGroup(panelGrisLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(labelRecepcionisa1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, Short.MAX_VALUE))
         );
 
         getContentPane().add(panelGris, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 0, 690, 80));
@@ -456,10 +513,6 @@ public class Proveedor extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Menú", panelMenu);
 
-        PanelAgregar.setBackground(new java.awt.Color(255, 255, 255));
-        PanelAgregar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jTabbedPane1.addTab("Agregar", PanelAgregar);
-
         PanelActualizar.setBackground(new java.awt.Color(255, 255, 255));
         PanelActualizar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jTabbedPane1.addTab("Actualizar", PanelActualizar);
@@ -473,6 +526,211 @@ public class Proveedor extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Eliminar", panelEliminar);
 
+        PanelAgregar.setBackground(new java.awt.Color(255, 255, 255));
+        PanelAgregar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel11.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 10)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel11.setText("- AL MEJOR PRECIO.");
+        PanelAgregar.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 40, -1, -1));
+
+        jLabel12.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 8)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel12.setText("* ¡Recuerda colocar las especificaciones del repuesto!");
+        PanelAgregar.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 270, 10));
+
+        panelDecoración3.setBackground(new java.awt.Color(0, 153, 0));
+
+        javax.swing.GroupLayout panelDecoración3Layout = new javax.swing.GroupLayout(panelDecoración3);
+        panelDecoración3.setLayout(panelDecoración3Layout);
+        panelDecoración3Layout.setHorizontalGroup(
+            panelDecoración3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        panelDecoración3Layout.setVerticalGroup(
+            panelDecoración3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        PanelAgregar.add(panelDecoración3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 690, 10));
+
+        panelDecoración4.setBackground(new java.awt.Color(51, 51, 51));
+
+        javax.swing.GroupLayout panelDecoración4Layout = new javax.swing.GroupLayout(panelDecoración4);
+        panelDecoración4.setLayout(panelDecoración4Layout);
+        panelDecoración4Layout.setHorizontalGroup(
+            panelDecoración4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        panelDecoración4Layout.setVerticalGroup(
+            panelDecoración4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        PanelAgregar.add(panelDecoración4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 690, 10));
+
+        panelDecoración5.setBackground(new java.awt.Color(15, 15, 15));
+
+        javax.swing.GroupLayout panelDecoración5Layout = new javax.swing.GroupLayout(panelDecoración5);
+        panelDecoración5.setLayout(panelDecoración5Layout);
+        panelDecoración5Layout.setHorizontalGroup(
+            panelDecoración5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        panelDecoración5Layout.setVerticalGroup(
+            panelDecoración5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        PanelAgregar.add(panelDecoración5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 690, 10));
+
+        lblRepuesto.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
+        lblRepuesto.setForeground(new java.awt.Color(0, 0, 0));
+        lblRepuesto.setText("1. ID DEL REPUESTO:");
+        PanelAgregar.add(lblRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, -1, -1));
+
+        cboMarcaRepuesto.setBackground(new java.awt.Color(204, 204, 204));
+        cboMarcaRepuesto.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
+        cboMarcaRepuesto.setForeground(new java.awt.Color(0, 0, 0));
+        cboMarcaRepuesto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sin seleccionar", "Kawasaki", "Yamaha", "BMW", "Ducati", "Bajaj", "Hero", "KTM", "Honda", "Suzuki" }));
+        PanelAgregar.add(cboMarcaRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 140, 210, -1));
+
+        lblCOP.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 18)); // NOI18N
+        lblCOP.setForeground(new java.awt.Color(0, 153, 0));
+        lblCOP.setText("COP");
+        PanelAgregar.add(lblCOP, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 210, 40, -1));
+
+        cboCategoria.setBackground(new java.awt.Color(204, 204, 204));
+        cboCategoria.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
+        cboCategoria.setForeground(new java.awt.Color(0, 0, 0));
+        cboCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sin seleccionar", "Motor", "Transmisión", "Frenos", "Eléctrico", "Suspensión", "Carrocería", "Lubricantes" }));
+        PanelAgregar.add(cboCategoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 270, 220, -1));
+
+        lblCategoria.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
+        lblCategoria.setForeground(new java.awt.Color(0, 0, 0));
+        lblCategoria.setText("6. CATEGORÍA (USO/ENFOQUE):");
+        PanelAgregar.add(lblCategoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 250, 220, -1));
+
+        txtPrecio.setBackground(new java.awt.Color(204, 204, 204));
+        txtPrecio.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
+        txtPrecio.setForeground(new java.awt.Color(0, 0, 0));
+        PanelAgregar.add(txtPrecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 210, 140, -1));
+
+        jtxtareaDescripcion.setBackground(new java.awt.Color(204, 204, 204));
+        jtxtareaDescripcion.setColumns(20);
+        jtxtareaDescripcion.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
+        jtxtareaDescripcion.setForeground(new java.awt.Color(0, 0, 0));
+        jtxtareaDescripcion.setRows(5);
+        jScrollPane1.setViewportView(jtxtareaDescripcion);
+
+        PanelAgregar.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 270, -1));
+
+        lblMarcaRepuesto.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
+        lblMarcaRepuesto.setForeground(new java.awt.Color(0, 0, 0));
+        lblMarcaRepuesto.setText("3. MARCA DEL REPUESTO:");
+        PanelAgregar.add(lblMarcaRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 120, -1, -1));
+
+        lblDescripcionRepuesto.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
+        lblDescripcionRepuesto.setForeground(new java.awt.Color(0, 0, 0));
+        lblDescripcionRepuesto.setText("4. DESCRIPCIÓN ACERCA DEL REPUESTO");
+        PanelAgregar.add(lblDescripcionRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, -1, -1));
+
+        txtNombreRepuesto.setBackground(new java.awt.Color(204, 204, 204));
+        txtNombreRepuesto.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
+        txtNombreRepuesto.setForeground(new java.awt.Color(0, 0, 0));
+        PanelAgregar.add(txtNombreRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 140, 160, -1));
+
+        lblStock.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
+        lblStock.setForeground(new java.awt.Color(0, 0, 0));
+        lblStock.setText("6. STOCK/CANTIDAD:");
+        PanelAgregar.add(lblStock, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 190, -1, -1));
+
+        lblPrecioRepuesto.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
+        lblPrecioRepuesto.setForeground(new java.awt.Color(0, 0, 0));
+        lblPrecioRepuesto.setText("5. PRECIO DEL REPUESTO");
+        PanelAgregar.add(lblPrecioRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 190, -1, -1));
+
+        jPanel2.setBackground(new java.awt.Color(229, 229, 255));
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        PanelAgregar.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 180, 10, 150));
+
+        jspinnerStock.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
+        PanelAgregar.add(jspinnerStock, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 210, 140, -1));
+
+        lblNombreRepuesto.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
+        lblNombreRepuesto.setForeground(new java.awt.Color(0, 0, 0));
+        lblNombreRepuesto.setText("2. NOMBRE DEL REPUESTO:");
+        PanelAgregar.add(lblNombreRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 120, -1, -1));
+
+        jButton1.setBackground(new java.awt.Color(204, 0, 0));
+        jButton1.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("CANCELAR PROCESO");
+        PanelAgregar.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 350, 160, 30));
+
+        jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/piezas-de-repuesto.png"))); // NOI18N
+        PanelAgregar.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+
+        txtIdRepuesto.setBackground(new java.awt.Color(204, 204, 204));
+        txtIdRepuesto.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
+        txtIdRepuesto.setForeground(new java.awt.Color(0, 0, 0));
+        PanelAgregar.add(txtIdRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 140, -1));
+
+        jPanel3.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel3.setForeground(new java.awt.Color(0, 0, 0));
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 690, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 40, Short.MAX_VALUE)
+        );
+
+        PanelAgregar.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 410, 690, 40));
+
+        jButton2.setBackground(new java.awt.Color(0, 153, 0));
+        jButton2.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setText("AGREGAR REPUESTO");
+        PanelAgregar.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 310, 160, 30));
+
+        jLabel16.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 16)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel16.setText("LLENA LOS CAMPOS PARA AGREGAR UN REPUESTO AL INVENTARIO");
+        PanelAgregar.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, -1, -1));
+
+        jLabel17.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 10)); // NOI18N
+        jLabel17.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel17.setText("- EFICIENTES.");
+        PanelAgregar.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, -1, -1));
+
+        jLabel18.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 10)); // NOI18N
+        jLabel18.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel18.setText("- DURABLES.");
+        PanelAgregar.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 40, -1, -1));
+
+        jLabel19.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 10)); // NOI18N
+        jLabel19.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel19.setText("- ALTA CALIDAD.");
+        PanelAgregar.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 40, -1, -1));
+
+        jTabbedPane1.addTab("Agregar", PanelAgregar);
+
         getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 180, 690, 480));
 
         pack();
@@ -483,15 +741,15 @@ public class Proveedor extends javax.swing.JFrame {
     }//GEN-LAST:event_panelBtnMenuPMouseClicked
 
     private void panelBtnAgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnAgregarMouseClicked
-         jTabbedPane1.setSelectedIndex(1);
+         jTabbedPane1.setSelectedIndex(3);
     }//GEN-LAST:event_panelBtnAgregarMouseClicked
 
     private void panelBtnActualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnActualizarMouseClicked
-       jTabbedPane1.setSelectedIndex(2); 
+       jTabbedPane1.setSelectedIndex(1); 
     }//GEN-LAST:event_panelBtnActualizarMouseClicked
 
     private void panelBtnEliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnEliminarMouseClicked
-    jTabbedPane1.setSelectedIndex(3);
+    jTabbedPane1.setSelectedIndex(2);
     }//GEN-LAST:event_panelBtnEliminarMouseClicked
 
     private void panelBtnCerrarSesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnCerrarSesionMouseClicked
@@ -538,6 +796,8 @@ public class Proveedor extends javax.swing.JFrame {
     private javax.swing.JPanel PanelActualizar;
     private javax.swing.JPanel PanelAgregar;
     private javax.swing.JPanel PanelNegro2;
+    private javax.swing.JComboBox<String> cboCategoria;
+    private javax.swing.JComboBox<String> cboMarcaRepuesto;
     private javax.swing.JLabel iconAgendarCita;
     private javax.swing.JLabel iconAgregarPaciente;
     private javax.swing.JLabel iconCerrarSesion;
@@ -545,9 +805,21 @@ public class Proveedor extends javax.swing.JFrame {
     private javax.swing.JLabel iconInicio;
     private javax.swing.JLabel iconRecepcinista;
     private javax.swing.JLabel iconRepuesto;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -556,14 +828,26 @@ public class Proveedor extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JSpinner jspinnerStock;
+    private javax.swing.JTextArea jtxtareaDescripcion;
     private javax.swing.JLabel labelAgregarPaciente;
-    private javax.swing.JLabel labelApartadoDe;
     private javax.swing.JLabel labelCerrarSesion;
     private javax.swing.JLabel labelEditarPaciente;
     private javax.swing.JLabel labelEditarPaciente1;
     private javax.swing.JLabel labelMenúOpciones;
-    private javax.swing.JLabel labelRecepcionisa;
+    private javax.swing.JLabel labelRecepcionisa1;
+    private javax.swing.JLabel lblCOP;
+    private javax.swing.JLabel lblCategoria;
+    private javax.swing.JLabel lblDescripcionRepuesto;
+    private javax.swing.JLabel lblMarcaRepuesto;
+    private javax.swing.JLabel lblNombreRepuesto;
+    private javax.swing.JLabel lblPrecioRepuesto;
+    private javax.swing.JLabel lblRepuesto;
+    private javax.swing.JLabel lblStock;
     private javax.swing.JPanel panelBtnActualizar;
     private javax.swing.JPanel panelBtnAgregar;
     private javax.swing.JPanel panelBtnCerrarSesion;
@@ -572,9 +856,15 @@ public class Proveedor extends javax.swing.JFrame {
     private javax.swing.JPanel panelDecoración;
     private javax.swing.JPanel panelDecoración1;
     private javax.swing.JPanel panelDecoración2;
+    private javax.swing.JPanel panelDecoración3;
+    private javax.swing.JPanel panelDecoración4;
+    private javax.swing.JPanel panelDecoración5;
     private javax.swing.JPanel panelEliminar;
     private javax.swing.JPanel panelGris;
     private javax.swing.JPanel panelMenu;
     private javax.swing.JPanel panelNegro;
+    private javax.swing.JTextField txtIdRepuesto;
+    private javax.swing.JTextField txtNombreRepuesto;
+    private javax.swing.JTextField txtPrecio;
     // End of variables declaration//GEN-END:variables
 }
