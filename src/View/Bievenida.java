@@ -277,7 +277,7 @@ public class Bievenida extends javax.swing.JFrame {
     }// </editor-fold>                        
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {                                            
-        new Loguin().setVisible(true);
+        new Login().setVisible(true);
         this.dispose();
     }                                           
 
