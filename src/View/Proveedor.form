@@ -33,11 +33,7 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-<<<<<<< HEAD
           <AbsoluteConstraints x="0" y="0" width="290" height="660"/>
-=======
-          <AbsoluteConstraints x="0" y="0" width="270" height="660"/>
->>>>>>> a062ce8a787312c4b819b0dcd68598296c7215b7
         </Constraint>
       </Constraints>
 
@@ -69,7 +65,6 @@
                           <Component id="labelMenúOpciones" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-<<<<<<< HEAD
                           <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                           <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -87,21 +82,6 @@
                       <EmptySpace pref="190" max="32767" attributes="0"/>
                   </Group>
               </Group>
-=======
-                          <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
-                          <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                  </Group>
-                  <EmptySpace max="32767" attributes="0"/>
-              </Group>
->>>>>>> a062ce8a787312c4b819b0dcd68598296c7215b7
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
@@ -109,17 +89,9 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                   <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
-<<<<<<< HEAD
                   <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
                   <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-=======
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
->>>>>>> a062ce8a787312c4b819b0dcd68598296c7215b7
                   <Component id="panelDecoración" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="panelDecoración1" min="-2" max="-2" attributes="0"/>
@@ -142,7 +114,6 @@
                   <EmptySpace min="-2" pref="106" max="-2" attributes="0"/>
                   <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
               </Group>
-<<<<<<< HEAD
               <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
@@ -150,8 +121,6 @@
                       <EmptySpace pref="595" max="32767" attributes="0"/>
                   </Group>
               </Group>
-=======
->>>>>>> a062ce8a787312c4b819b0dcd68598296c7215b7
           </Group>
         </DimensionLayout>
       </Layout>
@@ -258,16 +227,9 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="iconAgregarPaciente" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-<<<<<<< HEAD
                       <Component id="iconRepuesto" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="labelAgregarPaciente" min="-2" max="-2" attributes="0"/>
-=======
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="iconRepuesto" min="-2" max="-2" attributes="0"/>
-                          <Component id="labelAgregarPaciente" alignment="0" min="-2" max="-2" attributes="0"/>
-                      </Group>
->>>>>>> a062ce8a787312c4b819b0dcd68598296c7215b7
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -276,22 +238,12 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-<<<<<<< HEAD
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Component id="iconRepuesto" alignment="1" min="-2" max="-2" attributes="0"/>
                           <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
                               <Component id="iconAgregarPaciente" alignment="0" max="32767" attributes="0"/>
                               <Component id="labelAgregarPaciente" alignment="0" max="32767" attributes="0"/>
                           </Group>
-=======
-                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="labelAgregarPaciente" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Component id="iconRepuesto" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="iconAgregarPaciente" max="32767" attributes="0"/>
->>>>>>> a062ce8a787312c4b819b0dcd68598296c7215b7
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
@@ -309,11 +261,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-<<<<<<< HEAD
                 <Property name="text" type="java.lang.String" value="AGREGAR REPUESTO"/>
-=======
-                <Property name="text" type="java.lang.String" value="Interaccion Repuesto"/>
->>>>>>> a062ce8a787312c4b819b0dcd68598296c7215b7
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="iconRepuesto">
@@ -681,11 +629,7 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-<<<<<<< HEAD
           <AbsoluteConstraints x="290" y="0" width="690" height="80"/>
-=======
-          <AbsoluteConstraints x="270" y="0" width="710" height="80"/>
->>>>>>> a062ce8a787312c4b819b0dcd68598296c7215b7
         </Constraint>
       </Constraints>
 
@@ -693,14 +637,9 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-<<<<<<< HEAD
                   <EmptySpace max="32767" attributes="0"/>
                   <Component id="labelRecepcionisa1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
-=======
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                  <Component id="labelRecepcionisa1" min="-2" pref="710" max="-2" attributes="0"/>
->>>>>>> a062ce8a787312c4b819b0dcd68598296c7215b7
               </Group>
           </Group>
         </DimensionLayout>
@@ -720,20 +659,12 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-<<<<<<< HEAD
               <Font name="JetBrains Mono ExtraBold" size="85" style="0"/>
-=======
-              <Font name="JetBrains Mono ExtraBold" size="75" style="0"/>
->>>>>>> a062ce8a787312c4b819b0dcd68598296c7215b7
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-<<<<<<< HEAD
             <Property name="text" type="java.lang.String" value="-PROVEEDORES-"/>
-=======
-            <Property name="text" type="java.lang.String" value="-ADMINISTRADOR-"/>
->>>>>>> a062ce8a787312c4b819b0dcd68598296c7215b7
           </Properties>
         </Component>
       </SubComponents>
@@ -746,31 +677,19 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-<<<<<<< HEAD
           <AbsoluteConstraints x="290" y="80" width="690" height="140"/>
-=======
-          <AbsoluteConstraints x="270" y="80" width="710" height="90"/>
->>>>>>> a062ce8a787312c4b819b0dcd68598296c7215b7
         </Constraint>
       </Constraints>
 
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-<<<<<<< HEAD
               <EmptySpace min="0" pref="690" max="32767" attributes="0"/>
-=======
-              <EmptySpace min="0" pref="710" max="32767" attributes="0"/>
->>>>>>> a062ce8a787312c4b819b0dcd68598296c7215b7
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-<<<<<<< HEAD
               <EmptySpace min="0" pref="140" max="32767" attributes="0"/>
-=======
-              <EmptySpace min="0" pref="90" max="32767" attributes="0"/>
->>>>>>> a062ce8a787312c4b819b0dcd68598296c7215b7
           </Group>
         </DimensionLayout>
       </Layout>
@@ -778,11 +697,7 @@
     <Container class="javax.swing.JTabbedPane" name="jTabbedPane1">
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-<<<<<<< HEAD
           <AbsoluteConstraints x="290" y="180" width="690" height="480"/>
-=======
-          <AbsoluteConstraints x="280" y="180" width="690" height="480"/>
->>>>>>> a062ce8a787312c4b819b0dcd68598296c7215b7
         </Constraint>
       </Constraints>
 
