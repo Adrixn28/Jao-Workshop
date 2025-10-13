@@ -1,6 +1,6 @@
 package Model;
 
-import ListaDoble.Lista;
+import listaDoble.Lista;
 
 public class Repuesto {
 

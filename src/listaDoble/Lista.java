@@ -1,4 +1,4 @@
-package ListaDoble;
+package listaDoble;
 
 public class Lista {
     private Nodo primero;
