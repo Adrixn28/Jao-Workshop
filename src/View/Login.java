@@ -1,8 +1,8 @@
 package View;
 
-public class Loguin extends javax.swing.JFrame {
+public class Login extends javax.swing.JFrame {
 
-    public Loguin() {
+    public Login() {
         initComponents();
         setLocationRelativeTo(null);
     }
@@ -26,8 +26,8 @@ public class Loguin extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         pfContraseña = new javax.swing.JPasswordField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        BtnIngresar = new javax.swing.JButton();
+        BtnRegresarMenu = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -37,22 +37,23 @@ public class Loguin extends javax.swing.JFrame {
 
         lblJaoWorkshop.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 70)); // NOI18N
         lblJaoWorkshop.setForeground(new java.awt.Color(255, 255, 255));
-        lblJaoWorkshop.setText("LOGUIN");
+        lblJaoWorkshop.setText("LOGIN");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(55, 55, 55)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(66, Short.MAX_VALUE)
                 .addComponent(lblJaoWorkshop)
-                .addContainerGap(69, Short.MAX_VALUE))
+                .addGap(58, 58, 58))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 13, Short.MAX_VALUE)
-                .addComponent(lblJaoWorkshop))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblJaoWorkshop)
+                .addContainerGap(7, Short.MAX_VALUE))
         );
 
         jPanel2.setBackground(new java.awt.Color(0, 153, 0));
@@ -100,7 +101,12 @@ public class Loguin extends javax.swing.JFrame {
         cboRol.setBackground(new java.awt.Color(204, 204, 204));
         cboRol.setFont(new java.awt.Font("JetBrains Mono", 0, 18)); // NOI18N
         cboRol.setForeground(new java.awt.Color(0, 0, 0));
-        cboRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Rol sin especificar", "Administrador", "Recepcionista", "Proveedor" }));
+        cboRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Rol sin especificar", "Administrador", "Cliente", "Recepcionista", "Proveedor" }));
+        cboRol.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboRolActionPerformed(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 24)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
@@ -111,6 +117,11 @@ public class Loguin extends javax.swing.JFrame {
         txtUsuario.setBackground(new java.awt.Color(204, 204, 204));
         txtUsuario.setFont(new java.awt.Font("JetBrains Mono", 0, 18)); // NOI18N
         txtUsuario.setForeground(new java.awt.Color(0, 0, 0));
+        txtUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtUsuarioActionPerformed(evt);
+            }
+        });
 
         jLabel6.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 24)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
@@ -122,18 +133,24 @@ public class Loguin extends javax.swing.JFrame {
         pfContraseña.setFont(new java.awt.Font("JetBrains Mono", 0, 18)); // NOI18N
         pfContraseña.setForeground(new java.awt.Color(0, 0, 0));
 
-        jButton1.setBackground(new java.awt.Color(0, 153, 0));
-        jButton1.setFont(new java.awt.Font("JetBrains Mono", 0, 18)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("INGRESAR");
-
-        jButton2.setBackground(new java.awt.Color(204, 0, 0));
-        jButton2.setFont(new java.awt.Font("JetBrains Mono", 0, 18)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("REGRESAR");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        BtnIngresar.setBackground(new java.awt.Color(0, 153, 0));
+        BtnIngresar.setFont(new java.awt.Font("JetBrains Mono", 0, 18)); // NOI18N
+        BtnIngresar.setForeground(new java.awt.Color(255, 255, 255));
+        BtnIngresar.setText("INGRESAR");
+        BtnIngresar.setToolTipText("");
+        BtnIngresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                BtnIngresarActionPerformed(evt);
+            }
+        });
+
+        BtnRegresarMenu.setBackground(new java.awt.Color(204, 0, 0));
+        BtnRegresarMenu.setFont(new java.awt.Font("JetBrains Mono", 0, 18)); // NOI18N
+        BtnRegresarMenu.setForeground(new java.awt.Color(255, 255, 255));
+        BtnRegresarMenu.setText("REGRESAR");
+        BtnRegresarMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnRegresarMenuActionPerformed(evt);
             }
         });
 
@@ -151,9 +168,9 @@ public class Loguin extends javax.swing.JFrame {
                 .addGroup(fondoPrinipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(fondoPrinipalLayout.createSequentialGroup()
                         .addGap(16, 16, 16)
-                        .addComponent(jButton1)
+                        .addComponent(BtnIngresar)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton2))
+                        .addComponent(BtnRegresarMenu))
                     .addGroup(fondoPrinipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(cboRol, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(fondoPrinipalLayout.createSequentialGroup()
@@ -199,8 +216,8 @@ public class Loguin extends javax.swing.JFrame {
                 .addComponent(pfContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(fondoPrinipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(BtnIngresar)
+                    .addComponent(BtnRegresarMenu))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -219,10 +236,22 @@ public class Loguin extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void BtnRegresarMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnRegresarMenuActionPerformed
            new Bievenida().setVisible(true);
            this.dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_BtnRegresarMenuActionPerformed
+
+    private void cboRolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboRolActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cboRolActionPerformed
+
+    private void txtUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtUsuarioActionPerformed
+
+    private void BtnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnIngresarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BtnIngresarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -241,29 +270,30 @@ public class Loguin extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Loguin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Loguin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Loguin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Loguin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Loguin().setVisible(true);
+                new Login().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnIngresar;
+    private javax.swing.JButton BtnRegresarMenu;
     private javax.swing.JComboBox<String> cboRol;
     private javax.swing.JPanel fondoPrinipal;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -1,81 +1,35 @@
 package Model;
 
-public class Cliente {
-  
-    private String primerNombre;
-    private String segundoNombre;
-    private String primerApellido;
-    private String segundoApellido;
-    private String cedula; //Identificador
-    private String telefono;
-    private String correo;
+public class Cliente extends Usuario {
+    private String idCliente;
     private String direccion;
 
-    public Cliente(String primerNombre, String segundoNombre, String primerApellido, String segundoApellido, String cedula, String telefono, String correo, String direccion) {
-        this.primerNombre = primerNombre;
-        this.segundoNombre = segundoNombre;
-        this.primerApellido = primerApellido;
-        this.segundoApellido = segundoApellido;
-        this.cedula = cedula;
-        this.telefono = telefono;
-        this.correo = correo;
+    public Cliente(String idCliente,
+                  String primerNombre, 
+                  String segundoNombre, 
+                  String primerApellido, 
+                  String segundoApellido, 
+                  String genero,
+                  String cedula, 
+                  String telefono, 
+                  String correo,
+                  String usuario,
+                  String contraseña,
+                  String direccion,
+                  String rol) {
+        super(primerNombre, segundoNombre, primerApellido, segundoApellido,
+              genero, cedula, telefono, correo, usuario, contraseña, rol);
+        this.idCliente = idCliente;
         this.direccion = direccion;
     }
 
-    public String getPrimerNombre() {
-        return primerNombre;
+    // Solo necesitamos los getters y setters específicos de Cliente
+    public String getIdCliente() {
+        return idCliente;
     }
 
-    public void setPrimerNombre(String primerNombre) {
-        this.primerNombre = primerNombre;
-    }
-
-    public String getSegundoNombre() {
-        return segundoNombre;
-    }
-
-    public void setSegundoNombre(String segundoNombre) {
-        this.segundoNombre = segundoNombre;
-    }
-
-    public String getPrimerApellido() {
-        return primerApellido;
-    }
-
-    public void setPrimerApellido(String primerApellido) {
-        this.primerApellido = primerApellido;
-    }
-
-    public String getSegundoApellido() {
-        return segundoApellido;
-    }
-
-    public void setSegundoApellido(String segundoApellido) {
-        this.segundoApellido = segundoApellido;
-    }
-
-    public String getCedula() {
-        return cedula;
-    }
-
-    public void setCedula(String cedula) {
-        this.cedula = cedula;
-    }
-
-    public String getTelefono() {
-        return telefono;
-    }
-
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
-
-    public String getCorreo() {
-        return correo;
-    }
-
-    public void setCorreo(String correo) {
-        this.correo = correo;
+    public void setIdCliente(String idCliente) {
+        this.idCliente = idCliente;
     }
 
     public String getDireccion() {
@@ -85,6 +39,4 @@ public class Cliente {
     public void setDireccion(String direccion) {
         this.direccion = direccion;
     }
-    
-    
 }
