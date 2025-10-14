@@ -66,9 +66,39 @@ public class Proveedor extends javax.swing.JFrame {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         panelMenu = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        panelDecoración12 = new javax.swing.JPanel();
+        panelDecoración13 = new javax.swing.JPanel();
+        panelDecoración14 = new javax.swing.JPanel();
+        jLabel28 = new javax.swing.JLabel();
+        jLabel29 = new javax.swing.JLabel();
         PanelActualizar = new javax.swing.JPanel();
+        panelDecoración6 = new javax.swing.JPanel();
+        panelDecoración7 = new javax.swing.JPanel();
+        panelDecoración8 = new javax.swing.JPanel();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        lblRepuesto1 = new javax.swing.JLabel();
+        txtIdRepuesto1 = new javax.swing.JTextField();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jLabel24 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
         panelEliminar = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        jLabel25 = new javax.swing.JLabel();
+        jLabel26 = new javax.swing.JLabel();
+        panelDecoración9 = new javax.swing.JPanel();
+        panelDecoración10 = new javax.swing.JPanel();
+        panelDecoración11 = new javax.swing.JPanel();
+        jLabel27 = new javax.swing.JLabel();
+        lblRepuesto2 = new javax.swing.JLabel();
+        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
+        jLabel30 = new javax.swing.JLabel();
+        txtIdRepuesto2 = new javax.swing.JTextField();
+        jPanel5 = new javax.swing.JPanel();
         PanelAgregar = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
@@ -508,21 +538,293 @@ public class Proveedor extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel5.setText("MENÚ PRINCIPAL");
-        panelMenu.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
+        jLabel5.setText("ESTE ES EL MENÚ PRINCIPAL DE PROVEEDORES DE J-WORKSHOP");
+        panelMenu.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, -1, -1));
+
+        jScrollPane2.setBackground(new java.awt.Color(204, 204, 204));
+
+        jTable1.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Categoria", "Nombre", "Precio", "Stock"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Double.class, java.lang.Integer.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(jTable1);
+
+        panelMenu.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 670, 280));
+
+        panelDecoración12.setBackground(new java.awt.Color(0, 153, 0));
+
+        javax.swing.GroupLayout panelDecoración12Layout = new javax.swing.GroupLayout(panelDecoración12);
+        panelDecoración12.setLayout(panelDecoración12Layout);
+        panelDecoración12Layout.setHorizontalGroup(
+            panelDecoración12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        panelDecoración12Layout.setVerticalGroup(
+            panelDecoración12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        panelMenu.add(panelDecoración12, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 690, 10));
+
+        panelDecoración13.setBackground(new java.awt.Color(15, 15, 15));
+
+        javax.swing.GroupLayout panelDecoración13Layout = new javax.swing.GroupLayout(panelDecoración13);
+        panelDecoración13.setLayout(panelDecoración13Layout);
+        panelDecoración13Layout.setHorizontalGroup(
+            panelDecoración13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        panelDecoración13Layout.setVerticalGroup(
+            panelDecoración13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        panelMenu.add(panelDecoración13, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 690, 10));
+
+        panelDecoración14.setBackground(new java.awt.Color(51, 51, 51));
+
+        javax.swing.GroupLayout panelDecoración14Layout = new javax.swing.GroupLayout(panelDecoración14);
+        panelDecoración14.setLayout(panelDecoración14Layout);
+        panelDecoración14Layout.setHorizontalGroup(
+            panelDecoración14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        panelDecoración14Layout.setVerticalGroup(
+            panelDecoración14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        panelMenu.add(panelDecoración14, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 690, 10));
+
+        jLabel28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/bienvenido.png"))); // NOI18N
+        panelMenu.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+
+        jLabel29.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 10)); // NOI18N
+        jLabel29.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel29.setText("RECUERDA HACER TUS TAREAS CON RESPONSABILIDAD Y BUEN MANEJO DE DATOS.");
+        panelMenu.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, -1, -1));
 
         jTabbedPane1.addTab("Menú", panelMenu);
 
         PanelActualizar.setBackground(new java.awt.Color(255, 255, 255));
         PanelActualizar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        panelDecoración6.setBackground(new java.awt.Color(51, 51, 51));
+
+        javax.swing.GroupLayout panelDecoración6Layout = new javax.swing.GroupLayout(panelDecoración6);
+        panelDecoración6.setLayout(panelDecoración6Layout);
+        panelDecoración6Layout.setHorizontalGroup(
+            panelDecoración6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        panelDecoración6Layout.setVerticalGroup(
+            panelDecoración6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        PanelActualizar.add(panelDecoración6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 690, 10));
+
+        panelDecoración7.setBackground(new java.awt.Color(0, 153, 0));
+
+        javax.swing.GroupLayout panelDecoración7Layout = new javax.swing.GroupLayout(panelDecoración7);
+        panelDecoración7.setLayout(panelDecoración7Layout);
+        panelDecoración7Layout.setHorizontalGroup(
+            panelDecoración7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        panelDecoración7Layout.setVerticalGroup(
+            panelDecoración7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        PanelActualizar.add(panelDecoración7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 690, 10));
+
+        panelDecoración8.setBackground(new java.awt.Color(15, 15, 15));
+
+        javax.swing.GroupLayout panelDecoración8Layout = new javax.swing.GroupLayout(panelDecoración8);
+        panelDecoración8.setLayout(panelDecoración8Layout);
+        panelDecoración8Layout.setHorizontalGroup(
+            panelDecoración8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        panelDecoración8Layout.setVerticalGroup(
+            panelDecoración8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        PanelActualizar.add(panelDecoración8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 690, 10));
+
+        jLabel20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/actualizar.png"))); // NOI18N
+        PanelActualizar.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+
+        jLabel22.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 16)); // NOI18N
+        jLabel22.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel22.setText("¡PUEDES ACTUALIZAR ALGÚN REPUESTO SOLO CON SU ID!");
+        PanelActualizar.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, -1, -1));
+
+        jLabel23.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 10)); // NOI18N
+        jLabel23.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel23.setText("- BÚSQUEDA RÁPIDA Y EFICIENTE EN EL SISTEMA.");
+        PanelActualizar.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, -1, -1));
+
+        lblRepuesto1.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
+        lblRepuesto1.setForeground(new java.awt.Color(0, 0, 0));
+        lblRepuesto1.setText("1. INGRESE EL ID DEL REPUESTO PARA HALLARLO EN EL SISTEMA:");
+        PanelActualizar.add(lblRepuesto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, -1, -1));
+
+        txtIdRepuesto1.setBackground(new java.awt.Color(204, 204, 204));
+        txtIdRepuesto1.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
+        txtIdRepuesto1.setForeground(new java.awt.Color(0, 0, 0));
+        PanelActualizar.add(txtIdRepuesto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 240, 30));
+
+        jButton3.setBackground(new java.awt.Color(0, 153, 0));
+        jButton3.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
+        jButton3.setForeground(new java.awt.Color(255, 255, 255));
+        jButton3.setText("BUSCAR");
+        PanelActualizar.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 160, 80, 30));
+
+        jButton4.setBackground(new java.awt.Color(153, 0, 0));
+        jButton4.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
+        jButton4.setForeground(new java.awt.Color(255, 255, 255));
+        jButton4.setText("X");
+        PanelActualizar.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 160, 80, 30));
+
+        jLabel24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buscar.png"))); // NOI18N
+        PanelActualizar.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 160, -1, -1));
+
+        jPanel4.setBackground(new java.awt.Color(216, 216, 217));
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 690, Short.MAX_VALUE)
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 10, Short.MAX_VALUE)
+        );
+
+        PanelActualizar.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 690, 10));
+
         jTabbedPane1.addTab("Actualizar", PanelActualizar);
 
         panelEliminar.setBackground(new java.awt.Color(255, 255, 255));
         panelEliminar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel1.setText("Eliminar");
-        panelEliminar.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, -1, -1));
+        jLabel25.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 16)); // NOI18N
+        jLabel25.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel25.setText("¡REMUEVE ALGÚN REPUESTO DEL SISTEMA!");
+        panelEliminar.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, -1, -1));
+
+        jLabel26.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 10)); // NOI18N
+        jLabel26.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel26.setText("- DE MANERA MUY EFICIENTE EN EL SISTEMA, PERO TEN CUIDADO DE ELIMINAR EL INCORRECTO.");
+        panelEliminar.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, -1, -1));
+
+        panelDecoración9.setBackground(new java.awt.Color(0, 153, 0));
+
+        javax.swing.GroupLayout panelDecoración9Layout = new javax.swing.GroupLayout(panelDecoración9);
+        panelDecoración9.setLayout(panelDecoración9Layout);
+        panelDecoración9Layout.setHorizontalGroup(
+            panelDecoración9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        panelDecoración9Layout.setVerticalGroup(
+            panelDecoración9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        panelEliminar.add(panelDecoración9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 690, 10));
+
+        panelDecoración10.setBackground(new java.awt.Color(51, 51, 51));
+
+        javax.swing.GroupLayout panelDecoración10Layout = new javax.swing.GroupLayout(panelDecoración10);
+        panelDecoración10.setLayout(panelDecoración10Layout);
+        panelDecoración10Layout.setHorizontalGroup(
+            panelDecoración10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        panelDecoración10Layout.setVerticalGroup(
+            panelDecoración10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        panelEliminar.add(panelDecoración10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 690, 10));
+
+        panelDecoración11.setBackground(new java.awt.Color(15, 15, 15));
+
+        javax.swing.GroupLayout panelDecoración11Layout = new javax.swing.GroupLayout(panelDecoración11);
+        panelDecoración11.setLayout(panelDecoración11Layout);
+        panelDecoración11Layout.setHorizontalGroup(
+            panelDecoración11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        panelDecoración11Layout.setVerticalGroup(
+            panelDecoración11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        panelEliminar.add(panelDecoración11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 690, 10));
+
+        jLabel27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/borrar.png"))); // NOI18N
+        panelEliminar.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+
+        lblRepuesto2.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
+        lblRepuesto2.setForeground(new java.awt.Color(0, 0, 0));
+        lblRepuesto2.setText("1. INGRESE EL ID DEL REPUESTO PARA HALLARLO EN EL SISTEMA:");
+        panelEliminar.add(lblRepuesto2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, -1, -1));
+
+        jButton5.setBackground(new java.awt.Color(0, 153, 0));
+        jButton5.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
+        jButton5.setForeground(new java.awt.Color(255, 255, 255));
+        jButton5.setText("BUSCAR");
+        panelEliminar.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 160, 80, 30));
+
+        jButton6.setBackground(new java.awt.Color(153, 0, 0));
+        jButton6.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
+        jButton6.setForeground(new java.awt.Color(255, 255, 255));
+        jButton6.setText("X");
+        panelEliminar.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 160, 80, 30));
+
+        jLabel30.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buscar.png"))); // NOI18N
+        panelEliminar.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 160, -1, -1));
+
+        txtIdRepuesto2.setBackground(new java.awt.Color(204, 204, 204));
+        txtIdRepuesto2.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
+        txtIdRepuesto2.setForeground(new java.awt.Color(0, 0, 0));
+        panelEliminar.add(txtIdRepuesto2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 240, 30));
+
+        jPanel5.setBackground(new java.awt.Color(216, 216, 217));
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 690, Short.MAX_VALUE)
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 10, Short.MAX_VALUE)
+        );
+
+        panelEliminar.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 690, 10));
 
         jTabbedPane1.addTab("Eliminar", panelEliminar);
 
@@ -808,7 +1110,10 @@ public class Proveedor extends javax.swing.JFrame {
     private javax.swing.JLabel iconRepuesto;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -820,8 +1125,18 @@ public class Proveedor extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -831,8 +1146,12 @@ public class Proveedor extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JSpinner jspinnerStock;
     private javax.swing.JTextArea jtxtareaDescripcion;
     private javax.swing.JLabel labelAgregarPaciente;
@@ -848,6 +1167,8 @@ public class Proveedor extends javax.swing.JFrame {
     private javax.swing.JLabel lblNombreRepuesto;
     private javax.swing.JLabel lblPrecioRepuesto;
     private javax.swing.JLabel lblRepuesto;
+    private javax.swing.JLabel lblRepuesto1;
+    private javax.swing.JLabel lblRepuesto2;
     private javax.swing.JLabel lblStock;
     private javax.swing.JPanel panelBtnActualizar;
     private javax.swing.JPanel panelBtnAgregar;
@@ -856,15 +1177,26 @@ public class Proveedor extends javax.swing.JFrame {
     private javax.swing.JPanel panelBtnMenuP;
     private javax.swing.JPanel panelDecoración;
     private javax.swing.JPanel panelDecoración1;
+    private javax.swing.JPanel panelDecoración10;
+    private javax.swing.JPanel panelDecoración11;
+    private javax.swing.JPanel panelDecoración12;
+    private javax.swing.JPanel panelDecoración13;
+    private javax.swing.JPanel panelDecoración14;
     private javax.swing.JPanel panelDecoración2;
     private javax.swing.JPanel panelDecoración3;
     private javax.swing.JPanel panelDecoración4;
     private javax.swing.JPanel panelDecoración5;
+    private javax.swing.JPanel panelDecoración6;
+    private javax.swing.JPanel panelDecoración7;
+    private javax.swing.JPanel panelDecoración8;
+    private javax.swing.JPanel panelDecoración9;
     private javax.swing.JPanel panelEliminar;
     private javax.swing.JPanel panelGris;
     private javax.swing.JPanel panelMenu;
     private javax.swing.JPanel panelNegro;
     private javax.swing.JTextField txtIdRepuesto;
+    private javax.swing.JTextField txtIdRepuesto1;
+    private javax.swing.JTextField txtIdRepuesto2;
     private javax.swing.JTextField txtNombreRepuesto;
     private javax.swing.JTextField txtPrecio;
     // End of variables declaration//GEN-END:variables
