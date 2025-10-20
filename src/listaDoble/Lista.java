@@ -1,6 +1,7 @@
 package listaDoble;
 
 public class Lista {
+
     private Nodo primero;
     private Nodo ultimo;
 
@@ -222,5 +223,9 @@ public class Lista {
             System.out.println(sapo.getDato());
             sapo = sapo.getAnterior();
         }
+    }
+
+    public Nodo getPrimero() {
+        return primero;
     }
 }
