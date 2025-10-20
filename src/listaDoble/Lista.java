@@ -228,4 +228,18 @@ public class Lista {
     public Nodo getPrimero() {
         return primero;
     }
+
+    public Nodo getUltimo() {
+        return ultimo;
+    }
+
+    public void setUltimo(Nodo ultimo) {
+        this.ultimo = ultimo;
+    }
+
+    public void setPrimero(Nodo primero) {
+        this.primero = primero;
+    }
+    
+    
 }
