@@ -11,13 +11,12 @@ public class Repuesto {
     private String categoria;
     private double precio;
     private int stock;
-    private String proovedor;
+    private Proveedor proveedor;
     
-    //Creación de la lista!
-     private Lista listaRepuestos; // usa la misma estructura
+   
 
 
-    public Repuesto(int idRepuesto, String nombre, String descripcion, String marca, String categoria, double precio, int stock, String proovedor) {
+    public Repuesto(int idRepuesto, String nombre, String descripcion, String marca, String categoria, double precio, int stock, Proveedor proveedor) {
         this.idRepuesto = idRepuesto;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -25,7 +24,17 @@ public class Repuesto {
         this.categoria = categoria;
         this.precio = precio;
         this.stock = stock;
-        this.proovedor = proovedor;
+        this.proveedor = proveedor;
+    }
+    
+      public Repuesto(int idRepuesto, String nombre, String descripcion, String marca, String categoria, double precio, int stock) {
+        this.idRepuesto = idRepuesto;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.marca = marca;
+        this.categoria = categoria;
+        this.precio = precio;
+        this.stock = stock;
     }
 
     public int getIdRepuesto() {
@@ -84,12 +93,12 @@ public class Repuesto {
         this.stock = stock;
     }
 
-    public String getProovedor() {
-        return proovedor;
+    public Object getProveedor() {
+        return proveedor;
     }
 
-    public void setProovedor(String proovedor) {
-        this.proovedor = proovedor;
-    }
+    public void setProveedor(Proveedor proveedor) {
+        this.proveedor = proveedor;
+    } 
 
 }
