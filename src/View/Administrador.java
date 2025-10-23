@@ -850,6 +850,11 @@ public class Administrador extends javax.swing.JFrame {
         jButton2.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("AGREGAR REPUESTO");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         PanelAgregar.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 310, 160, 30));
 
         jLabel16.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 16)); // NOI18N
@@ -1266,6 +1271,11 @@ public class Administrador extends javax.swing.JFrame {
         jButton6.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
         jButton6.setForeground(new java.awt.Color(255, 255, 255));
         jButton6.setText("AGREGAR REPUESTO");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
         PanelAgregar2.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 310, 160, 30));
 
         jLabel31.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 16)); // NOI18N
@@ -1469,6 +1479,11 @@ public class Administrador extends javax.swing.JFrame {
         jButton8.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
         jButton8.setForeground(new java.awt.Color(255, 255, 255));
         jButton8.setText("AGREGAR REPUESTO");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
         PanelAgregar3.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 310, 160, 30));
 
         jLabel38.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 16)); // NOI18N
@@ -1774,6 +1789,18 @@ public class Administrador extends javax.swing.JFrame {
     private void cboGeneroAdministradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboGeneroAdministradorActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cboGeneroAdministradorActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
      * @param args the command line arguments

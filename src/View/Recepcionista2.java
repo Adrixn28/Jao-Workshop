@@ -9,12 +9,12 @@ import listaDoble.Lista;
  *
  * @author Adrian
  */
-public class Recepcionista extends javax.swing.JFrame {
+public class Recepcionista2 extends javax.swing.JFrame {
 
     //Creacion de la lista de Clientes
     Lista listaClientes;
 
-    public Recepcionista() {
+    public Recepcionista2() {
         initComponents();
         setLocationRelativeTo(null);
 
@@ -101,32 +101,32 @@ public class Recepcionista extends javax.swing.JFrame {
         lblCategoria = new javax.swing.JLabel();
         lblMarcaRepuesto = new javax.swing.JLabel();
         lblDescripcionRepuesto = new javax.swing.JLabel();
-        txtPrimerApellidoCliente = new javax.swing.JTextField();
+        txtPrimerApellidoProveedor = new javax.swing.JTextField();
         lblStock = new javax.swing.JLabel();
         lblPrecioRepuesto = new javax.swing.JLabel();
         lblNombreRepuesto = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jLabel21 = new javax.swing.JLabel();
-        txtPrimerNombreCliente = new javax.swing.JTextField();
+        txtPrimerNombreProveedor = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
-        txtSegundoNombreCliente = new javax.swing.JTextField();
-        txtSegundoApellidoCliente = new javax.swing.JTextField();
-        txtCedulaCliente = new javax.swing.JTextField();
+        txtSegundoNombreProveedor = new javax.swing.JTextField();
+        txtSegundoApellidoProveedor = new javax.swing.JTextField();
+        txtCedulaProveedor = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        txtTelefonoCliente = new javax.swing.JTextField();
+        txtTelefonoProveedor = new javax.swing.JTextField();
         cboGeneroCliente = new javax.swing.JComboBox<>();
-        txtCorreoCliente = new javax.swing.JTextField();
+        txtCorreoProveedor = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        txtUsuarioCliente = new javax.swing.JTextField();
+        txtUsuarioProveedor = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        txtContraseñaCliente = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        txtDireccionCliente = new javax.swing.JTextField();
+        txtContraseñaProveedor = new javax.swing.JTextField();
+        txtAñosExperienciaProveedor = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -188,7 +188,7 @@ public class Recepcionista extends javax.swing.JFrame {
 
         labelAgregarPaciente.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 23)); // NOI18N
         labelAgregarPaciente.setForeground(new java.awt.Color(255, 255, 255));
-        labelAgregarPaciente.setText("AGREGAR CLIENTE");
+        labelAgregarPaciente.setText("AGREGAR PROVEEDOR");
 
         javax.swing.GroupLayout panelBtnAgregarLayout = new javax.swing.GroupLayout(panelBtnAgregar);
         panelBtnAgregar.setLayout(panelBtnAgregarLayout);
@@ -197,7 +197,7 @@ public class Recepcionista extends javax.swing.JFrame {
             .addGroup(panelBtnAgregarLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(iconAgregarPaciente)
-                .addGap(44, 44, 44)
+                .addGap(28, 28, 28)
                 .addComponent(labelAgregarPaciente)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -224,7 +224,7 @@ public class Recepcionista extends javax.swing.JFrame {
 
         labelEditarPaciente.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 23)); // NOI18N
         labelEditarPaciente.setForeground(new java.awt.Color(255, 255, 255));
-        labelEditarPaciente.setText("ACTUALIZAR CLIENTE");
+        labelEditarPaciente.setText("ACTUALIZAR PROVEEDOR");
 
         javax.swing.GroupLayout panelBtnActualizarLayout = new javax.swing.GroupLayout(panelBtnActualizar);
         panelBtnActualizar.setLayout(panelBtnActualizarLayout);
@@ -232,9 +232,9 @@ public class Recepcionista extends javax.swing.JFrame {
             panelBtnActualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelBtnActualizarLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(iconEditarPaciente)
-                .addGap(18, 18, 18)
                 .addComponent(labelEditarPaciente)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(iconEditarPaciente)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelBtnActualizarLayout.setVerticalGroup(
@@ -256,7 +256,7 @@ public class Recepcionista extends javax.swing.JFrame {
 
         labelEditarPaciente1.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 23)); // NOI18N
         labelEditarPaciente1.setForeground(new java.awt.Color(255, 255, 255));
-        labelEditarPaciente1.setText("ELIMINAR CLIENTE");
+        labelEditarPaciente1.setText("ELIMINAR PROVEEDOR");
 
         javax.swing.GroupLayout panelBtnEliminarLayout = new javax.swing.GroupLayout(panelBtnEliminar);
         panelBtnEliminar.setLayout(panelBtnEliminarLayout);
@@ -265,7 +265,7 @@ public class Recepcionista extends javax.swing.JFrame {
             .addGroup(panelBtnEliminarLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(iconAgendarCita)
-                .addGap(33, 33, 33)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(labelEditarPaciente1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -395,7 +395,7 @@ public class Recepcionista extends javax.swing.JFrame {
         labelCerrarSesion1.setBackground(new java.awt.Color(204, 0, 0));
         labelCerrarSesion1.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 23)); // NOI18N
         labelCerrarSesion1.setForeground(new java.awt.Color(255, 255, 255));
-        labelCerrarSesion1.setText("PROVEEDORES");
+        labelCerrarSesion1.setText(" CLIENTES");
         labelCerrarSesion1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 labelCerrarSesion1MouseClicked(evt);
@@ -409,8 +409,8 @@ public class Recepcionista extends javax.swing.JFrame {
             .addGroup(panelBtnCerrarSesion1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(iconCerrarSesion1)
-                .addGap(60, 60, 60)
-                .addComponent(labelCerrarSesion1)
+                .addGap(68, 68, 68)
+                .addComponent(labelCerrarSesion1, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelBtnCerrarSesion1Layout.setVerticalGroup(
@@ -672,11 +672,6 @@ public class Recepcionista extends javax.swing.JFrame {
         txtIdCliente.setBackground(new java.awt.Color(204, 204, 204));
         txtIdCliente.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
         txtIdCliente.setForeground(new java.awt.Color(0, 0, 0));
-        txtIdCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtIdClienteActionPerformed(evt);
-            }
-        });
         PanelActualizar.add(txtIdCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 240, 30));
 
         btnBuscarCliente.setBackground(new java.awt.Color(0, 153, 0));
@@ -897,10 +892,10 @@ public class Recepcionista extends javax.swing.JFrame {
         lblDescripcionRepuesto.setText("4.SEGUNDO APELLIDO");
         PanelAgregar.add(lblDescripcionRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 120, -1, -1));
 
-        txtPrimerApellidoCliente.setBackground(new java.awt.Color(204, 204, 204));
-        txtPrimerApellidoCliente.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
-        txtPrimerApellidoCliente.setForeground(new java.awt.Color(0, 0, 0));
-        PanelAgregar.add(txtPrimerApellidoCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 140, 160, -1));
+        txtPrimerApellidoProveedor.setBackground(new java.awt.Color(204, 204, 204));
+        txtPrimerApellidoProveedor.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
+        txtPrimerApellidoProveedor.setForeground(new java.awt.Color(0, 0, 0));
+        PanelAgregar.add(txtPrimerApellidoProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 140, 160, -1));
 
         lblStock.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
         lblStock.setForeground(new java.awt.Color(0, 0, 0));
@@ -926,15 +921,15 @@ public class Recepcionista extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        PanelAgregar.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 390, 170, -1));
+        PanelAgregar.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 380, 200, 30));
 
         jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/piezas-de-repuesto.png"))); // NOI18N
         PanelAgregar.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
-        txtPrimerNombreCliente.setBackground(new java.awt.Color(204, 204, 204));
-        txtPrimerNombreCliente.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
-        txtPrimerNombreCliente.setForeground(new java.awt.Color(0, 0, 0));
-        PanelAgregar.add(txtPrimerNombreCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 140, -1));
+        txtPrimerNombreProveedor.setBackground(new java.awt.Color(204, 204, 204));
+        txtPrimerNombreProveedor.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
+        txtPrimerNombreProveedor.setForeground(new java.awt.Color(0, 0, 0));
+        PanelAgregar.add(txtPrimerNombreProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 140, -1));
 
         jPanel3.setBackground(new java.awt.Color(0, 0, 0));
         jPanel3.setForeground(new java.awt.Color(0, 0, 0));
@@ -955,17 +950,17 @@ public class Recepcionista extends javax.swing.JFrame {
         jButton2.setBackground(new java.awt.Color(0, 153, 0));
         jButton2.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("AGREGAR CLIENTE");
+        jButton2.setText("AGREGAR REPUESTO");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
-        PanelAgregar.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 330, 200, 30));
+        PanelAgregar.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 340, 200, 30));
 
         jLabel16.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 16)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel16.setText("LLENA LOS CAMPOS PARA AGREGAR UN CLIENTE AL INVENTARIO");
+        jLabel16.setText("LLENA LOS CAMPOS PARA AGREGAR UN PROVEEDOR AL INVENTARIO");
         PanelAgregar.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, -1, -1));
 
         jLabel17.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 10)); // NOI18N
@@ -983,35 +978,35 @@ public class Recepcionista extends javax.swing.JFrame {
         jLabel19.setText("- ALTA CALIDAD.");
         PanelAgregar.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 40, -1, -1));
 
-        txtSegundoNombreCliente.setBackground(new java.awt.Color(204, 204, 204));
-        txtSegundoNombreCliente.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
-        txtSegundoNombreCliente.setForeground(new java.awt.Color(0, 0, 0));
-        PanelAgregar.add(txtSegundoNombreCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 140, 160, -1));
+        txtSegundoNombreProveedor.setBackground(new java.awt.Color(204, 204, 204));
+        txtSegundoNombreProveedor.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
+        txtSegundoNombreProveedor.setForeground(new java.awt.Color(0, 0, 0));
+        PanelAgregar.add(txtSegundoNombreProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 140, 160, -1));
 
-        txtSegundoApellidoCliente.setBackground(new java.awt.Color(204, 204, 204));
-        txtSegundoApellidoCliente.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
-        txtSegundoApellidoCliente.setForeground(new java.awt.Color(0, 0, 0));
-        PanelAgregar.add(txtSegundoApellidoCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 140, 160, -1));
+        txtSegundoApellidoProveedor.setBackground(new java.awt.Color(204, 204, 204));
+        txtSegundoApellidoProveedor.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
+        txtSegundoApellidoProveedor.setForeground(new java.awt.Color(0, 0, 0));
+        PanelAgregar.add(txtSegundoApellidoProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 140, 160, -1));
 
-        txtCedulaCliente.setBackground(new java.awt.Color(204, 204, 204));
-        txtCedulaCliente.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
-        txtCedulaCliente.setForeground(new java.awt.Color(0, 0, 0));
-        PanelAgregar.add(txtCedulaCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 210, 140, -1));
+        txtCedulaProveedor.setBackground(new java.awt.Color(204, 204, 204));
+        txtCedulaProveedor.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
+        txtCedulaProveedor.setForeground(new java.awt.Color(0, 0, 0));
+        PanelAgregar.add(txtCedulaProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 210, 140, -1));
 
         jLabel1.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("7. TELEFONO");
         PanelAgregar.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 190, -1, 20));
 
-        txtTelefonoCliente.setBackground(new java.awt.Color(204, 204, 204));
-        txtTelefonoCliente.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
-        txtTelefonoCliente.setForeground(new java.awt.Color(0, 0, 0));
-        txtTelefonoCliente.addActionListener(new java.awt.event.ActionListener() {
+        txtTelefonoProveedor.setBackground(new java.awt.Color(204, 204, 204));
+        txtTelefonoProveedor.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
+        txtTelefonoProveedor.setForeground(new java.awt.Color(0, 0, 0));
+        txtTelefonoProveedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTelefonoClienteActionPerformed(evt);
+                txtTelefonoProveedorActionPerformed(evt);
             }
         });
-        PanelAgregar.add(txtTelefonoCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 210, 140, -1));
+        PanelAgregar.add(txtTelefonoProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 210, 140, -1));
 
         cboGeneroCliente.setBackground(new java.awt.Color(204, 204, 204));
         cboGeneroCliente.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
@@ -1019,44 +1014,43 @@ public class Recepcionista extends javax.swing.JFrame {
         cboGeneroCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Masculino", "Femenino" }));
         PanelAgregar.add(cboGeneroCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 120, -1));
 
-        txtCorreoCliente.setBackground(new java.awt.Color(204, 204, 204));
-        txtCorreoCliente.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
-        txtCorreoCliente.setForeground(new java.awt.Color(0, 0, 0));
-        PanelAgregar.add(txtCorreoCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 210, 180, -1));
+        txtCorreoProveedor.setBackground(new java.awt.Color(204, 204, 204));
+        txtCorreoProveedor.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
+        txtCorreoProveedor.setForeground(new java.awt.Color(0, 0, 0));
+        PanelAgregar.add(txtCorreoProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 210, 180, -1));
 
         jLabel2.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("9. USUARIO:");
         PanelAgregar.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, -1, -1));
 
-        txtUsuarioCliente.setBackground(new java.awt.Color(204, 204, 204));
-        txtUsuarioCliente.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
-        txtUsuarioCliente.setForeground(new java.awt.Color(0, 0, 0));
-        PanelAgregar.add(txtUsuarioCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 120, -1));
+        txtUsuarioProveedor.setBackground(new java.awt.Color(204, 204, 204));
+        txtUsuarioProveedor.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
+        txtUsuarioProveedor.setForeground(new java.awt.Color(0, 0, 0));
+        PanelAgregar.add(txtUsuarioProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 120, -1));
 
         jLabel4.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("10. CONTRASEÑA: ");
         PanelAgregar.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 260, -1, -1));
 
-        txtContraseñaCliente.setBackground(new java.awt.Color(204, 204, 204));
-        txtContraseñaCliente.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
-        txtContraseñaCliente.setForeground(new java.awt.Color(0, 0, 0));
-        PanelAgregar.add(txtContraseñaCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 280, 140, -1));
+        txtContraseñaProveedor.setBackground(new java.awt.Color(204, 204, 204));
+        txtContraseñaProveedor.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
+        txtContraseñaProveedor.setForeground(new java.awt.Color(0, 0, 0));
+        PanelAgregar.add(txtContraseñaProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 280, 140, -1));
 
-        jLabel6.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel6.setText("11. DIRECCION:");
-        PanelAgregar.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 260, -1, -1));
+        txtAñosExperienciaProveedor.setBackground(new java.awt.Color(204, 204, 204));
+        txtAñosExperienciaProveedor.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
+        PanelAgregar.add(txtAñosExperienciaProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 280, 130, -1));
 
-        txtDireccionCliente.setBackground(new java.awt.Color(204, 204, 204));
-        txtDireccionCliente.setFont(new java.awt.Font("JetBrains Mono", 1, 14)); // NOI18N
-        txtDireccionCliente.setForeground(new java.awt.Color(0, 0, 0));
-        PanelAgregar.add(txtDireccionCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 280, 180, -1));
+        jLabel8.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel8.setText("11. AÑOS DE EXPERIENCIA:");
+        PanelAgregar.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 260, -1, -1));
 
         jTabbedPane1.addTab("Agregar", PanelAgregar);
 
-        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 180, 690, 480));
+        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 180, 690, 480));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -1083,12 +1077,12 @@ public class Recepcionista extends javax.swing.JFrame {
     }//GEN-LAST:event_panelBtnCerrarSesionMouseClicked
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        if (txtPrimerNombreCliente.getText().trim().isEmpty()
-                || txtPrimerApellidoCliente.getText().trim().isEmpty()
-                || txtSegundoApellidoCliente.getText().trim().isEmpty()
-                || txtCedulaCliente.getText().trim().isEmpty()
+        if (txtPrimerNombreProveedor.getText().trim().isEmpty()
+                || txtPrimerApellidoProveedor.getText().trim().isEmpty()
+                || txtSegundoApellidoProveedor.getText().trim().isEmpty()
+                || txtCedulaProveedor.getText().trim().isEmpty()
                 || cboGeneroCliente.getSelectedItem().toString().equals("Seleccionar")
-                || txtTelefonoCliente.getText().trim().isEmpty()) {
+                || txtTelefonoProveedor.getText().trim().isEmpty()) {
 
             JOptionPane.showMessageDialog(null, "Hay campos que estan vacios");
         } else {
@@ -1126,9 +1120,9 @@ public class Recepcionista extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnBuscarClienteActionPerformed
 
-    private void txtTelefonoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefonoClienteActionPerformed
+    private void txtTelefonoProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefonoProveedorActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtTelefonoClienteActionPerformed
+    }//GEN-LAST:event_txtTelefonoProveedorActionPerformed
 
     private void panelBtnCerrarSesion1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnCerrarSesion1MouseClicked
         // TODO add your handling code here:
@@ -1136,20 +1130,12 @@ public class Recepcionista extends javax.swing.JFrame {
 
     private void labelCerrarSesion1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelCerrarSesion1MouseClicked
         // TODO add your handling code here:
-       new Recepcionista2().setVisible(true);
-       dispose();
+         new Recepcionista().setVisible(true);
+         dispose();
     }//GEN-LAST:event_labelCerrarSesion1MouseClicked
-
-    private void txtIdClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdClienteActionPerformed
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_txtIdClienteActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
-         if (txtIdCliente.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "La ID es incorrecta o esta vacia");
-        }
     }//GEN-LAST:event_jButton5ActionPerformed
 
     //Proveedor p = Sesion.proveedorActual;
@@ -1157,7 +1143,7 @@ public class Recepcionista extends javax.swing.JFrame {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Recepcionista().setVisible(true);
+                new Recepcionista2().setVisible(true);
             }
         });
     }
@@ -1205,8 +1191,8 @@ public class Recepcionista extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
@@ -1254,18 +1240,18 @@ public class Recepcionista extends javax.swing.JFrame {
     private javax.swing.JPanel panelGris;
     private javax.swing.JPanel panelMenu;
     private javax.swing.JPanel panelNegro;
-    private javax.swing.JTextField txtCedulaCliente;
-    private javax.swing.JTextField txtContraseñaCliente;
-    private javax.swing.JTextField txtCorreoCliente;
-    private javax.swing.JTextField txtDireccionCliente;
+    private javax.swing.JTextField txtAñosExperienciaProveedor;
+    private javax.swing.JTextField txtCedulaProveedor;
+    private javax.swing.JTextField txtContraseñaProveedor;
+    private javax.swing.JTextField txtCorreoProveedor;
     private javax.swing.JTextField txtIdCliente;
     private javax.swing.JTextField txtIdRepuesto2;
-    private javax.swing.JTextField txtPrimerApellidoCliente;
-    private javax.swing.JTextField txtPrimerNombreCliente;
-    private javax.swing.JTextField txtSegundoApellidoCliente;
-    private javax.swing.JTextField txtSegundoNombreCliente;
-    private javax.swing.JTextField txtTelefonoCliente;
-    private javax.swing.JTextField txtUsuarioCliente;
+    private javax.swing.JTextField txtPrimerApellidoProveedor;
+    private javax.swing.JTextField txtPrimerNombreProveedor;
+    private javax.swing.JTextField txtSegundoApellidoProveedor;
+    private javax.swing.JTextField txtSegundoNombreProveedor;
+    private javax.swing.JTextField txtTelefonoProveedor;
+    private javax.swing.JTextField txtUsuarioProveedor;
     // End of variables declaration//GEN-END:variables
 
     //Verificar que un String solo tenga números.
