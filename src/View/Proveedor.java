@@ -1,13 +1,14 @@
 package View;
 
 import Model.Repuesto;
-import Model.Sesion;
 import Percistencia.BuscarRepuestoId;
 import Percistencia.EliminarRepuestoId;
 import Percistencia.ExisteRepuestoId;
+import Service.LoginService;
 import javax.swing.JOptionPane;
 import javax.swing.SpinnerNumberModel;
 import listaDoble.Lista;
+import Service.ProveedorService;
 
 /**
  *
@@ -15,6 +16,7 @@ import listaDoble.Lista;
  */
 public class Proveedor extends javax.swing.JFrame {
 
+    //Listas y utilidades
     public class lista {
 
         public static Lista listaRepuestos = new Lista();
@@ -24,12 +26,52 @@ public class Proveedor extends javax.swing.JFrame {
     BuscarRepuestoId buscador = new BuscarRepuestoId();
     EliminarRepuestoId eliminar = new EliminarRepuestoId();
 
+    //Servicios
+    private LoginService loginService;
+    private ProveedorService proveedorService;
+    private String idProveedorActual;
+
     public Proveedor() {
-        cargarRepuestos();
         initComponents();
+        cargarRepuestos();
         setLocationRelativeTo(null);
         jspinnerStock.setModel(modelo);
         btnLimpiarCampoDelete.setEnabled(false);
+        inicializarServicios();
+        cargarDatosProveedor();
+    }
+
+    //Constructor con ID
+    public Proveedor(String idProveedor) {
+        initComponents();
+        setLocationRelativeTo(null);
+
+        // 🔹 Buscar el proveedor usando el servicio
+        Model.Proveedor proveedor = proveedorService.buscarProveedorPorId(idProveedor);
+
+        if (proveedor != null) {
+            Service.ProveedorService.setProveedorActual(proveedor);
+            cargarDatosProveedor(); // método que llena los labels
+        } else {
+            JOptionPane.showMessageDialog(this, "No se encontró el proveedor con ID: " + idProveedor,"Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void inicializarServicios() {
+        loginService = new LoginService();
+        proveedorService = new ProveedorService();
+        System.out.println("Servicios inicializados para proveedor");
+    }
+
+    public void cargarDatosProveedor() {
+        Model.Proveedor proveedor = ProveedorService.getProveedorActual();
+        if (proveedor != null) {
+            lblNombre.setText(proveedor.getPrimerNombre() + " " + proveedor.getPrimerApellido());
+            // lblCorreo.setText(proveedor.getCorreo());
+        } else {
+            lblNombre.setText("Desconocido!");
+            // lblCorreo.setText("No disponible");
+        }
     }
 
     SpinnerNumberModel modelo = new SpinnerNumberModel(1, 1, 100, 1);
@@ -76,7 +118,7 @@ public class Proveedor extends javax.swing.JFrame {
         PanelNegro2 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         panelMenu = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
+        lblNombre = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         panelDecoración12 = new javax.swing.JPanel();
@@ -84,6 +126,7 @@ public class Proveedor extends javax.swing.JFrame {
         panelDecoración14 = new javax.swing.JPanel();
         jLabel28 = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
+        jLabel32 = new javax.swing.JLabel();
         PanelActualizar = new javax.swing.JPanel();
         panelDecoración6 = new javax.swing.JPanel();
         panelDecoración7 = new javax.swing.JPanel();
@@ -560,10 +603,9 @@ public class Proveedor extends javax.swing.JFrame {
         panelMenu.setBackground(new java.awt.Color(255, 255, 255));
         panelMenu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel5.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 18)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel5.setText("ESTE ES EL MENÚ PRINCIPAL DE PROVEEDORES DE J-WORKSHOP");
-        panelMenu.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, -1, -1));
+        lblNombre.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 18)); // NOI18N
+        lblNombre.setForeground(new java.awt.Color(0, 0, 0));
+        panelMenu.add(lblNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 10, 260, 20));
 
         jScrollPane2.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -643,6 +685,11 @@ public class Proveedor extends javax.swing.JFrame {
         jLabel29.setForeground(new java.awt.Color(0, 0, 0));
         jLabel29.setText("RECUERDA HACER TUS TAREAS CON RESPONSABILIDAD Y BUEN MANEJO DE DATOS.");
         panelMenu.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, -1, -1));
+
+        jLabel32.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 18)); // NOI18N
+        jLabel32.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel32.setText("BIENVENIDO/A");
+        panelMenu.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 140, -1));
 
         jTabbedPane1.addTab("Menú", panelMenu);
 
@@ -1358,8 +1405,8 @@ public class Proveedor extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -1385,6 +1432,7 @@ public class Proveedor extends javax.swing.JFrame {
     private javax.swing.JLabel lblCategoria;
     private javax.swing.JLabel lblDescripcionRepuesto;
     private javax.swing.JLabel lblMarcaRepuesto;
+    private javax.swing.JLabel lblNombre;
     private javax.swing.JLabel lblNombreRepuesto;
     private javax.swing.JLabel lblPrecioRepuesto;
     private javax.swing.JLabel lblRepuesto;
