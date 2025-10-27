@@ -25,7 +25,7 @@ public class Proveedor extends javax.swing.JFrame {
     EliminarRepuestoId eliminar = new EliminarRepuestoId();
 
     public Proveedor() {
-        cargarRepuestosIniciales();
+        cargarRepuestos();
         initComponents();
         setLocationRelativeTo(null);
         jspinnerStock.setModel(modelo);
@@ -1469,10 +1469,10 @@ public class Proveedor extends javax.swing.JFrame {
         }
     }
 
-    private static void cargarRepuestosIniciales() {
+    private static void cargarRepuestos() {
         // === REPUESTOS ===
         Repuesto repuesto1 = new Repuesto(
-                1,
+                987654321,
                 "Filtro de aceite",
                 "Filtro de alta eficiencia para motor 1.6",
                 "Bosch",
@@ -1482,7 +1482,7 @@ public class Proveedor extends javax.swing.JFrame {
         );
 
         Repuesto repuesto2 = new Repuesto(
-                2,
+                87654321,
                 "Pastillas de freno",
                 "Pastillas cerámicas para alto rendimiento",
                 "Brembo",
