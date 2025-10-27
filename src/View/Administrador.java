@@ -4,17 +4,110 @@
  */
 package View;
 
+import Service.AdministradorService;
+import Service.LoginService;
+import Service.*; // Add this import
+import Model.*;
+import javax.swing.JOptionPane;
+
 /**
- *
+ * Vista del Administrador con funcionalidades de gestión de usuarios
  * @author Osvaldo
  */
 public class Administrador extends javax.swing.JFrame {
+    
+    private AdministradorService administradorService;
+    private LoginService loginService;
+    private String idAdministradorActual; // ID del administrador logueado
 
     /**
      * Creates new form Administrador
      */
     public Administrador() {
         initComponents();
+        inicializarServicios();
+        // No se precargan datos sin ID específico - usar constructor con parámetro
+        // precargarDatosAdministrador();
+        configurarEventos();
+        setLocationRelativeTo(null);
+    }
+    
+    /**
+     * Constructor que recibe el ID del administrador para precargar datos
+     * @param idAdministrador ID del administrador logueado
+     */
+    public Administrador(String idAdministrador) {
+        initComponents();
+        inicializarServicios();
+        precargarDatosAdministradorPorId(idAdministrador);
+        configurarEventos();
+        setLocationRelativeTo(null);
+    }
+    
+    private void inicializarServicios() {
+        loginService = new LoginService();
+        administradorService = new AdministradorService(loginService);
+        System.out.println("Servicios inicializados para Administrador");
+    }
+    
+    private void precargarDatosAdministrador() {
+        // Este método ya no se usa, mantenido por compatibilidad
+        System.out.println("Método precargarDatosAdministrador() llamado sin ID");
+    }
+    
+    private void precargarDatosAdministradorPorId(String idAdministrador) {
+        if (idAdministrador == null || idAdministrador.isEmpty()) {
+            JOptionPane.showMessageDialog(this, 
+                "Error: ID de administrador no válido.", 
+                "Error de Datos", JOptionPane.ERROR_MESSAGE);
+            this.dispose();
+            return;
+        }
+        
+        // Buscar administrador por ID usando el servicio
+        Model.Administrador adminModel = administradorService.buscarAdministradorPorIdEnLista(idAdministrador);
+        
+        if (adminModel != null) {
+            // Guardar el ID para uso posterior
+            this.idAdministradorActual = idAdministrador;
+            
+            // Precargar datos en los campos del panel de inicio
+            txtIdNombresDelAdministrador.setText(adminModel.getPrimerNombre() + " " + 
+                (adminModel.getSegundoNombre() != null && !adminModel.getSegundoNombre().isEmpty() 
+                 ? adminModel.getSegundoNombre() : ""));
+            
+            txtApellidosAdministrador1.setText(adminModel.getPrimerApellido() + " " + 
+                (adminModel.getSegundoApellido() != null && !adminModel.getSegundoApellido().isEmpty() 
+                 ? adminModel.getSegundoApellido() : ""));
+            
+            txtCedulaAdministrador.setText(adminModel.getCedula());
+            txtIdTelefonoAdministrador.setText(adminModel.getTelefono());
+            txtCorreoAdministrador.setText(adminModel.getCorreo());
+            txtGenero.setText(adminModel.getGenero());
+            
+            System.out.println("Datos precargados para administrador: " + adminModel.getPrimerNombre() + 
+                             " (ID: " + idAdministrador + ")");
+        } else {
+            System.out.println("No se encontró administrador con ID: " + idAdministrador);
+            JOptionPane.showMessageDialog(this, 
+                "Error: No se pudo encontrar la información del administrador.\n" +
+                "ID: " + idAdministrador, 
+                "Error de Búsqueda", JOptionPane.ERROR_MESSAGE);
+            this.dispose();
+        }
+    }
+    
+    private void configurarEventos() {
+        // Configurar eventos para los botones de edición
+        BtnEditarDatos.addActionListener(evt -> BtnEditarDatosActionPerformed(evt));
+        GuardarDatosEditados.addActionListener(evt -> GuardarDatosEditadosActionPerformed(evt));
+        BtnCancelarEdicion.addActionListener(evt -> BtnCancelarEdicionActionPerformed(evt));
+        
+        // Inicialmente ocultar botones de guardado y cancelación
+        GuardarDatosEditados.setVisible(false);
+        BtnCancelarEdicion.setVisible(false);
+        
+        System.out.println("Eventos configurados para Administrador");
     }
 
     /**
@@ -69,36 +162,31 @@ public class Administrador extends javax.swing.JFrame {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         PanelAgregar = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
         panelDecoración3 = new javax.swing.JPanel();
         panelDecoración4 = new javax.swing.JPanel();
         panelDecoración5 = new javax.swing.JPanel();
         lblRepuesto = new javax.swing.JLabel();
-        cboGeneroAdministrador = new javax.swing.JComboBox<>();
-        lblCOP = new javax.swing.JLabel();
-        cboCategoria = new javax.swing.JComboBox<>();
-        lblCategoria = new javax.swing.JLabel();
-        txtPrecio = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jtxtareaDescripcion = new javax.swing.JTextArea();
+        txtCedulaAdministrador = new javax.swing.JTextField();
         lblMarcaRepuesto = new javax.swing.JLabel();
         lblDescripcionRepuesto = new javax.swing.JLabel();
-        txtNombreRepuesto = new javax.swing.JTextField();
+        txtGenero = new javax.swing.JTextField();
         lblStock = new javax.swing.JLabel();
         lblPrecioRepuesto = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jspinnerStock = new javax.swing.JSpinner();
         lblNombreRepuesto = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        BtnEditarDatos = new javax.swing.JButton();
         jLabel21 = new javax.swing.JLabel();
-        txtFieldNameAdmin = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
+        GuardarDatosEditados = new javax.swing.JButton();
         jLabel16 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jLabel50 = new javax.swing.JLabel();
-        txtIdRepuesto5 = new javax.swing.JTextField();
+        txtIdTelefonoAdministrador = new javax.swing.JTextField();
+        txtCorreoAdministrador = new javax.swing.JTextField();
+        txtIdNombresDelAdministrador = new javax.swing.JTextField();
+        txtApellidosAdministrador1 = new javax.swing.JTextField();
+        BtnCancelarEdicion = new javax.swing.JButton();
         PanelAgregar1 = new javax.swing.JPanel();
         jLabel20 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
@@ -468,7 +556,7 @@ public class Administrador extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(0, 8, Short.MAX_VALUE))
+                .addGap(0, 35, Short.MAX_VALUE))
         );
 
         panelDecoración1.setBackground(new java.awt.Color(51, 51, 51));
@@ -620,13 +708,14 @@ public class Administrador extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(panelBtnCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         panelGris.setBackground(new java.awt.Color(51, 51, 51));
 
         labelRecepcionisa1.setBackground(new java.awt.Color(255, 255, 255));
-        labelRecepcionisa1.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 85)); // NOI18N
+        labelRecepcionisa1.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 75)); // NOI18N
         labelRecepcionisa1.setForeground(new java.awt.Color(255, 255, 255));
         labelRecepcionisa1.setText("-Administrador-");
 
@@ -635,15 +724,13 @@ public class Administrador extends javax.swing.JFrame {
         panelGrisLayout.setHorizontalGroup(
             panelGrisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelGrisLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(labelRecepcionisa1, javax.swing.GroupLayout.PREFERRED_SIZE, 722, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(labelRecepcionisa1, javax.swing.GroupLayout.DEFAULT_SIZE, 682, Short.MAX_VALUE)
                 .addContainerGap())
         );
         panelGrisLayout.setVerticalGroup(
             panelGrisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelGrisLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(labelRecepcionisa1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, Short.MAX_VALUE))
+            .addComponent(labelRecepcionisa1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, Short.MAX_VALUE)
         );
 
         PanelNegro2.setBackground(new java.awt.Color(15, 15, 15));
@@ -662,15 +749,10 @@ public class Administrador extends javax.swing.JFrame {
         PanelAgregar.setBackground(new java.awt.Color(255, 255, 255));
         PanelAgregar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel11.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 10)); // NOI18N
+        jLabel11.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 18)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel11.setText("- ELIMINA!.");
-        PanelAgregar.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 10, -1, -1));
-
-        jLabel12.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 8)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel12.setText("* ¡Recuerda colocar las especificaciones del repuesto!");
-        PanelAgregar.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 270, 10));
+        jLabel11.setText("- ELIMINA!");
+        PanelAgregar.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 30, -1, -1));
 
         panelDecoración3.setBackground(new java.awt.Color(0, 153, 0));
 
@@ -717,76 +799,46 @@ public class Administrador extends javax.swing.JFrame {
 
         PanelAgregar.add(panelDecoración5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 690, 10));
 
-        lblRepuesto.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
+        lblRepuesto.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 24)); // NOI18N
         lblRepuesto.setForeground(new java.awt.Color(0, 0, 0));
-        lblRepuesto.setText("1 - Nombres:");
-        PanelAgregar.add(lblRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, -1, -1));
+        lblRepuesto.setText("1-Nombres:");
+        PanelAgregar.add(lblRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, -1, -1));
 
-        cboGeneroAdministrador.setBackground(new java.awt.Color(204, 204, 204));
-        cboGeneroAdministrador.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
-        cboGeneroAdministrador.setForeground(new java.awt.Color(0, 0, 0));
-        cboGeneroAdministrador.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sin seleccionar", "Kawasaki", "Yamaha", "BMW", "Ducati", "Bajaj", "Hero", "KTM", "Honda", "Suzuki" }));
-        cboGeneroAdministrador.addActionListener(new java.awt.event.ActionListener() {
+        txtCedulaAdministrador.setBackground(new java.awt.Color(204, 204, 204));
+        txtCedulaAdministrador.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
+        txtCedulaAdministrador.setForeground(new java.awt.Color(0, 0, 0));
+        txtCedulaAdministrador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cboGeneroAdministradorActionPerformed(evt);
+                txtCedulaAdministradorActionPerformed(evt);
             }
         });
-        PanelAgregar.add(cboGeneroAdministrador, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 140, 210, -1));
+        PanelAgregar.add(txtCedulaAdministrador, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 270, 180, -1));
 
-        lblCOP.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 18)); // NOI18N
-        lblCOP.setForeground(new java.awt.Color(0, 153, 0));
-        lblCOP.setText("COP");
-        PanelAgregar.add(lblCOP, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 210, 40, -1));
-
-        cboCategoria.setBackground(new java.awt.Color(204, 204, 204));
-        cboCategoria.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
-        cboCategoria.setForeground(new java.awt.Color(0, 0, 0));
-        cboCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sin seleccionar", "Motor", "Transmisión", "Frenos", "Eléctrico", "Suspensión", "Carrocería", "Lubricantes" }));
-        PanelAgregar.add(cboCategoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 270, 220, -1));
-
-        lblCategoria.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
-        lblCategoria.setForeground(new java.awt.Color(0, 0, 0));
-        lblCategoria.setText("6. CATEGORÍA (USO/ENFOQUE):");
-        PanelAgregar.add(lblCategoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 250, 220, -1));
-
-        txtPrecio.setBackground(new java.awt.Color(204, 204, 204));
-        txtPrecio.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
-        txtPrecio.setForeground(new java.awt.Color(0, 0, 0));
-        PanelAgregar.add(txtPrecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 210, 140, -1));
-
-        jtxtareaDescripcion.setBackground(new java.awt.Color(204, 204, 204));
-        jtxtareaDescripcion.setColumns(20);
-        jtxtareaDescripcion.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
-        jtxtareaDescripcion.setForeground(new java.awt.Color(0, 0, 0));
-        jtxtareaDescripcion.setRows(5);
-        jScrollPane1.setViewportView(jtxtareaDescripcion);
-
-        PanelAgregar.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 270, -1));
-
-        lblMarcaRepuesto.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
+        lblMarcaRepuesto.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 24)); // NOI18N
         lblMarcaRepuesto.setForeground(new java.awt.Color(0, 0, 0));
-        lblMarcaRepuesto.setText("3 - Genero:");
-        PanelAgregar.add(lblMarcaRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 120, -1, -1));
+        lblMarcaRepuesto.setText("3-Genero:");
+        PanelAgregar.add(lblMarcaRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 140, -1, -1));
 
-        lblDescripcionRepuesto.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
+        lblDescripcionRepuesto.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 24)); // NOI18N
         lblDescripcionRepuesto.setForeground(new java.awt.Color(0, 0, 0));
-        lblDescripcionRepuesto.setText("4. DESCRIPCIÓN ACERCA DEL REPUESTO");
-        PanelAgregar.add(lblDescripcionRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, -1, -1));
+        lblDescripcionRepuesto.setText("4-Telefono: ");
+        PanelAgregar.add(lblDescripcionRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 190, -1));
 
-        txtNombreRepuesto.setBackground(new java.awt.Color(204, 204, 204));
-        txtNombreRepuesto.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
-        txtNombreRepuesto.setForeground(new java.awt.Color(0, 0, 0));
-        PanelAgregar.add(txtNombreRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 140, 160, -1));
+        txtGenero.setEditable(false);
+        txtGenero.setBackground(new java.awt.Color(204, 204, 204));
+        txtGenero.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
+        txtGenero.setForeground(new java.awt.Color(0, 0, 0));
+        PanelAgregar.add(txtGenero, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 180, 180, -1));
 
-        lblStock.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
+        lblStock.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 24)); // NOI18N
         lblStock.setForeground(new java.awt.Color(0, 0, 0));
-        lblStock.setText("6. STOCK/CANTIDAD:");
-        PanelAgregar.add(lblStock, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 190, -1, -1));
+        lblStock.setText("6-Correo Electronico:");
+        PanelAgregar.add(lblStock, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 220, -1, -1));
 
-        lblPrecioRepuesto.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
+        lblPrecioRepuesto.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 24)); // NOI18N
         lblPrecioRepuesto.setForeground(new java.awt.Color(0, 0, 0));
-        lblPrecioRepuesto.setText("5. PRECIO DEL REPUESTO");
-        PanelAgregar.add(lblPrecioRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 190, -1, -1));
+        lblPrecioRepuesto.setText("5-Cedula:");
+        PanelAgregar.add(lblPrecioRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 230, -1, -1));
 
         jPanel2.setBackground(new java.awt.Color(229, 229, 255));
 
@@ -801,34 +853,19 @@ public class Administrador extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        PanelAgregar.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 180, 10, 150));
+        PanelAgregar.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 170, 10, 150));
 
-        jspinnerStock.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
-        PanelAgregar.add(jspinnerStock, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 210, 140, -1));
-
-        lblNombreRepuesto.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
+        lblNombreRepuesto.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 24)); // NOI18N
         lblNombreRepuesto.setForeground(new java.awt.Color(0, 0, 0));
-        lblNombreRepuesto.setText("2 - Apellidos:");
-        PanelAgregar.add(lblNombreRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 120, -1, -1));
+        lblNombreRepuesto.setText("2-Apellidos:");
+        PanelAgregar.add(lblNombreRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 140, -1, 30));
 
-        jButton1.setBackground(new java.awt.Color(204, 0, 0));
-        jButton1.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("CANCELAR PROCESO");
-        PanelAgregar.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 350, 160, 30));
+        BtnEditarDatos.setBackground(new java.awt.Color(255, 153, 51));
+        BtnEditarDatos.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
+        BtnEditarDatos.setForeground(new java.awt.Color(255, 255, 255));
+        BtnEditarDatos.setText("Editar datos");
+        PanelAgregar.add(BtnEditarDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 330, 150, 30));
         PanelAgregar.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
-
-        txtFieldNameAdmin.setEditable(false);
-        txtFieldNameAdmin.setBackground(new java.awt.Color(255, 255, 255));
-        txtFieldNameAdmin.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
-        txtFieldNameAdmin.setForeground(new java.awt.Color(0, 0, 0));
-        txtFieldNameAdmin.setBorder(null);
-        txtFieldNameAdmin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFieldNameAdminActionPerformed(evt);
-            }
-        });
-        PanelAgregar.add(txtFieldNameAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 440, 30));
 
         jPanel3.setBackground(new java.awt.Color(0, 0, 0));
         jPanel3.setForeground(new java.awt.Color(0, 0, 0));
@@ -837,50 +874,80 @@ public class Administrador extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 90, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 20, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         PanelAgregar.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 460, 90, 20));
 
-        jButton2.setBackground(new java.awt.Color(0, 153, 0));
-        jButton2.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("AGREGAR REPUESTO");
-        PanelAgregar.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 310, 160, 30));
+        GuardarDatosEditados.setBackground(new java.awt.Color(0, 153, 0));
+        GuardarDatosEditados.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
+        GuardarDatosEditados.setForeground(new java.awt.Color(255, 255, 255));
+        GuardarDatosEditados.setText("Guardar");
+        PanelAgregar.add(GuardarDatosEditados, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 370, 150, 30));
 
-        jLabel16.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 16)); // NOI18N
+        jLabel16.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 24)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel16.setText("Bienvenido Administrador !!! :");
-        PanelAgregar.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+        jLabel16.setText("Bienvenido Administrador !!!");
+        PanelAgregar.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 440, 60));
 
-        jLabel18.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 10)); // NOI18N
+        jLabel18.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 18)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel18.setText("- AGREGA!.");
-        PanelAgregar.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 10, -1, -1));
+        jLabel18.setText("- AGREGA!");
+        PanelAgregar.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 0, -1, -1));
 
-        jLabel19.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 10)); // NOI18N
+        jLabel19.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 18)); // NOI18N
         jLabel19.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel19.setText("- GESTIONA!.");
-        PanelAgregar.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 10, -1, -1));
+        jLabel19.setText("- GESTIONA!");
+        PanelAgregar.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, -10, 160, 60));
 
-        jLabel50.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 10)); // NOI18N
+        jLabel50.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 18)); // NOI18N
         jLabel50.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel50.setText("- ACTUALIZA DATOS!!.");
-        PanelAgregar.add(jLabel50, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 10, -1, -1));
+        jLabel50.setText("- ACTUALIZA DATOS!!");
+        PanelAgregar.add(jLabel50, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 50, -1, -1));
 
-        txtIdRepuesto5.setBackground(new java.awt.Color(204, 204, 204));
-        txtIdRepuesto5.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
-        txtIdRepuesto5.setForeground(new java.awt.Color(0, 0, 0));
-        txtIdRepuesto5.addActionListener(new java.awt.event.ActionListener() {
+        txtIdTelefonoAdministrador.setEditable(false);
+        txtIdTelefonoAdministrador.setBackground(new java.awt.Color(204, 204, 204));
+        txtIdTelefonoAdministrador.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
+        txtIdTelefonoAdministrador.setForeground(new java.awt.Color(0, 0, 0));
+        txtIdTelefonoAdministrador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtIdRepuesto5ActionPerformed(evt);
+                txtIdTelefonoAdministradorActionPerformed(evt);
             }
         });
-        PanelAgregar.add(txtIdRepuesto5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 140, -1));
+        PanelAgregar.add(txtIdTelefonoAdministrador, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 180, -1));
+
+        txtCorreoAdministrador.setEditable(false);
+        txtCorreoAdministrador.setBackground(new java.awt.Color(204, 204, 204));
+        txtCorreoAdministrador.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
+        txtCorreoAdministrador.setForeground(new java.awt.Color(0, 0, 0));
+        PanelAgregar.add(txtCorreoAdministrador, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 270, 270, 30));
+
+        txtIdNombresDelAdministrador.setEditable(false);
+        txtIdNombresDelAdministrador.setBackground(new java.awt.Color(204, 204, 204));
+        txtIdNombresDelAdministrador.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
+        txtIdNombresDelAdministrador.setForeground(new java.awt.Color(0, 0, 0));
+        txtIdNombresDelAdministrador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtIdNombresDelAdministradorActionPerformed(evt);
+            }
+        });
+        PanelAgregar.add(txtIdNombresDelAdministrador, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 170, -1));
+
+        txtApellidosAdministrador1.setEditable(false);
+        txtApellidosAdministrador1.setBackground(new java.awt.Color(204, 204, 204));
+        txtApellidosAdministrador1.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
+        txtApellidosAdministrador1.setForeground(new java.awt.Color(0, 0, 0));
+        PanelAgregar.add(txtApellidosAdministrador1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 180, 180, -1));
+
+        BtnCancelarEdicion.setBackground(new java.awt.Color(204, 0, 0));
+        BtnCancelarEdicion.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
+        BtnCancelarEdicion.setForeground(new java.awt.Color(255, 255, 255));
+        BtnCancelarEdicion.setText("Cancelar");
+        PanelAgregar.add(BtnCancelarEdicion, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 410, 150, 30));
 
         jTabbedPane1.addTab("PANEL INICIO", PanelAgregar);
 
@@ -1703,16 +1770,17 @@ public class Administrador extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(panelNegro, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(PanelNegro2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 690, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(7, 7, 7)
+                        .addComponent(PanelNegro2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 690, javax.swing.GroupLayout.PREFERRED_SIZE))))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 348, Short.MAX_VALUE)
-                    .addComponent(panelGris, javax.swing.GroupLayout.PREFERRED_SIZE, 694, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelGris, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 7, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
@@ -1722,12 +1790,12 @@ public class Administrador extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(72, 72, 72)
                         .addComponent(PanelNegro2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 507, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(panelNegro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(62, Short.MAX_VALUE))
+                .addContainerGap(51, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -1755,25 +1823,175 @@ public class Administrador extends javax.swing.JFrame {
     }//GEN-LAST:event_panelBtnEliminarMouseClicked
 
     private void panelBtnCerrarSesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnCerrarSesionMouseClicked
-        new Login().setVisible(true);
-        this.dispose();
+        // ⭐ Usar LoginService para cerrar sesión (más limpio y organizado)
+        loginService.cerrarSesionYVolverLogin(this);
     }//GEN-LAST:event_panelBtnCerrarSesionMouseClicked
 
     private void panelBtnEliminar1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnEliminar1MouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_panelBtnEliminar1MouseClicked
 
-    private void txtFieldNameAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFieldNameAdminActionPerformed
+    private void txtIdTelefonoAdministradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdTelefonoAdministradorActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtFieldNameAdminActionPerformed
+    }//GEN-LAST:event_txtIdTelefonoAdministradorActionPerformed
 
-    private void txtIdRepuesto5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdRepuesto5ActionPerformed
+    private void txtIdNombresDelAdministradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdNombresDelAdministradorActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtIdRepuesto5ActionPerformed
+    }//GEN-LAST:event_txtIdNombresDelAdministradorActionPerformed
 
-    private void cboGeneroAdministradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboGeneroAdministradorActionPerformed
+    private void txtCedulaAdministradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCedulaAdministradorActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cboGeneroAdministradorActionPerformed
+    }//GEN-LAST:event_txtCedulaAdministradorActionPerformed
+
+    // ========================================
+    // MÉTODOS PARA EDICIÓN DE ADMINISTRADOR
+    // ========================================
+    
+    private void BtnEditarDatosActionPerformed(java.awt.event.ActionEvent evt) {
+        // Habilitar campos para edición
+        txtIdNombresDelAdministrador.setEditable(true);
+        txtApellidosAdministrador1.setEditable(true);
+        txtIdTelefonoAdministrador.setEditable(true);  
+        txtCorreoAdministrador.setEditable(true);
+        txtCedulaAdministrador.setEditable(true);
+        txtGenero.setEditable(true);
+        
+        // Cambiar colores para indicar modo edición
+        txtIdNombresDelAdministrador.setBackground(new java.awt.Color(255, 255, 255));
+        txtApellidosAdministrador1.setBackground(new java.awt.Color(255, 255, 255));
+        txtIdTelefonoAdministrador.setBackground(new java.awt.Color(255, 255, 255));
+        txtCorreoAdministrador.setBackground(new java.awt.Color(255, 255, 255));
+        txtCedulaAdministrador.setBackground(new java.awt.Color(255, 255, 255));
+        txtGenero.setBackground(new java.awt.Color(255, 255, 255));
+        
+        // Mostrar botones de guardado y cancelación
+        GuardarDatosEditados.setVisible(true);
+        BtnCancelarEdicion.setVisible(true);
+        BtnEditarDatos.setVisible(false);
+        
+        JOptionPane.showMessageDialog(this, 
+            "Modo edición activado.\nModifique los datos y presione 'Guardar' para confirmar.", 
+            "Edición Habilitada", JOptionPane.INFORMATION_MESSAGE);
+    }
+    
+    private void GuardarDatosEditadosActionPerformed(java.awt.event.ActionEvent evt) {
+        try {
+            // Validar que tenemos un ID de administrador
+            if (idAdministradorActual == null || idAdministradorActual.isEmpty()) {
+                JOptionPane.showMessageDialog(this, 
+                    "Error: No hay un administrador identificado.", 
+                    "Error de Identificación", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            
+            // Buscar el administrador actual por ID
+            Model.Administrador adminActual = administradorService.buscarAdministradorPorIdEnLista(idAdministradorActual);
+            if (adminActual == null) {
+                JOptionPane.showMessageDialog(this, 
+                    "Error: No se pudo encontrar el administrador con ID: " + idAdministradorActual, 
+                    "Error de Búsqueda", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            
+            // Validar campos obligatorios
+            String nombres = txtIdNombresDelAdministrador.getText().trim();
+            String apellidos = txtApellidosAdministrador1.getText().trim();
+            String telefono = txtIdTelefonoAdministrador.getText().trim();
+            String correo = txtCorreoAdministrador.getText().trim();
+            String cedula = txtCedulaAdministrador.getText().trim();
+            String genero = txtGenero.getText().trim();
+            
+            if (nombres.isEmpty() || apellidos.isEmpty() || telefono.isEmpty() || 
+                correo.isEmpty() || cedula.isEmpty() || genero.isEmpty()) {
+                JOptionPane.showMessageDialog(this, 
+                    "Todos los campos son obligatorios.", 
+                    "Campos Incompletos", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            
+            // Parsear nombres y apellidos
+            String[] partesNombres = nombres.split(" ", 2);
+            String primerNombre = partesNombres[0];
+            String segundoNombre = partesNombres.length > 1 ? partesNombres[1] : "";
+            
+            String[] partesApellidos = apellidos.split(" ", 2);
+            String primerApellido = partesApellidos[0];
+            String segundoApellido = partesApellidos.length > 1 ? partesApellidos[1] : "";
+            
+            // Crear administrador actualizado
+            Model.Administrador adminActualizado = new Model.Administrador(
+                adminActual.getIdAdministrador(),
+                primerNombre,
+                segundoNombre,
+                primerApellido,
+                segundoApellido,
+                genero,
+                cedula,
+                telefono,
+                correo,
+                adminActual.getUsuario(),
+                adminActual.getContraseña(),
+                adminActual.getRol()
+            );
+            
+            // Actualizar en la lista
+            if (administradorService.actualizarAdministradorEnLista(adminActualizado)) {
+                JOptionPane.showMessageDialog(this, 
+                    "Datos actualizados correctamente.", 
+                    "Actualización Exitosa", JOptionPane.INFORMATION_MESSAGE);
+                
+                // Salir del modo edición
+                cancelarEdicion();
+                
+            } else {
+                JOptionPane.showMessageDialog(this, 
+                    "Error al actualizar los datos.", 
+                    "Error de Actualización", JOptionPane.ERROR_MESSAGE);
+            }
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, 
+                "Error inesperado: " + e.getMessage(), 
+                "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
+    }
+    
+    private void BtnCancelarEdicionActionPerformed(java.awt.event.ActionEvent evt) {
+        int opcion = JOptionPane.showConfirmDialog(this, 
+            "¿Está seguro de cancelar la edición?\nSe perderán los cambios no guardados.", 
+            "Confirmar Cancelación", 
+            JOptionPane.YES_NO_OPTION, 
+            JOptionPane.QUESTION_MESSAGE);
+        
+        if (opcion == JOptionPane.YES_OPTION) {
+            cancelarEdicion();
+            precargarDatosAdministradorPorId(idAdministradorActual); // Recargar datos originales usando ID
+        }
+    }
+    
+    private void cancelarEdicion() {
+        // Deshabilitar campos de edición
+        txtIdNombresDelAdministrador.setEditable(false);
+        txtApellidosAdministrador1.setEditable(false);
+        txtIdTelefonoAdministrador.setEditable(false);
+        txtCorreoAdministrador.setEditable(false);
+        txtCedulaAdministrador.setEditable(false);
+        txtGenero.setEditable(false);
+        
+        // Restaurar colores originales
+        txtIdNombresDelAdministrador.setBackground(new java.awt.Color(204, 204, 204));
+        txtApellidosAdministrador1.setBackground(new java.awt.Color(204, 204, 204));
+        txtIdTelefonoAdministrador.setBackground(new java.awt.Color(204, 204, 204));
+        txtCorreoAdministrador.setBackground(new java.awt.Color(204, 204, 204));
+        txtCedulaAdministrador.setBackground(new java.awt.Color(204, 204, 204));
+        txtGenero.setBackground(new java.awt.Color(204, 204, 204));
+        
+        // Restaurar visibilidad de botones
+        GuardarDatosEditados.setVisible(false);
+        BtnCancelarEdicion.setVisible(false);
+        BtnEditarDatos.setVisible(true);
+    }
 
     /**
      * @param args the command line arguments
@@ -1811,18 +2029,19 @@ public class Administrador extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnCancelarEdicion;
+    private javax.swing.JButton BtnEditarDatos;
+    private javax.swing.JButton GuardarDatosEditados;
     private javax.swing.JPanel PanelAgregar;
     private javax.swing.JPanel PanelAgregar1;
     private javax.swing.JPanel PanelAgregar2;
     private javax.swing.JPanel PanelAgregar3;
     private javax.swing.JPanel PanelAgregar4;
     private javax.swing.JPanel PanelNegro2;
-    private javax.swing.JComboBox<String> cboCategoria;
     private javax.swing.JComboBox<String> cboCategoria1;
     private javax.swing.JComboBox<String> cboCategoria2;
     private javax.swing.JComboBox<String> cboCategoria3;
     private javax.swing.JComboBox<String> cboCategoria4;
-    private javax.swing.JComboBox<String> cboGeneroAdministrador;
     private javax.swing.JComboBox<String> cboMarcaRepuesto1;
     private javax.swing.JComboBox<String> cboMarcaRepuesto2;
     private javax.swing.JComboBox<String> cboMarcaRepuesto3;
@@ -1835,9 +2054,7 @@ public class Administrador extends javax.swing.JFrame {
     private javax.swing.JLabel iconInicio;
     private javax.swing.JLabel iconRecepcinista;
     private javax.swing.JLabel iconRepuesto;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
@@ -1847,7 +2064,6 @@ public class Administrador extends javax.swing.JFrame {
     private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
@@ -1903,18 +2119,15 @@ public class Administrador extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JSpinner jspinnerStock;
     private javax.swing.JSpinner jspinnerStock1;
     private javax.swing.JSpinner jspinnerStock2;
     private javax.swing.JSpinner jspinnerStock3;
     private javax.swing.JSpinner jspinnerStock4;
-    private javax.swing.JTextArea jtxtareaDescripcion;
     private javax.swing.JTextArea jtxtareaDescripcion1;
     private javax.swing.JTextArea jtxtareaDescripcion2;
     private javax.swing.JTextArea jtxtareaDescripcion3;
@@ -1926,12 +2139,10 @@ public class Administrador extends javax.swing.JFrame {
     private javax.swing.JLabel labelEditarPaciente2;
     private javax.swing.JLabel labelMenúOpciones;
     private javax.swing.JLabel labelRecepcionisa1;
-    private javax.swing.JLabel lblCOP;
     private javax.swing.JLabel lblCOP1;
     private javax.swing.JLabel lblCOP2;
     private javax.swing.JLabel lblCOP3;
     private javax.swing.JLabel lblCOP4;
-    private javax.swing.JLabel lblCategoria;
     private javax.swing.JLabel lblCategoria1;
     private javax.swing.JLabel lblCategoria2;
     private javax.swing.JLabel lblCategoria3;
@@ -1992,18 +2203,20 @@ public class Administrador extends javax.swing.JFrame {
     private javax.swing.JPanel panelDecoración9;
     private javax.swing.JPanel panelGris;
     private javax.swing.JPanel panelNegro;
-    private javax.swing.JTextField txtFieldNameAdmin;
+    private javax.swing.JTextField txtApellidosAdministrador1;
+    private javax.swing.JTextField txtCedulaAdministrador;
+    private javax.swing.JTextField txtCorreoAdministrador;
+    private javax.swing.JTextField txtGenero;
+    private javax.swing.JTextField txtIdNombresDelAdministrador;
     private javax.swing.JTextField txtIdRepuesto1;
     private javax.swing.JTextField txtIdRepuesto2;
     private javax.swing.JTextField txtIdRepuesto3;
     private javax.swing.JTextField txtIdRepuesto4;
-    private javax.swing.JTextField txtIdRepuesto5;
-    private javax.swing.JTextField txtNombreRepuesto;
+    private javax.swing.JTextField txtIdTelefonoAdministrador;
     private javax.swing.JTextField txtNombreRepuesto1;
     private javax.swing.JTextField txtNombreRepuesto2;
     private javax.swing.JTextField txtNombreRepuesto3;
     private javax.swing.JTextField txtNombreRepuesto4;
-    private javax.swing.JTextField txtPrecio;
     private javax.swing.JTextField txtPrecio1;
     private javax.swing.JTextField txtPrecio2;
     private javax.swing.JTextField txtPrecio3;
