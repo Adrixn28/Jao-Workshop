@@ -9,6 +9,9 @@ import javax.swing.JOptionPane;
 import javax.swing.SpinnerNumberModel;
 import listaDoble.Lista;
 import Service.ProveedorService;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import listaDoble.Nodo;
 
 /**
  *
@@ -39,6 +42,7 @@ public class Proveedor extends javax.swing.JFrame {
         btnLimpiarCampoDelete.setEnabled(false);
         inicializarServicios();
         cargarDatosProveedor();
+        cargarTabla(tablaRepuestos, lista.listaRepuestos);
     }
 
     //Constructor con ID
@@ -120,7 +124,7 @@ public class Proveedor extends javax.swing.JFrame {
         panelMenu = new javax.swing.JPanel();
         lblNombre = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tablaRepuestos = new javax.swing.JTable();
         panelDecoración12 = new javax.swing.JPanel();
         panelDecoración13 = new javax.swing.JPanel();
         panelDecoración14 = new javax.swing.JPanel();
@@ -609,8 +613,8 @@ public class Proveedor extends javax.swing.JFrame {
 
         jScrollPane2.setBackground(new java.awt.Color(204, 204, 204));
 
-        jTable1.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tablaRepuestos.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
+        tablaRepuestos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -629,7 +633,7 @@ public class Proveedor extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(jTable1);
+        jScrollPane2.setViewportView(tablaRepuestos);
 
         panelMenu.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 670, 280));
 
@@ -1419,7 +1423,6 @@ public class Proveedor extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JSpinner jspinnerStock;
     private javax.swing.JTextArea jtxtareaDescripcion;
     private javax.swing.JLabel labelAgregarPaciente;
@@ -1469,6 +1472,7 @@ public class Proveedor extends javax.swing.JFrame {
     private javax.swing.JPanel panelGris;
     private javax.swing.JPanel panelMenu;
     private javax.swing.JPanel panelNegro;
+    private javax.swing.JTable tablaRepuestos;
     private javax.swing.JTextField txtCargarCategoriaRepuesto1;
     private javax.swing.JTextField txtCargarMarcaRepuesto;
     private javax.swing.JTextField txtCargarNombreRepuesto3;
@@ -1557,4 +1561,25 @@ public class Proveedor extends javax.swing.JFrame {
         System.out.println("Repuestos iniciales cargados con éxito.");
     }
 
+   public void cargarTabla(JTable tablaRepuestos, Lista lista) {
+    DefaultTableModel model = (DefaultTableModel) tablaRepuestos.getModel();
+    model.setRowCount(0);
+    
+    // Iterar usando el nodo cabeza
+    Nodo actual = lista.getPrimero(); // Asumiendo que tienes getCabeza()
+    
+    while (actual != null) {
+        Repuesto repuesto = (Repuesto) actual.getDato();
+        
+        Object[] rowData = new Object[]{
+            repuesto.getCategoria(),
+            repuesto.getNombre(),
+            repuesto.getPrecio(),
+            repuesto.getStock()
+        };
+        
+        model.addRow(rowData);
+        actual = actual.getSiguiente();
+    }
+}
 }
