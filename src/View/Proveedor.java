@@ -8,7 +8,6 @@ import Service.LoginService;
 import javax.swing.JOptionPane;
 import javax.swing.SpinnerNumberModel;
 import listaDoble.Lista;
-import Service.ProveedorService;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import listaDoble.Nodo;
@@ -31,50 +30,76 @@ public class Proveedor extends javax.swing.JFrame {
 
     //Servicios
     private LoginService loginService;
-    private ProveedorService proveedorService;
     private String idProveedorActual;
 
     public Proveedor() {
         initComponents();
+        inicializarServicios();
         cargarRepuestos();
         setLocationRelativeTo(null);
         jspinnerStock.setModel(modelo);
         btnLimpiarCampoDelete.setEnabled(false);
         inicializarServicios();
-        cargarDatosProveedor();
         cargarTabla(tablaRepuestos, lista.listaRepuestos);
     }
 
     //Constructor con ID
     public Proveedor(String idProveedor) {
         initComponents();
+        inicializarServicios();
+        precargarDatosProveedorPorId(idProveedor);
+        cargarRepuestos();
+        jspinnerStock.setModel(modelo);
+        btnLimpiarCampoDelete.setEnabled(false);
         setLocationRelativeTo(null);
+        cargarTabla(tablaRepuestos, lista.listaRepuestos);
 
-        // 🔹 Buscar el proveedor usando el servicio
-        Model.Proveedor proveedor = proveedorService.buscarProveedorPorId(idProveedor);
-
-        if (proveedor != null) {
-            Service.ProveedorService.setProveedorActual(proveedor);
-            cargarDatosProveedor(); // método que llena los labels
-        } else {
-            JOptionPane.showMessageDialog(this, "No se encontró el proveedor con ID: " + idProveedor,"Error", JOptionPane.ERROR_MESSAGE);
-        }
     }
 
     private void inicializarServicios() {
         loginService = new LoginService();
-        proveedorService = new ProveedorService();
         System.out.println("Servicios inicializados para proveedor");
     }
 
-    public void cargarDatosProveedor() {
-        Model.Proveedor proveedor = ProveedorService.getProveedorActual();
-        if (proveedor != null) {
-            lblNombre.setText(proveedor.getPrimerNombre() + " " + proveedor.getPrimerApellido());
-            // lblCorreo.setText(proveedor.getCorreo());
+    private void precargarDatosProveedorPorId(String idProveedor) {
+        if (idProveedor == null || idProveedor.isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                    "Error: ID de proveedor no válido.",
+                    "Error de Datos", JOptionPane.ERROR_MESSAGE);
+            this.dispose();
+            return;
+        }
+
+        // Buscar proveedor por ID usando el servicio
+        Model.Proveedor proveedorModel = loginService.buscarProveedorPorId(idProveedor);
+
+        if (proveedorModel != null) {
+            // Guardar el ID para uso posterior
+            this.idProveedorActual = idProveedor;
+
+            // Precargar datos en los campos del panel de inicio
+            lblNombreProv.setText(proveedorModel.getPrimerNombre() + " " + (proveedorModel.getPrimerApellido()));
+
+            /*txtIdNombresDelAdministrador.setText(adminModel.getPrimerNombre() + " " +  (adminModel.getSegundoNombre() != null && !adminModel.getSegundoNombre().isEmpty()    ? adminModel.getSegundoNombre() : ""));
+            
+            txtApellidosAdministrador1.setText(adminModel.getPrimerApellido() + " " + 
+                (adminModel.getSegundoApellido() != null && !adminModel.getSegundoApellido().isEmpty() 
+                 ? adminModel.getSegundoApellido() : ""));
+            
+            txtCedulaAdministrador.setText(adminModel.getCedula());
+            txtIdTelefonoAdministrador.setText(adminModel.getTelefono());
+            txtCorreoAdministrador.setText(adminModel.getCorreo());
+            txtGenero.setText(adminModel.getGenero());
+            
+            System.out.println("Datos precargados para administrador: " + adminModel.getPrimerNombre() + 
+                             " (ID: " + idAdministrador + ")");*/
         } else {
-            lblNombre.setText("Desconocido!");
-            // lblCorreo.setText("No disponible");
+            System.out.println("No se encontró administrador con ID: " + idProveedor);
+            JOptionPane.showMessageDialog(this,
+                    "Error: No se pudo encontrar la información del administrador.\n"
+                    + "ID: " + idProveedor,
+                    "Error de Búsqueda", JOptionPane.ERROR_MESSAGE);
+            this.dispose();
         }
     }
 
@@ -122,7 +147,7 @@ public class Proveedor extends javax.swing.JFrame {
         PanelNegro2 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         panelMenu = new javax.swing.JPanel();
-        lblNombre = new javax.swing.JLabel();
+        lblNombreProv = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tablaRepuestos = new javax.swing.JTable();
         panelDecoración12 = new javax.swing.JPanel();
@@ -607,9 +632,9 @@ public class Proveedor extends javax.swing.JFrame {
         panelMenu.setBackground(new java.awt.Color(255, 255, 255));
         panelMenu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblNombre.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 18)); // NOI18N
-        lblNombre.setForeground(new java.awt.Color(0, 0, 0));
-        panelMenu.add(lblNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 10, 260, 20));
+        lblNombreProv.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 18)); // NOI18N
+        lblNombreProv.setForeground(new java.awt.Color(0, 0, 0));
+        panelMenu.add(lblNombreProv, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 10, 260, 20));
 
         jScrollPane2.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -1435,7 +1460,7 @@ public class Proveedor extends javax.swing.JFrame {
     private javax.swing.JLabel lblCategoria;
     private javax.swing.JLabel lblDescripcionRepuesto;
     private javax.swing.JLabel lblMarcaRepuesto;
-    private javax.swing.JLabel lblNombre;
+    private javax.swing.JLabel lblNombreProv;
     private javax.swing.JLabel lblNombreRepuesto;
     private javax.swing.JLabel lblPrecioRepuesto;
     private javax.swing.JLabel lblRepuesto;
@@ -1561,25 +1586,25 @@ public class Proveedor extends javax.swing.JFrame {
         System.out.println("Repuestos iniciales cargados con éxito.");
     }
 
-   public void cargarTabla(JTable tablaRepuestos, Lista lista) {
-    DefaultTableModel model = (DefaultTableModel) tablaRepuestos.getModel();
-    model.setRowCount(0);
-    
-    // Iterar usando el nodo cabeza
-    Nodo actual = lista.getPrimero(); // Asumiendo que tienes getCabeza()
-    
-    while (actual != null) {
-        Repuesto repuesto = (Repuesto) actual.getDato();
-        
-        Object[] rowData = new Object[]{
-            repuesto.getCategoria(),
-            repuesto.getNombre(),
-            repuesto.getPrecio(),
-            repuesto.getStock()
-        };
-        
-        model.addRow(rowData);
-        actual = actual.getSiguiente();
+    public void cargarTabla(JTable tablaRepuestos, Lista lista) {
+        DefaultTableModel model = (DefaultTableModel) tablaRepuestos.getModel();
+        model.setRowCount(0);
+
+        // Iterar usando el nodo cabeza
+        Nodo actual = lista.getPrimero(); // Asumiendo que tienes getCabeza()
+
+        while (actual != null) {
+            Repuesto repuesto = (Repuesto) actual.getDato();
+
+            Object[] rowData = new Object[]{
+                repuesto.getCategoria(),
+                repuesto.getNombre(),
+                repuesto.getPrecio(),
+                repuesto.getStock()
+            };
+
+            model.addRow(rowData);
+            actual = actual.getSiguiente();
+        }
     }
-}
 }

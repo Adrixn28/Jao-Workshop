@@ -316,4 +316,16 @@ public class LoginService {
         inicializarPersistenciasLazy();
         sesionActual.imprimirEstadoSesion();
     }
+    
+    public Proveedor buscarProveedorPorId(String idProveedor) {
+    Nodo actual = listaProveedores.getPrimero();
+    while (actual != null) {
+        Proveedor p = (Proveedor) actual.getDato();
+        if (p.getIdProveedor().equalsIgnoreCase(idProveedor)) {
+            return p;
+        }
+        actual = actual.getSiguiente();
+    }
+    return null;
+}
 }
