@@ -38,10 +38,12 @@ public class Proveedor extends javax.swing.JFrame {
 
     public Proveedor() {
         initComponents();
+        ocultarZonaDeActualizar();
         inicializarServicios();
         cargarRepuestos();
         setLocationRelativeTo(null);
         jspinnerStock.setModel(modelo);
+        spiActualizarStock.setModel(modelo2);
         btnLimpiarCampoDelete.setEnabled(false);
         inicializarServicios();
         cargarTabla(tablaRepuestos, lista.listaRepuestos);
@@ -50,10 +52,12 @@ public class Proveedor extends javax.swing.JFrame {
     //Constructor con ID
     public Proveedor(String idProveedor) {
         initComponents();
+        ocultarZonaDeActualizar();
         inicializarServicios();
         precargarDatosProveedorPorId(idProveedor);
         cargarRepuestos();
         jspinnerStock.setModel(modelo);
+        spiActualizarStock.setModel(modelo2);
         btnLimpiarCampoDelete.setEnabled(false);
         setLocationRelativeTo(null);
         cargarTabla(tablaRepuestos, lista.listaRepuestos);
@@ -84,21 +88,8 @@ public class Proveedor extends javax.swing.JFrame {
             // Precargar datos en los campos del panel de inicio
             lblNombreProv.setText(prov.getPrimerNombre() + " " + (prov.getPrimerApellido()));
 
-            /*txtIdNombresDelAdministrador.setText(adminModel.getPrimerNombre() + " " +  (adminModel.getSegundoNombre() != null && !adminModel.getSegundoNombre().isEmpty()    ? adminModel.getSegundoNombre() : ""));
-            
-            txtApellidosAdministrador1.setText(adminModel.getPrimerApellido() + " " + 
-                (adminModel.getSegundoApellido() != null && !adminModel.getSegundoApellido().isEmpty() 
-                 ? adminModel.getSegundoApellido() : ""));
-            
-            txtCedulaAdministrador.setText(adminModel.getCedula());
-            txtIdTelefonoAdministrador.setText(adminModel.getTelefono());
-            txtCorreoAdministrador.setText(adminModel.getCorreo());
-            txtGenero.setText(adminModel.getGenero());
-            
-            System.out.println("Datos precargados para administrador: " + adminModel.getPrimerNombre() + 
-                             " (ID: " + idAdministrador + ")");*/
         } else {
-            System.out.println("No se encontró administrador con ID: " + idProveedor);
+            System.out.println("No se encontró proveedor con ID: " + idProveedor);
             JOptionPane.showMessageDialog(this,
                     "Error: No se pudo encontrar la información del administrador.\n"
                     + "ID: " + idProveedor,
@@ -108,6 +99,7 @@ public class Proveedor extends javax.swing.JFrame {
     }
 
     SpinnerNumberModel modelo = new SpinnerNumberModel(1, 1, 100, 1);
+    SpinnerNumberModel modelo2 = new SpinnerNumberModel(1, 0, 100, 1);
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -168,12 +160,23 @@ public class Proveedor extends javax.swing.JFrame {
         jLabel20 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
-        lblRepuesto1 = new javax.swing.JLabel();
+        lblActualizarPrecio = new javax.swing.JLabel();
         txtActualizarRepuesto = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnActualizarR = new javax.swing.JButton();
+        btnCancelarR = new javax.swing.JButton();
         jLabel24 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
+        lblRepuesto9 = new javax.swing.JLabel();
+        cboSolicitudActualizar = new javax.swing.JComboBox<>();
+        btnBuscarParaAct = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
+        lblQuéQuieresActualizar1 = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        txtActualizarPrecioR = new javax.swing.JTextField();
+        lblDigitaStock = new javax.swing.JLabel();
+        spiActualizarStock = new javax.swing.JSpinner();
+        lblSelecEstadoN = new javax.swing.JLabel();
+        cboActualizarEstado = new javax.swing.JComboBox<>();
         panelEliminar = new javax.swing.JPanel();
         jLabel25 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
@@ -806,35 +809,40 @@ public class Proveedor extends javax.swing.JFrame {
         jLabel23.setText("- BÚSQUEDA RÁPIDA Y EFICIENTE EN EL SISTEMA.");
         PanelActualizar.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, -1, -1));
 
-        lblRepuesto1.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
-        lblRepuesto1.setForeground(new java.awt.Color(0, 0, 0));
-        lblRepuesto1.setText("1. INGRESE EL ID DEL REPUESTO PARA HALLARLO EN EL SISTEMA:");
-        PanelActualizar.add(lblRepuesto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, -1, -1));
+        lblActualizarPrecio.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
+        lblActualizarPrecio.setForeground(new java.awt.Color(0, 0, 0));
+        lblActualizarPrecio.setText("DIGITA EL PRECIO PARA ACTUALIZAR:");
+        PanelActualizar.add(lblActualizarPrecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 230, -1, -1));
 
         txtActualizarRepuesto.setBackground(new java.awt.Color(204, 204, 204));
         txtActualizarRepuesto.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
         txtActualizarRepuesto.setForeground(new java.awt.Color(0, 0, 0));
         PanelActualizar.add(txtActualizarRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 240, 30));
 
-        jButton3.setBackground(new java.awt.Color(0, 153, 0));
-        jButton3.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("BUSCAR");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnActualizarR.setBackground(new java.awt.Color(0, 153, 0));
+        btnActualizarR.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
+        btnActualizarR.setForeground(new java.awt.Color(255, 255, 255));
+        btnActualizarR.setText("ACTUALIZAR");
+        btnActualizarR.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnActualizarRActionPerformed(evt);
             }
         });
-        PanelActualizar.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 160, 80, 30));
+        PanelActualizar.add(btnActualizarR, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, 130, 30));
 
-        jButton4.setBackground(new java.awt.Color(153, 0, 0));
-        jButton4.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jButton4.setText("X");
-        PanelActualizar.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 160, 80, 30));
+        btnCancelarR.setBackground(new java.awt.Color(153, 0, 0));
+        btnCancelarR.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
+        btnCancelarR.setForeground(new java.awt.Color(255, 255, 255));
+        btnCancelarR.setText("X");
+        btnCancelarR.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarRActionPerformed(evt);
+            }
+        });
+        PanelActualizar.add(btnCancelarR, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 280, 80, 30));
 
         jLabel24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buscar.png"))); // NOI18N
-        PanelActualizar.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 160, -1, -1));
+        PanelActualizar.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 160, -1, -1));
 
         jPanel4.setBackground(new java.awt.Color(216, 216, 217));
 
@@ -850,6 +858,88 @@ public class Proveedor extends javax.swing.JFrame {
         );
 
         PanelActualizar.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 690, 10));
+
+        lblRepuesto9.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
+        lblRepuesto9.setForeground(new java.awt.Color(0, 0, 0));
+        lblRepuesto9.setText("1. INGRESE EL ID DEL REPUESTO PARA HALLARLO EN EL SISTEMA:");
+        PanelActualizar.add(lblRepuesto9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, -1, -1));
+
+        cboSolicitudActualizar.setBackground(new java.awt.Color(204, 204, 204));
+        cboSolicitudActualizar.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
+        cboSolicitudActualizar.setForeground(new java.awt.Color(0, 0, 0));
+        cboSolicitudActualizar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--------------------------", "Precio", "Stock", "Estado" }));
+        cboSolicitudActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboSolicitudActualizarActionPerformed(evt);
+            }
+        });
+        PanelActualizar.add(cboSolicitudActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, 220, -1));
+
+        btnBuscarParaAct.setBackground(new java.awt.Color(0, 153, 0));
+        btnBuscarParaAct.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
+        btnBuscarParaAct.setForeground(new java.awt.Color(255, 255, 255));
+        btnBuscarParaAct.setText("BUSCAR");
+        btnBuscarParaAct.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarParaActActionPerformed(evt);
+            }
+        });
+        PanelActualizar.add(btnBuscarParaAct, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 160, 100, 30));
+
+        jButton6.setBackground(new java.awt.Color(204, 204, 255));
+        jButton6.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
+        jButton6.setForeground(new java.awt.Color(255, 255, 255));
+        jButton6.setText("LIMPIAR");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+        PanelActualizar.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 160, 90, 30));
+
+        lblQuéQuieresActualizar1.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
+        lblQuéQuieresActualizar1.setForeground(new java.awt.Color(0, 0, 0));
+        lblQuéQuieresActualizar1.setText("¿QUÉ DATO QUIERES MODIFICAR?");
+        PanelActualizar.add(lblQuéQuieresActualizar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, -1, -1));
+
+        jPanel6.setBackground(new java.awt.Color(204, 204, 204));
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 10, Short.MAX_VALUE)
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 210, Short.MAX_VALUE)
+        );
+
+        PanelActualizar.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 220, 10, 210));
+
+        txtActualizarPrecioR.setBackground(new java.awt.Color(204, 204, 204));
+        txtActualizarPrecioR.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
+        txtActualizarPrecioR.setForeground(new java.awt.Color(0, 0, 0));
+        PanelActualizar.add(txtActualizarPrecioR, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 250, 120, -1));
+
+        lblDigitaStock.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
+        lblDigitaStock.setForeground(new java.awt.Color(0, 0, 0));
+        lblDigitaStock.setText("DIGITA EL NUEVO STOCK:");
+        PanelActualizar.add(lblDigitaStock, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 230, -1, -1));
+
+        spiActualizarStock.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
+        PanelActualizar.add(spiActualizarStock, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 250, 190, -1));
+
+        lblSelecEstadoN.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
+        lblSelecEstadoN.setForeground(new java.awt.Color(0, 0, 0));
+        lblSelecEstadoN.setText("SELECCIONA EL NUEVO ESTADO DEL REPUESTO:");
+        PanelActualizar.add(lblSelecEstadoN, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 230, -1, -1));
+
+        cboActualizarEstado.setBackground(new java.awt.Color(204, 204, 205));
+        cboActualizarEstado.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
+        cboActualizarEstado.setForeground(new java.awt.Color(0, 0, 0));
+        cboActualizarEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sin seleccionar", "Disponible", "Descontinuado", "Agotado" }));
+        PanelActualizar.add(cboActualizarEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 250, 220, -1));
 
         jTabbedPane1.addTab("Actualizar", PanelActualizar);
 
@@ -1445,7 +1535,16 @@ public class Proveedor extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnBuscarParaEliminar1ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnActualizarRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarRActionPerformed
+
+    }//GEN-LAST:event_btnActualizarRActionPerformed
+
+    private void btnReiniciarTablaRepuestosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReiniciarTablaRepuestosActionPerformed
+        recargarTabla(tablaRepuestos, lista.listaRepuestos);
+        JOptionPane.showMessageDialog(null, "Tabla refrescada correctamente.", "Actualización.", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_btnReiniciarTablaRepuestosActionPerformed
+
+    private void btnBuscarParaActActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarParaActActionPerformed
         //30 de noviembre
         String idRepuesto = txtActualizarRepuesto.getText();
         txtActualizarRepuesto.setEnabled(true);
@@ -1466,20 +1565,81 @@ public class Proveedor extends javax.swing.JFrame {
                     Repuesto encontrado = buscador.buscarPorId(lista.listaRepuestos, id);
 
                     if (encontrado != null) {
-
                         JOptionPane.showMessageDialog(null, "¡Repuesto encontrado existosamente, puedes dormir!", "Correcto.", JOptionPane.INFORMATION_MESSAGE);
+                        mostrarZonaDeActualizar();
+                        ocultarDespuesDeTodoExitoso();
                     } else {
                         JOptionPane.showMessageDialog(null, "¡No se encontró el repuesto!", "Correcto.", JOptionPane.ERROR_MESSAGE);
                     }
                 } //Else
             }
         }
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btnBuscarParaActActionPerformed
 
-    private void btnReiniciarTablaRepuestosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReiniciarTablaRepuestosActionPerformed
-        recargarTabla(tablaRepuestos, lista.listaRepuestos);
-        JOptionPane.showMessageDialog(null, "Tabla refrescada correctamente.", "Actualización.", JOptionPane.INFORMATION_MESSAGE);
-    }//GEN-LAST:event_btnReiniciarTablaRepuestosActionPerformed
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        txtActualizarRepuesto.setText("");
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void btnCancelarRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarRActionPerformed
+        ocultarZonaDeActualizar();
+        JOptionPane.showMessageDialog(null, "Proceso de actualizar cancelado", "Cancelación.", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_btnCancelarRActionPerformed
+
+    private void cboSolicitudActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboSolicitudActualizarActionPerformed
+
+        String solicitud = cboSolicitudActualizar.getSelectedItem().toString().trim();
+
+        if (solicitud.equalsIgnoreCase("--------------------------")) {
+
+            jPanel6.setVisible(false);
+            txtActualizarPrecioR.setVisible(false);
+            lblActualizarPrecio.setVisible(false);
+            lblDigitaStock.setVisible(false);
+            spiActualizarStock.setVisible(false);
+            lblSelecEstadoN.setVisible(false);
+            cboActualizarEstado.setVisible(false);
+
+        } else if (solicitud.equalsIgnoreCase("Precio")) {
+
+            //Cuando la condición es verdadera
+            jPanel6.setVisible(true);
+            txtActualizarPrecioR.setVisible(true);
+            lblActualizarPrecio.setVisible(true);
+
+            //Para evitar inconsistencias 
+            lblDigitaStock.setVisible(false);
+            spiActualizarStock.setVisible(false);
+            lblSelecEstadoN.setVisible(false);
+            cboActualizarEstado.setVisible(false);
+
+        } else if (solicitud.equalsIgnoreCase("Stock")) {
+
+            //Cuando la condición es verdadera
+            jPanel6.setVisible(true);
+            lblDigitaStock.setVisible(true);
+            spiActualizarStock.setVisible(true);
+
+            //Para evitar inconsistencias
+            txtActualizarPrecioR.setVisible(false);
+            lblActualizarPrecio.setVisible(false);
+            lblSelecEstadoN.setVisible(false);
+            cboActualizarEstado.setVisible(false);
+
+        } else if (solicitud.equalsIgnoreCase("Estado")) {
+
+            //Cuando la condición es verdadera
+            jPanel6.setVisible(true);
+            lblSelecEstadoN.setVisible(true);
+            cboActualizarEstado.setVisible(true);
+
+            //Para evitar inconsistencias
+            txtActualizarPrecioR.setVisible(false);
+            lblActualizarPrecio.setVisible(false);
+            lblDigitaStock.setVisible(false);
+            spiActualizarStock.setVisible(false);
+        }
+
+    }//GEN-LAST:event_cboSolicitudActualizarActionPerformed
 
     //Proveedor p = Sesion.proveedorActual;
     public static void main(String args[]) {
@@ -1495,12 +1655,17 @@ public class Proveedor extends javax.swing.JFrame {
     private javax.swing.JPanel PanelActualizar;
     private javax.swing.JPanel PanelAgregar;
     private javax.swing.JPanel PanelNegro2;
+    private javax.swing.JButton btnActualizarR;
+    private javax.swing.JButton btnBuscarParaAct;
     private javax.swing.JButton btnBuscarParaEliminar1;
+    private javax.swing.JButton btnCancelarR;
     private javax.swing.JButton btnEliminarRepuesto;
     private javax.swing.JButton btnLimpiarCampoDelete;
     private javax.swing.JButton btnReiniciarTablaRepuestos;
+    private javax.swing.JComboBox<String> cboActualizarEstado;
     private javax.swing.JComboBox<String> cboCategoria;
     private javax.swing.JComboBox<String> cboMarcaRepuesto;
+    private javax.swing.JComboBox<String> cboSolicitudActualizar;
     private javax.swing.JLabel iconAgendarCita;
     private javax.swing.JLabel iconAgregarPaciente;
     private javax.swing.JLabel iconCerrarSesion;
@@ -1510,8 +1675,7 @@ public class Proveedor extends javax.swing.JFrame {
     private javax.swing.JLabel iconRepuesto;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -1547,6 +1711,7 @@ public class Proveedor extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
@@ -1558,15 +1723,17 @@ public class Proveedor extends javax.swing.JFrame {
     private javax.swing.JLabel labelEditarPaciente1;
     private javax.swing.JLabel labelMenúOpciones;
     private javax.swing.JLabel labelRecepcionisa1;
+    private javax.swing.JLabel lblActualizarPrecio;
     private javax.swing.JLabel lblCOP;
     private javax.swing.JLabel lblCategoria;
     private javax.swing.JLabel lblDescripcionRepuesto;
+    private javax.swing.JLabel lblDigitaStock;
     private javax.swing.JLabel lblMarcaRepuesto;
     private javax.swing.JLabel lblNombreProv;
     private javax.swing.JLabel lblNombreRepuesto;
     private javax.swing.JLabel lblPrecioRepuesto;
+    private javax.swing.JLabel lblQuéQuieresActualizar1;
     private javax.swing.JLabel lblRepuesto;
-    private javax.swing.JLabel lblRepuesto1;
     private javax.swing.JLabel lblRepuesto2;
     private javax.swing.JLabel lblRepuesto3;
     private javax.swing.JLabel lblRepuesto4;
@@ -1574,6 +1741,8 @@ public class Proveedor extends javax.swing.JFrame {
     private javax.swing.JLabel lblRepuesto6;
     private javax.swing.JLabel lblRepuesto7;
     private javax.swing.JLabel lblRepuesto8;
+    private javax.swing.JLabel lblRepuesto9;
+    private javax.swing.JLabel lblSelecEstadoN;
     private javax.swing.JLabel lblStock;
     private javax.swing.JPanel panelBtnActualizar;
     private javax.swing.JPanel panelBtnAgregar;
@@ -1599,7 +1768,9 @@ public class Proveedor extends javax.swing.JFrame {
     private javax.swing.JPanel panelGris;
     private javax.swing.JPanel panelMenu;
     private javax.swing.JPanel panelNegro;
+    private javax.swing.JSpinner spiActualizarStock;
     private javax.swing.JTable tablaRepuestos;
+    private javax.swing.JTextField txtActualizarPrecioR;
     private javax.swing.JTextField txtActualizarRepuesto;
     private javax.swing.JTextField txtCargarCategoriaRepuesto1;
     private javax.swing.JTextField txtCargarMarcaRepuesto;
@@ -1726,7 +1897,7 @@ public class Proveedor extends javax.swing.JFrame {
     }
 
     public void recargarTabla(JTable tablaRepuestos, Lista lista) {
-         DefaultTableModel model = (DefaultTableModel) tablaRepuestos.getModel();
+        DefaultTableModel model = (DefaultTableModel) tablaRepuestos.getModel();
         model.setRowCount(0);
 
         Nodo actual = lista.getPrimero();
@@ -1747,5 +1918,34 @@ public class Proveedor extends javax.swing.JFrame {
             model.addRow(rowData);
             actual = actual.getSiguiente();
         }
+    }
+
+    private void ocultarZonaDeActualizar() {
+        lblQuéQuieresActualizar1.setVisible(false);
+        lblActualizarPrecio.setVisible(false);
+        cboSolicitudActualizar.setVisible(false);
+        btnActualizarR.setVisible(false);
+        btnCancelarR.setVisible(false);
+        jPanel6.setVisible(false);
+        txtActualizarPrecioR.setVisible(false);
+        lblActualizarPrecio.setVisible(false);
+        lblDigitaStock.setVisible(false);
+        spiActualizarStock.setVisible(false);
+        lblSelecEstadoN.setVisible(false);
+        cboActualizarEstado.setVisible(false);
+
+    }
+
+    private void mostrarZonaDeActualizar() {
+        lblQuéQuieresActualizar1.setVisible(true);
+        lblActualizarPrecio.setVisible(true);
+        cboSolicitudActualizar.setVisible(true);
+        btnActualizarR.setVisible(true);
+        btnCancelarR.setVisible(true);
+    }
+
+    private void ocultarDespuesDeTodoExitoso() {
+        lblActualizarPrecio.setVisible(false);
+        txtActualizarPrecioR.setVisible(false);
     }
 }
