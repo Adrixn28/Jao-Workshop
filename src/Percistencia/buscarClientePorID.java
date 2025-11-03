@@ -15,12 +15,13 @@ import javax.swing.JOptionPane;
  */
 public class buscarClientePorID {
 
-    public Cliente buscarPorId(Lista ListaClientes, int idBuscar) {
+    public Cliente buscarClientePorId(Lista ListaClientes, int idBuscar) {
         Nodo actual = ListaClientes.getPrimero();
         
          while (actual != null) {
             Object dato = actual.getDato();
             if (dato instanceof Cliente) {
+             //Hace un cast de dato a Cliente y lo guarda en la variable clie. Ahora se puede acceder a los métodos de Cliente.    
                 Cliente clie = (Cliente) dato;
                 if(Integer.parseInt(clie.getIdCliente()) == idBuscar){
                     return clie;

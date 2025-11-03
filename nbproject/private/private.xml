@@ -3,18 +3,20 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-            <file>file:/C:/Users/Adrian/Documents/NetBeansProjects/JaoWorkshop/src/View/Bievenida.java</file>
-            <file>file:/C:/Users/Adrian/Documents/NetBeansProjects/JaoWorkshop/src/listaDoble/Lista.java</file>
-            <file>file:/C:/Users/JABER/Desktop/Jao-Workshop/src/View/Recepcionista.java</file>
-            <file>file:/C:/Users/JABER/Desktop/Jao-Workshop/src/View/Proveedor.java</file>
-=======
-            <file>file:/C:/Users/Osvaldo/Desktop/Universidad%204SEM/ProyectoAula/Jao-Workshop/src/jaoworkshop/JaoWorkshop.java</file>
-            <file>file:/C:/Users/Osvaldo/Desktop/Universidad%204SEM/ProyectoAula/Jao-Workshop/src/View/Administrador.java</file>
-            <file>file:/C:/Users/Osvaldo/Desktop/Universidad%204SEM/ProyectoAula/Jao-Workshop/src/View/Login.java</file>
-            <file>file:/C:/Users/Osvaldo/Desktop/Universidad%204SEM/ProyectoAula/Jao-Workshop/src/Service/AdministradorService.java</file>
-            <file>file:/C:/Users/Osvaldo/Desktop/Universidad%204SEM/ProyectoAula/Jao-Workshop/src/View/Bievenida.java</file>
->>>>>>> 147c98674f9ad3b0477e7914827e42943ac86ef4
+            <file>file:/C:/Users/JABER/Desktop/Proaula%20Actualizado/Jao-Workshop/src/Percistencia/buscarClientePorID.java</file>
+            <file>file:/C:/Users/JABER/Desktop/Proaula%20Actualizado/Jao-Workshop/src/View/Proveedor.java</file>
+            <file>file:/C:/Users/JABER/Desktop/Proaula%20Actualizado/Jao-Workshop/src/Percistencia/RedireccionPorRol.java</file>
+            <file>file:/C:/Users/JABER/Desktop/Proaula%20Actualizado/Jao-Workshop/src/Percistencia/eliminarProveedorPorID.java</file>
+            <file>file:/C:/Users/JABER/Desktop/Proaula%20Actualizado/Jao-Workshop/src/Percistencia/ExisteRepuestoId.java</file>
+            <file>file:/C:/Users/JABER/Desktop/Proaula%20Actualizado/Jao-Workshop/src/Percistencia/RepositorioAdministrador.java</file>
+            <file>file:/C:/Users/JABER/Desktop/Proaula%20Actualizado/Jao-Workshop/src/Model/Repuesto.java</file>
+            <file>file:/C:/Users/JABER/Desktop/Proaula%20Actualizado/Jao-Workshop/src/Percistencia/EliminarRepuestoId.java</file>
+            <file>file:/C:/Users/JABER/Desktop/Proaula%20Actualizado/Jao-Workshop/src/Model/Administrador.java</file>
+            <file>file:/C:/Users/JABER/Desktop/Proaula%20Actualizado/Jao-Workshop/src/Percistencia/BuscarRepuestoId.java</file>
+            <file>file:/C:/Users/JABER/Desktop/Proaula%20Actualizado/Jao-Workshop/src/Model/Proveedor.java</file>
+            <file>file:/C:/Users/JABER/Desktop/Proaula%20Actualizado/Jao-Workshop/src/Model/Cliente.java</file>
+            <file>file:/C:/Users/JABER/Desktop/Proaula%20Actualizado/Jao-Workshop/src/Percistencia/eliminarClientePorID.java</file>
+            <file>file:/C:/Users/JABER/Desktop/Proaula%20Actualizado/Jao-Workshop/src/Percistencia/buscarProveedorID.java</file>
         </group>
     </open-files>
 </project-private>
