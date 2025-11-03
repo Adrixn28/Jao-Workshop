@@ -11,10 +11,11 @@ public class Repuesto {
     private String categoria;
     private double precio;
     private int stock;
+    private String estado;
     private Proveedor proveedor;
     
    
- public Repuesto(int idRepuesto, String nombre, String descripcion, String marca, String categoria, double precio, int stock) {
+ public Repuesto(int idRepuesto, String nombre, String descripcion, String marca, String categoria, double precio, int stock, String estado) {
         this.idRepuesto = idRepuesto;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -22,9 +23,10 @@ public class Repuesto {
         this.categoria = categoria;
         this.precio = precio;
         this.stock = stock;
+        this.estado = estado;
     }
 
-    public Repuesto(int idRepuesto, String nombre, String descripcion, String marca, String categoria, double precio, int stock, Proveedor proveedor) {
+    public Repuesto(int idRepuesto, String nombre, String descripcion, String marca, String categoria, double precio, int stock, String estado ,Proveedor proveedor) {
         this.idRepuesto = idRepuesto;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -32,6 +34,7 @@ public class Repuesto {
         this.categoria = categoria;
         this.precio = precio;
         this.stock = stock;
+        this.estado = estado;
         this.proveedor = proveedor;
     }
     
@@ -100,4 +103,11 @@ public class Repuesto {
         this.proveedor = proveedor;
     } 
 
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
 }
