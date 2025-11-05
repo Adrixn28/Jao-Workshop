@@ -160,20 +160,9 @@ public class RedireccionPorRol {
             return false;
         }
         
-        System.out.println("Frame Proveedor pendiente de implementar con ID: " + id);
-        
-        // ⭐ PARA TUS COMPAÑEROS: Cuando implementen Proveedor.java, cambiar esta línea:
-        // new Proveedor(id).setVisible(true);
-        
-        // Por ahora mostrar mensaje informativo
-        JOptionPane.showMessageDialog(frameLogin, 
-            "Proveedor ID: " + id + "\\n\\nPara implementar:\\n" +
-            "1. Crear constructor Proveedor(String id)\\n" +
-            "2. Descomentar línea en abrirFrameProveedor()\\n" +
-            "3. Seguir guía GUIA_IMPLEMENTACION_ID.md", 
-            "Frame Proveedor - En Desarrollo", JOptionPane.INFORMATION_MESSAGE);
-        
-        return false; // Retornar false para no cerrar login hasta implementar
+        System.out.println("Abriendo frame Proveedor con ID: " + id);
+        new Proveedor().setVisible(true);
+        return true;
     }
     
     /**
