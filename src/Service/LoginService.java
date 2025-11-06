@@ -316,4 +316,130 @@ public class LoginService {
         inicializarPersistenciasLazy();
         sesionActual.imprimirEstadoSesion();
     }
+    
+    // ===============================
+    // MÉTODOS PARA INTEGRACIÓN CON CLIENTE
+    // ===============================
+    
+    /**
+     * Obtiene el objeto Usuario completo basado en el ID de la sesión actual
+     * @return Usuario logueado o null si no se encuentra
+     */
+    public Usuario getUsuarioActualCompleto() {
+        inicializarPersistenciasLazy();
+        
+        if (!sesionActual.haySesionActiva()) {
+            return null;
+        }
+        
+        String idUsuario = sesionActual.getIdUsuarioActual();
+        String rol = sesionActual.getRolUsuarioActual();
+        
+        return buscarUsuarioPorId(idUsuario, rol);
+    }
+    
+    /**
+     * Busca un usuario por su ID en la lista correspondiente a su rol
+     * @param id ID del usuario a buscar
+     * @param rol Rol del usuario para saber en qué lista buscar
+     * @return Usuario encontrado o null
+     */
+    public Usuario buscarUsuarioPorId(String id, String rol) {
+        Lista lista = obtenerListaPorRol(rol);
+        
+        if (lista == null || lista.getPrimero() == null) {
+            return null;
+        }
+        
+        Nodo actual = lista.getPrimero();
+        while (actual != null) {
+            Usuario usuario = (Usuario) actual.getDato();
+            
+            // Usar el método de ID específico según el rol
+            String usuarioId = null;
+            switch (rol.toLowerCase()) {
+                case "administrador":
+                    usuarioId = ((Administrador) usuario).getIdAdministrador();
+                    break;
+                case "cliente":
+                    usuarioId = ((Cliente) usuario).getIdCliente();
+                    break;
+                case "recepcionista":
+                    usuarioId = ((Recepcionista) usuario).getIdRecepcionista();
+                    break;
+                case "proveedor":
+                    usuarioId = ((Proveedor) usuario).getIdProveedor();
+                    break;
+            }
+            
+            if (usuarioId != null && usuarioId.equals(id)) {
+                return usuario;
+            }
+            actual = actual.getSiguiente();
+        }
+        
+        return null;
+    }
+    
+    /**
+     * Obtiene el nombre completo del usuario actual (Nombre + Apellido)
+     * @return Nombre completo formateado o "Usuario no identificado"
+     */
+    public String getNombreCompletoUsuarioActual() {
+        Usuario usuario = getUsuarioActualCompleto();
+        
+        if (usuario != null) {
+            return usuario.getPrimerNombre() + " " + usuario.getPrimerApellido();
+        } else {
+            return "Usuario no identificado";
+        }
+    }
+    
+    /**
+     * Abre el frame Cliente con la información del usuario logueado
+     * Este método puede ser llamado desde cualquier parte del sistema
+     * @return true si se abrió exitosamente
+     */
+    public boolean abrirFrameCliente() {
+        try {
+            inicializarPersistenciasLazy();
+            
+            if (!sesionActual.haySesionActiva()) {
+                System.out.println("No hay sesión activa para abrir Cliente");
+                return false;
+            }
+            
+            String nombreCompleto = getNombreCompletoUsuarioActual();
+            String rol = sesionActual.getRolUsuarioActual();
+            
+            System.out.println("Abriendo frame Cliente para: " + nombreCompleto + " (" + rol + ")");
+            
+            // Crear Cliente con nombre completo
+            new View.Cliente(nombreCompleto).setVisible(true);
+            
+            return true;
+            
+        } catch (Exception e) {
+            System.err.println("Error al abrir frame Cliente: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    /**
+     * Método de testing para probar la apertura del Cliente con usuario específico
+     * @param nombreUsuario Nombre del usuario para mostrar
+     * @return true si se abrió exitosamente
+     */
+    public static boolean testAbrirCliente(String nombreUsuario) {
+        try {
+            System.out.println("TEST: Abriendo Cliente con usuario: " + nombreUsuario);
+            new View.Cliente(nombreUsuario).setVisible(true);
+            return true;
+        } catch (Exception e) {
+            System.err.println("ERROR en test Cliente: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

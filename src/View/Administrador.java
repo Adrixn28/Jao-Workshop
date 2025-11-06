@@ -458,62 +458,14 @@ public class Administrador extends javax.swing.JFrame {
             idProveedorSeleccionado = jTableProveedores.getValueAt(filaSeleccionada, 0).toString();
         }
         
-        listaDoble.Lista listaProveedores = administradorService.obtenerTodosLosProveedores();
-        
-        if (listaProveedores != null && listaProveedores.getPrimero() != null) {
-            listaDoble.Nodo actual = listaProveedores.getPrimero();
-            
-            while (actual != null) {
-                Model.Proveedor proveedor = (Model.Proveedor) actual.getDato();
-                
-                // Saltar el proveedor seleccionado en caso de edición
-                if (idProveedorSeleccionado != null && proveedor.getIdProveedor().equals(idProveedorSeleccionado)) {
-                    actual = actual.getSiguiente();
-                    continue;
-                }
-                
-                // Validar duplicados
-                if (proveedor.getUsuario().equals(usuario)) {
-                    JOptionPane.showMessageDialog(this, 
-                        "Este usuario ya fue creado.\nCoincidencia encontrada en: USUARIO\n" +
-                        "Proveedor existente: " + proveedor.getPrimerNombre() + " " + proveedor.getPrimerApellido() + 
-                        " (ID: " + proveedor.getIdProveedor() + ")", 
-                        "Usuario Duplicado", JOptionPane.WARNING_MESSAGE);
-                    return false;
-                }
-                
-                if (proveedor.getCorreo().equals(correo)) {
-                    JOptionPane.showMessageDialog(this, 
-                        "Este usuario ya fue creado.\nCoincidencia encontrada en: CORREO ELECTRÓNICO\n" +
-                        "Proveedor existente: " + proveedor.getPrimerNombre() + " " + proveedor.getPrimerApellido() + 
-                        " (ID: " + proveedor.getIdProveedor() + ")", 
-                        "Correo Duplicado", JOptionPane.WARNING_MESSAGE);
-                    return false;
-                }
-                
-                if (proveedor.getTelefono().equals(telefono)) {
-                    JOptionPane.showMessageDialog(this, 
-                        "Este usuario ya fue creado.\nCoincidencia encontrada en: TELÉFONO\n" +
-                        "Proveedor existente: " + proveedor.getPrimerNombre() + " " + proveedor.getPrimerApellido() + 
-                        " (ID: " + proveedor.getIdProveedor() + ")", 
-                        "Teléfono Duplicado", JOptionPane.WARNING_MESSAGE);
-                    return false;
-                }
-                
-                if (proveedor.getCedula().equals(cedula)) {
-                    JOptionPane.showMessageDialog(this, 
-                        "Este usuario ya fue creado.\nCoincidencia encontrada en: CÉDULA\n" +
-                        "Proveedor existente: " + proveedor.getPrimerNombre() + " " + proveedor.getPrimerApellido() + 
-                        " (ID: " + proveedor.getIdProveedor() + ")", 
-                        "Cédula Duplicada", JOptionPane.WARNING_MESSAGE);
-                    return false;
-                }
-                
-                actual = actual.getSiguiente();
-            }
+        // Usar el nuevo método de persistencia
+        if (idProveedorSeleccionado != null) {
+            // Caso de edición: excluir el proveedor actual
+            return administradorService.validarProveedorParaEdicion(usuario, correo, telefono, cedula, idProveedorSeleccionado);
+        } else {
+            // Caso de nuevo proveedor: validar sin exclusiones
+            return administradorService.validarProveedorSinDuplicados(usuario, correo, telefono, cedula);
         }
-        
-        return true; // No hay duplicados
     }
     
     // ========================================
@@ -586,42 +538,26 @@ public class Administrador extends javax.swing.JFrame {
             return;
         }
         
-        String idProveedor = jTableProveedores.getValueAt(filaSeleccionada, 0).toString();
-        String usuarioSeleccionado = txtUsuarioProveedor.getText().trim();
-        
-        // Confirmación de edición
-        int confirmacion = JOptionPane.showConfirmDialog(this,
-            "¿Está seguro que quiere editar los datos del usuario: " + usuarioSeleccionado + "?",
-            "Confirmar Edición",
-            JOptionPane.YES_NO_OPTION,
-            JOptionPane.QUESTION_MESSAGE);
-        
-        if (confirmacion != JOptionPane.YES_OPTION) {
+        // Validar campos obligatorios
+        if (txtNombreProveedor.getText().trim().isEmpty() ||
+            txtApellidosProveedor.getText().trim().isEmpty() ||
+            txtUsuarioProveedor.getText().trim().isEmpty() ||
+            txtContraseñaProveedor.getText().trim().isEmpty() ||
+            txtCorreoProveedor.getText().trim().isEmpty() ||
+            txtTelefonoProveedor.getText().trim().isEmpty() ||
+            txtCedulaProveedor.getText().trim().isEmpty() ||
+            txtAniosExperienciaProveedor.getText().trim().isEmpty() ||
+            cboGeneroProveedor.getSelectedIndex() == 0) {
+            
+            JOptionPane.showMessageDialog(this, 
+                "Por favor, complete todos los campos obligatorios.", 
+                "Campos Incompletos", JOptionPane.WARNING_MESSAGE);
             return;
         }
         
         try {
-            // Validar campos obligatorios
-            if (txtNombreProveedor.getText().trim().isEmpty() ||
-                txtApellidosProveedor.getText().trim().isEmpty() ||
-                txtUsuarioProveedor.getText().trim().isEmpty() ||
-                txtContraseñaProveedor.getText().trim().isEmpty() ||
-                txtCorreoProveedor.getText().trim().isEmpty() ||
-                txtTelefonoProveedor.getText().trim().isEmpty() ||
-                txtCedulaProveedor.getText().trim().isEmpty() ||
-                txtAniosExperienciaProveedor.getText().trim().isEmpty() ||
-                cboGeneroProveedor.getSelectedIndex() == 0) {
-                
-                JOptionPane.showMessageDialog(this, 
-                    "Por favor, complete todos los campos obligatorios.", 
-                    "Campos Incompletos", JOptionPane.WARNING_MESSAGE);
-                return;
-            }
-            
-            // Validar duplicados
-            if (!validarProveedor()) {
-                return;
-            }
+            String idProveedor = jTableProveedores.getValueAt(filaSeleccionada, 0).toString();
+            String usuarioSeleccionado = txtUsuarioProveedor.getText().trim();
             
             // Separar nombres y apellidos correctamente
             String[] nombres = txtNombreProveedor.getText().trim().split("\\s+", 2);
@@ -663,11 +599,11 @@ public class Administrador extends javax.swing.JFrame {
                 "Proveedor"
             );
             
-            // Actualizar proveedor en el servicio
-            boolean actualizado = administradorService.actualizarProveedor(proveedorActualizado);
+            // Usar el método de persistencia con validación y confirmación
+            boolean guardado = administradorService.guardarEdicionProveedorConConfirmacion(idProveedor, proveedorActualizado, usuarioSeleccionado);
             
-            if (actualizado) {
-                // Actualizar tabla
+            if (guardado) {
+                // Actualizar tabla y resetear estado solo si se guardó exitosamente
                 cargarProveedoresEnTabla();
                 
                 // Resetear estado de edición
@@ -675,20 +611,12 @@ public class Administrador extends javax.swing.JFrame {
                 
                 // Deshabilitar edición
                 establecerCamposProveedorNoEditables();
-                
-                JOptionPane.showMessageDialog(this, 
-                    "Proveedor actualizado exitosamente.", 
-                    "Éxito", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(this, 
-                    "Error al actualizar el proveedor.", 
-                    "Error", JOptionPane.ERROR_MESSAGE);
             }
             
         } catch (Exception e) {
-            System.out.println("Error al actualizar proveedor: " + e.getMessage());
+            System.out.println("Error al procesar edición de proveedor: " + e.getMessage());
             JOptionPane.showMessageDialog(this, 
-                "Error al actualizar proveedor: " + e.getMessage(), 
+                "Error al procesar la edición: " + e.getMessage(), 
                 "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
@@ -706,44 +634,13 @@ public class Administrador extends javax.swing.JFrame {
         String idProveedor = jTableProveedores.getValueAt(filaSeleccionada, 0).toString();
         String usuarioSeleccionado = txtUsuarioProveedor.getText().trim();
         
-        // Confirmación de eliminación con advertencia
-        int confirmacion = JOptionPane.showConfirmDialog(this,
-            "⚠️ CUIDADO ⚠️\n\n" +
-            "Vas a eliminar el usuario: " + usuarioSeleccionado + "\n" +
-            "Esta acción NO se puede deshacer.\n\n" +
-            "¿Está completamente seguro?",
-            "Confirmar Eliminación",
-            JOptionPane.YES_NO_OPTION,
-            JOptionPane.WARNING_MESSAGE);
+        // Usar el método de persistencia con confirmación
+        boolean eliminado = administradorService.eliminarProveedorConConfirmacion(idProveedor, usuarioSeleccionado);
         
-        if (confirmacion != JOptionPane.YES_OPTION) {
-            return;
-        }
-        
-        try {
-            boolean eliminado = administradorService.eliminarProveedor(idProveedor);
-            
-            if (eliminado) {
-                // Actualizar tabla
-                cargarProveedoresEnTabla();
-                
-                // Limpiar campos
-                limpiarCamposProveedor();
-                
-                JOptionPane.showMessageDialog(this, 
-                    "Proveedor eliminado exitosamente.", 
-                    "Eliminación Completada", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(this, 
-                    "Error al eliminar el proveedor.", 
-                    "Error", JOptionPane.ERROR_MESSAGE);
-            }
-            
-        } catch (Exception e) {
-            System.out.println("Error al eliminar proveedor: " + e.getMessage());
-            JOptionPane.showMessageDialog(this, 
-                "Error al eliminar proveedor: " + e.getMessage(), 
-                "Error", JOptionPane.ERROR_MESSAGE);
+        if (eliminado) {
+            // Actualizar tabla y limpiar campos solo si se eliminó exitosamente
+            cargarProveedoresEnTabla();
+            limpiarCamposProveedor();
         }
     }
 
@@ -1101,44 +998,24 @@ public class Administrador extends javax.swing.JFrame {
             return false;
         }
         
-        // Validaciones de formato
-        if (!validarFormatosCamposRecepcionista()) {
+        // Validar formatos usando persistencia
+        if (!administradorService.validarFormatosRecepcionista(
+                txtNombreRecepcionista.getText().trim(),
+                txtApellidosRecepcionista.getText().trim(),
+                txtCorreoRecepcionista.getText().trim(),
+                txtTelefonoRecepcionista.getText().trim(),
+                txtCedulaRecepcionista.getText().trim(),
+                txtAniosExperienciaRecepcionista.getText().trim())) {
             return false;
         }
         
-        // Validar duplicados de usuario
-        listaDoble.Lista listaRecepcionistas = administradorService.obtenerTodosLosRecepcionistas();
-        if (listaRecepcionistas != null && listaRecepcionistas.getPrimero() != null) {
-            listaDoble.Nodo actual = listaRecepcionistas.getPrimero();
-            while (actual != null) {
-                Model.Recepcionista recepcionista = (Model.Recepcionista) actual.getDato();
-                
-                if (recepcionista.getUsuario().equals(txtUsuarioRecepcionista.getText().trim())) {
-                    JOptionPane.showMessageDialog(this, 
-                        "Ya existe un recepcionista con el usuario: " + txtUsuarioRecepcionista.getText().trim(), 
-                        "Usuario Duplicado", JOptionPane.ERROR_MESSAGE);
-                    return false;
-                }
-                
-                if (recepcionista.getCedula().equals(txtCedulaRecepcionista.getText().trim())) {
-                    JOptionPane.showMessageDialog(this, 
-                        "Ya existe un recepcionista con la cédula: " + txtCedulaRecepcionista.getText().trim(), 
-                        "Cédula Duplicada", JOptionPane.ERROR_MESSAGE);
-                    return false;
-                }
-                
-                if (recepcionista.getCorreo().equals(txtCorreoRecepcionista.getText().trim())) {
-                    JOptionPane.showMessageDialog(this, 
-                        "Ya existe un recepcionista con el correo: " + txtCorreoRecepcionista.getText().trim(), 
-                        "Correo Duplicado", JOptionPane.ERROR_MESSAGE);
-                    return false;
-                }
-                
-                actual = actual.getSiguiente();
-            }
-        }
-        
-        return true;
+        // Validar duplicados usando persistencia
+        return administradorService.validarRecepcionistaSinDuplicados(
+            txtUsuarioRecepcionista.getText().trim(),
+            txtCorreoRecepcionista.getText().trim(),
+            txtTelefonoRecepcionista.getText().trim(),
+            txtCedulaRecepcionista.getText().trim()
+        );
     }
     
     /**
@@ -1161,50 +1038,25 @@ public class Administrador extends javax.swing.JFrame {
             return false;
         }
         
-        // Validaciones de formato
-        if (!validarFormatosCamposRecepcionista()) {
+        // Validar formatos usando persistencia
+        if (!administradorService.validarFormatosRecepcionista(
+                txtNombreRecepcionista.getText().trim(),
+                txtApellidosRecepcionista.getText().trim(),
+                txtCorreoRecepcionista.getText().trim(),
+                txtTelefonoRecepcionista.getText().trim(),
+                txtCedulaRecepcionista.getText().trim(),
+                txtAniosExperienciaRecepcionista.getText().trim())) {
             return false;
         }
         
-        // Validar duplicados EXCLUYENDO al recepcionista que estamos editando
-        listaDoble.Lista listaRecepcionistas = administradorService.obtenerTodosLosRecepcionistas();
-        if (listaRecepcionistas != null && listaRecepcionistas.getPrimero() != null) {
-            listaDoble.Nodo actual = listaRecepcionistas.getPrimero();
-            while (actual != null) {
-                Model.Recepcionista recepcionista = (Model.Recepcionista) actual.getDato();
-                
-                // IMPORTANTE: Excluir al recepcionista que estamos editando
-                if (!recepcionista.getIdRecepcionista().equals(idRecepcionistaEditando)) {
-                    if (recepcionista.getUsuario().equals(txtUsuarioRecepcionista.getText().trim())) {
-                        JOptionPane.showMessageDialog(this, 
-                            "Ya existe un recepcionista con ese nombre de usuario.\n" +
-                            "Por favor, elija un nombre de usuario diferente.", 
-                            "Usuario Duplicado", JOptionPane.WARNING_MESSAGE);
-                        return false;
-                    }
-                    
-                    if (recepcionista.getCedula().equals(txtCedulaRecepcionista.getText().trim())) {
-                        JOptionPane.showMessageDialog(this, 
-                            "Ya existe un recepcionista con esa cédula.\n" +
-                            "Por favor, verifique el número de cédula.", 
-                            "Cédula Duplicada", JOptionPane.WARNING_MESSAGE);
-                        return false;
-                    }
-                    
-                    if (recepcionista.getCorreo().equals(txtCorreoRecepcionista.getText().trim())) {
-                        JOptionPane.showMessageDialog(this, 
-                            "Ya existe un recepcionista con ese correo electrónico.\n" +
-                            "Por favor, use un correo diferente.", 
-                            "Correo Duplicado", JOptionPane.WARNING_MESSAGE);
-                        return false;
-                    }
-                }
-                
-                actual = actual.getSiguiente();
-            }
-        }
-        
-        return true;
+        // Validar duplicados para edición (excluyendo el recepcionista actual)
+        return administradorService.validarRecepcionistaParaEdicion(
+            txtUsuarioRecepcionista.getText().trim(),
+            txtCorreoRecepcionista.getText().trim(),
+            txtTelefonoRecepcionista.getText().trim(),
+            txtCedulaRecepcionista.getText().trim(),
+            idRecepcionistaEditando
+        );
     }
     
     // ========================================
@@ -1267,11 +1119,11 @@ public class Administrador extends javax.swing.JFrame {
             txtTelefonoRecepcionista.requestFocus();
             return false;
         }
-        
-        // Validar longitud del teléfono (entre 7 y 15 dígitos)
-        if (telefono.length() < 7 || telefono.length() > 15) {
+
+        // Validar longitud del teléfono ( 10 dígitos)
+        if (telefono.length() != 10) {
             JOptionPane.showMessageDialog(this, 
-                "El teléfono debe tener entre 7 y 15 dígitos.", 
+                "El teléfono debe tener 10 dígitos.", 
                 "Longitud de Teléfono Inválida", JOptionPane.ERROR_MESSAGE);
             txtTelefonoRecepcionista.requestFocus();
             return false;
@@ -1560,40 +1412,22 @@ public class Administrador extends javax.swing.JFrame {
             }
             
             String idRecepcionista = (String) jTableRecepcionista.getValueAt(filaSeleccionada, 0);
-            String nombreRecepcionista = (String) jTableRecepcionista.getValueAt(filaSeleccionada, 1);
+            String usuarioSeleccionado = txtUsuarioRecepcionista.getText().trim();
             
-            int confirmacion = JOptionPane.showConfirmDialog(this,
-                "¿Está seguro de que desea eliminar al recepcionista?\n" +
-                "ID: " + idRecepcionista + "\n" +
-                "Nombre: " + nombreRecepcionista + "\n\n" +
-                "Esta acción no se puede deshacer.",
-                "Confirmar Eliminación",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.WARNING_MESSAGE);
+            // Usar el método de persistencia con confirmación
+            boolean eliminado = administradorService.eliminarRecepcionistaConConfirmacion(idRecepcionista, usuarioSeleccionado);
             
-            if (confirmacion == JOptionPane.YES_OPTION) {
-                boolean eliminado = administradorService.eliminarRecepcionista(idRecepcionista);
-                
-                if (eliminado) {
-                    cargarRecepcionistasEnTabla();
-                    limpiarCamposRecepcionista();
-                    
-                    JOptionPane.showMessageDialog(this, 
-                        "Recepcionista eliminado exitosamente.", 
-                        "Éxito", JOptionPane.INFORMATION_MESSAGE);
-                    
-                    System.out.println("Recepcionista eliminado: " + idRecepcionista);
-                } else {
-                    JOptionPane.showMessageDialog(this, 
-                        "Error al eliminar el recepcionista.", 
-                        "Error", JOptionPane.ERROR_MESSAGE);
-                }
+            if (eliminado) {
+                // Actualizar tabla y limpiar campos solo si se eliminó exitosamente
+                cargarRecepcionistasEnTabla();
+                limpiarCamposRecepcionista();
+                System.out.println("Recepcionista eliminado: " + idRecepcionista);
             }
             
         } catch (Exception e) {
-            System.out.println("Error al eliminar recepcionista: " + e.getMessage());
+            System.out.println("Error al procesar eliminación de recepcionista: " + e.getMessage());
             JOptionPane.showMessageDialog(this, 
-                "Error al eliminar recepcionista: " + e.getMessage(), 
+                "Error al procesar la eliminación: " + e.getMessage(), 
                 "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
@@ -1888,96 +1722,23 @@ public class Administrador extends javax.swing.JFrame {
             return false;
         }
 
-        // Obtener datos del formulario
-        String cedula = txtCedulaCliente.getText().trim();
-        String telefono = txtTelefonoCliente.getText().trim();
-        String correo = txtCorreoCliente.getText().trim();
-        String usuario = txtUsuarioCliente.getText().trim();
-
-        // Validar formato de cédula (solo números, entre 6 y 15 dígitos)
-        if (!cedula.matches("\\d+")) {
-            JOptionPane.showMessageDialog(this, 
-                "La cédula debe contener solo números.", 
-                "Cédula Inválida", JOptionPane.ERROR_MESSAGE);
-            txtCedulaCliente.requestFocus();
-            return false;
-        }
-        
-        if (cedula.length() < 6 || cedula.length() > 15) {
-            JOptionPane.showMessageDialog(this, 
-                "La cédula debe tener entre 6 y 15 dígitos.", 
-                "Longitud de Cédula Inválida", JOptionPane.ERROR_MESSAGE);
-            txtCedulaCliente.requestFocus();
+        // Validar formatos usando persistencia
+        if (!administradorService.validarFormatosCliente(
+                txtNombreCliente.getText().trim(),
+                txtApellidosCliente.getText().trim(),
+                txtCorreoCliente.getText().trim(),
+                txtTelefonoCliente.getText().trim(),
+                txtCedulaCliente.getText().trim())) {
             return false;
         }
 
-        // Validar formato de teléfono (solo números, 10 dígitos)
-        if (!telefono.matches("\\d{10}")) {
-            JOptionPane.showMessageDialog(this, 
-                "⚠️ El teléfono debe contener exactamente 10 dígitos numéricos.", 
-                "Teléfono Inválido", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-
-        // Validar formato de email
-        if (!correo.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$")) {
-            JOptionPane.showMessageDialog(this, 
-                "⚠️ Por favor, ingrese un email válido.", 
-                "Email Inválido", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-
-        // Validar duplicados - Verificar en toda la lista de clientes
-        listaDoble.Lista todosLosClientes = administradorService.obtenerTodosLosClientes();
-        listaDoble.Nodo current = todosLosClientes.getPrimero();
-        
-        while (current != null) {
-            Cliente clienteExistente = (Cliente) current.getDato();
-            
-            // Verificar cédula duplicada
-            if (clienteExistente.getCedula().equals(cedula)) {
-                JOptionPane.showMessageDialog(this, 
-                    "⚠️ ERROR: Ya existe un cliente con la cédula: " + cedula + "\n\n" +
-                    "No se pueden tener clientes con la misma cédula.\n" +
-                    "Por favor, verifique los datos e intente nuevamente.", 
-                    "Cédula Duplicada", JOptionPane.ERROR_MESSAGE);
-                return false;
-            }
-            
-            // Verificar correo duplicado
-            if (clienteExistente.getCorreo().equals(correo)) {
-                JOptionPane.showMessageDialog(this, 
-                    "⚠️ ERROR: Ya existe un cliente con el correo: " + correo + "\n\n" +
-                    "No se pueden tener clientes con el mismo correo.\n" +
-                    "Por favor, use un correo diferente.", 
-                    "Correo Duplicado", JOptionPane.ERROR_MESSAGE);
-                return false;
-            }
-            
-            // Verificar usuario duplicado
-            if (clienteExistente.getUsuario().equals(usuario)) {
-                JOptionPane.showMessageDialog(this, 
-                    "⚠️ ERROR: Ya existe un cliente con el usuario: " + usuario + "\n\n" +
-                    "No se pueden tener clientes con el mismo usuario.\n" +
-                    "Por favor, elija un usuario diferente.", 
-                    "Usuario Duplicado", JOptionPane.ERROR_MESSAGE);
-                return false;
-            }
-            
-            // Verificar teléfono duplicado
-            if (clienteExistente.getTelefono().equals(telefono)) {
-                JOptionPane.showMessageDialog(this, 
-                    "⚠️ ERROR: Ya existe un cliente con el teléfono: " + telefono + "\n\n" +
-                    "No se pueden tener clientes con el mismo teléfono.\n" +
-                    "Por favor, use un teléfono diferente.", 
-                    "Teléfono Duplicado", JOptionPane.ERROR_MESSAGE);
-                return false;
-            }
-            
-            current = current.getSiguiente();
-        }
-
-        return true; // Todos los datos son válidos y únicos
+        // Validar duplicados usando persistencia
+        return administradorService.validarClienteSinDuplicados(
+            txtUsuarioCliente.getText().trim(),
+            txtCorreoCliente.getText().trim(),
+            txtTelefonoCliente.getText().trim(),
+            txtCedulaCliente.getText().trim()
+        );
     }
 
     private void guardarEdicionCliente() {
@@ -2190,90 +1951,35 @@ public class Administrador extends javax.swing.JFrame {
         
         System.out.println("Campos obligatorios: OK");
         
-        // Validar formato de cédula (solo números, entre 6 y 15 dígitos)
-        String cedula = txtCedulaCliente.getText().trim();
-        System.out.println("Validando cédula: '" + cedula + "', longitud: " + cedula.length());
-        
-        if (!cedula.matches("\\d+")) {
-            System.out.println("Error: Cédula no es solo números");
-            JOptionPane.showMessageDialog(this, 
-                "La cédula debe contener solo números.", 
-                "Cédula Inválida", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-        
-        if (cedula.length() < 6 || cedula.length() > 15) {
-            System.out.println("Error: Longitud de cédula inválida - " + cedula.length() + " dígitos");
-            JOptionPane.showMessageDialog(this, 
-                "La cédula debe tener entre 6 y 15 dígitos.\nActual: " + cedula.length() + " dígitos", 
-                "Longitud de Cédula Inválida", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-        
-        System.out.println("Cédula válida: " + cedula);
-        
-        // Validar formato de email
-        String email = txtCorreoCliente.getText().trim();
-        if (!email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$")) {
-            JOptionPane.showMessageDialog(this, 
-                "Por favor, ingrese un email válido.", 
-                "Email Inválido", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-        
-        // Validar formato de teléfono (solo números)
-        String telefono = txtTelefonoCliente.getText().trim();
-        if (!telefono.matches("\\d{10}")) {
-            JOptionPane.showMessageDialog(this, 
-                "El teléfono debe contener exactamente 10 dígitos.", 
-                "Teléfono Inválido", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-        
-        // Para edición: validar que no exista otro cliente con la misma cédula o email
-        String cedulaOriginal = null;
-        String emailOriginal = null;
-        
+        // Obtener ID del cliente actual para exclusión
+        String idClienteActual = null;
         int filaSeleccionada = jTableRecepcionista1.getSelectedRow();
         if (filaSeleccionada >= 0) {
-            // Obtener datos originales de la fila seleccionada
-            // Columnas: 0=ID, 1=Nombres, 2=Apellidos, 3=Cédula, 4=Teléfono, 5=Correo
-            cedulaOriginal = (String) jTableRecepcionista1.getValueAt(filaSeleccionada, 3); // Columna cédula
-            emailOriginal = (String) jTableRecepcionista1.getValueAt(filaSeleccionada, 5); // Columna correo
-            System.out.println("Datos originales obtenidos - Cédula: " + cedulaOriginal + ", Email: " + emailOriginal);
+            idClienteActual = (String) jTableRecepcionista1.getValueAt(filaSeleccionada, 0); // Columna ID
+            System.out.println("ID Cliente actual: " + idClienteActual);
         }
         
-        // Validar duplicados excluyendo el cliente actual
-        listaDoble.Lista todosLosClientes = administradorService.obtenerTodosLosClientes();
-        listaDoble.Nodo current = todosLosClientes.getPrimero();
-        while (current != null) {
-            Cliente cliente = (Cliente) current.getDato();
-            
-            // Excluir el cliente actual de la validación
-            if (cedulaOriginal != null && cliente.getCedula().equals(cedulaOriginal)) {
-                current = current.getSiguiente();
-                continue;
-            }
-            
-            if (cliente.getCedula().equals(cedula)) {
-                JOptionPane.showMessageDialog(this, 
-                    "Ya existe un cliente con la cédula: " + cedula, 
-                    "Cédula Duplicada", JOptionPane.ERROR_MESSAGE);
-                return false;
-            }
-            
-            if (cliente.getCorreo().equals(email)) {
-                JOptionPane.showMessageDialog(this, 
-                    "Ya existe un cliente con el email: " + email, 
-                    "Email Duplicado", JOptionPane.ERROR_MESSAGE);
-                return false;
-            }
-            
-            current = current.getSiguiente();
+        // Validar formatos usando persistencia
+        if (!administradorService.validarFormatosCliente(
+                txtNombreCliente.getText().trim(),
+                txtApellidosCliente.getText().trim(),
+                txtCorreoCliente.getText().trim(),
+                txtTelefonoCliente.getText().trim(),
+                txtCedulaCliente.getText().trim())) {
+            return false;
         }
         
-        System.out.println("=== FIN validarClienteParaEdicion() - TODO OK ===");
-        return true;
+        // Validar duplicados para edición (excluyendo el cliente actual)
+        boolean validacion = administradorService.validarClienteParaEdicion(
+            txtUsuarioCliente.getText().trim(),
+            txtCorreoCliente.getText().trim(),
+            txtTelefonoCliente.getText().trim(),
+            txtCedulaCliente.getText().trim(),
+            idClienteActual
+        );
+        
+        System.out.println("=== FIN validarClienteParaEdicion() - Resultado: " + validacion + " ===");
+        return validacion;
     }
 
     /**

@@ -8,6 +8,9 @@ import Model.*;
 import listaDoble.Lista;
 import listaDoble.Nodo;
 import Percistencia.RepositorioAdministrador;
+import Percistencia.ProveedorPersistencia;
+import Percistencia.RecepcionistaPersistencia;
+import Percistencia.ClientePersistencia;
 
 /**
  *
@@ -16,16 +19,25 @@ import Percistencia.RepositorioAdministrador;
 public class AdministradorService {
     private RepositorioAdministrador repositorio;
     private LoginService loginService;
+    private ProveedorPersistencia proveedorPersistencia;
+    private RecepcionistaPersistencia recepcionistaPersistencia;
+    private ClientePersistencia clientePersistencia;
 
     public AdministradorService() {
         this.repositorio = new RepositorioAdministrador();
         this.loginService = new LoginService();
+        this.proveedorPersistencia = new ProveedorPersistencia(this);
+        this.recepcionistaPersistencia = new RecepcionistaPersistencia(this);
+        this.clientePersistencia = new ClientePersistencia(this);
     }
     
     // Constructor que recibe el LoginService para acceder a las listas
     public AdministradorService(LoginService loginService) {
         this.repositorio = new RepositorioAdministrador();
         this.loginService = loginService;
+        this.proveedorPersistencia = new ProveedorPersistencia(this);
+        this.recepcionistaPersistencia = new RecepcionistaPersistencia(this);
+        this.clientePersistencia = new ClientePersistencia(this);
     }
 
     public boolean registrarAdministrador(String idAdministrador, 
@@ -454,5 +466,115 @@ public class AdministradorService {
         }
         
         return prefijo + String.format("%03d", contador);
+    }
+    
+    // ===================================
+    // MÉTODOS DE PERSISTENCIA PROVEEDORES  
+    // ===================================
+    
+    /**
+     * Valida si un proveedor puede ser agregado (sin duplicados)
+     */
+    public boolean validarProveedorSinDuplicados(String usuario, String correo, String telefono, String cedula) {
+        return proveedorPersistencia.validarProveedorSinDuplicados(usuario, correo, telefono, cedula);
+    }
+    
+    /**
+     * Valida si un proveedor puede ser editado (excluye el proveedor actual)
+     */
+    public boolean validarProveedorParaEdicion(String usuario, String correo, String telefono, String cedula, String idProveedorExcluir) {
+        return proveedorPersistencia.validarProveedorParaEdicion(usuario, correo, telefono, cedula, idProveedorExcluir);
+    }
+    
+    /**
+     * Elimina un proveedor con confirmación
+     */
+    public boolean eliminarProveedorConConfirmacion(String idProveedor, String usuarioSeleccionado) {
+        return proveedorPersistencia.eliminarProveedorConConfirmacion(idProveedor, usuarioSeleccionado);
+    }
+    
+    /**
+     * Guarda la edición de un proveedor con validación y confirmación
+     */
+    public boolean guardarEdicionProveedorConConfirmacion(String idProveedor, Proveedor proveedorActualizado, String usuarioSeleccionado) {
+        return proveedorPersistencia.guardarEdicionProveedorConConfirmacion(idProveedor, proveedorActualizado, usuarioSeleccionado);
+    }
+    
+    // ======================================
+    // MÉTODOS DE PERSISTENCIA RECEPCIONISTAS  
+    // ======================================
+    
+    /**
+     * Valida si un recepcionista puede ser agregado (sin duplicados)
+     */
+    public boolean validarRecepcionistaSinDuplicados(String usuario, String correo, String telefono, String cedula) {
+        return recepcionistaPersistencia.validarRecepcionistaSinDuplicados(usuario, correo, telefono, cedula);
+    }
+    
+    /**
+     * Valida si un recepcionista puede ser editado (excluye el recepcionista actual)
+     */
+    public boolean validarRecepcionistaParaEdicion(String usuario, String correo, String telefono, String cedula, String idRecepcionistaExcluir) {
+        return recepcionistaPersistencia.validarRecepcionistaParaEdicion(usuario, correo, telefono, cedula, idRecepcionistaExcluir);
+    }
+    
+    /**
+     * Elimina un recepcionista con confirmación
+     */
+    public boolean eliminarRecepcionistaConConfirmacion(String idRecepcionista, String usuarioSeleccionado) {
+        return recepcionistaPersistencia.eliminarRecepcionistaConConfirmacion(idRecepcionista, usuarioSeleccionado);
+    }
+    
+    /**
+     * Guarda la edición de un recepcionista con validación y confirmación
+     */
+    public boolean guardarEdicionRecepcionistaConConfirmacion(String idRecepcionista, Recepcionista recepcionistaActualizado, String usuarioSeleccionado) {
+        return recepcionistaPersistencia.guardarEdicionRecepcionistaConConfirmacion(idRecepcionista, recepcionistaActualizado, usuarioSeleccionado);
+    }
+    
+    /**
+     * Valida los formatos de los campos de recepcionista
+     */
+    public boolean validarFormatosRecepcionista(String nombres, String apellidos, String correo, String telefono, String cedula, String aniosExperiencia) {
+        return recepcionistaPersistencia.validarFormatosRecepcionista(nombres, apellidos, correo, telefono, cedula, aniosExperiencia);
+    }
+    
+    // ==================================
+    // MÉTODOS DE PERSISTENCIA CLIENTES  
+    // ==================================
+    
+    /**
+     * Valida si un cliente puede ser agregado (sin duplicados)
+     */
+    public boolean validarClienteSinDuplicados(String usuario, String correo, String telefono, String cedula) {
+        return clientePersistencia.validarClienteSinDuplicados(usuario, correo, telefono, cedula);
+    }
+    
+    /**
+     * Valida si un cliente puede ser editado (excluye el cliente actual)
+     */
+    public boolean validarClienteParaEdicion(String usuario, String correo, String telefono, String cedula, String idClienteExcluir) {
+        return clientePersistencia.validarClienteParaEdicion(usuario, correo, telefono, cedula, idClienteExcluir);
+    }
+    
+    /**
+     * Elimina un cliente con confirmación
+     */
+    public boolean eliminarClienteConConfirmacion(String idCliente, String usuarioSeleccionado) {
+        return clientePersistencia.eliminarClienteConConfirmacion(idCliente, usuarioSeleccionado);
+    }
+    
+    /**
+     * Guarda la edición de un cliente con validación y confirmación
+     */
+    public boolean guardarEdicionClienteConConfirmacion(String idCliente, Cliente clienteActualizado, String usuarioSeleccionado) {
+        return clientePersistencia.guardarEdicionClienteConConfirmacion(idCliente, clienteActualizado, usuarioSeleccionado);
+    }
+    
+    /**
+     * Valida los formatos de los campos de cliente
+     */
+    public boolean validarFormatosCliente(String nombres, String apellidos, String correo, String telefono, String cedula) {
+        return clientePersistencia.validarFormatosCliente(nombres, apellidos, correo, telefono, cedula);
     }
 }
