@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang='es'>
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>FACT002 - JAO Workshop</title>
+    <style>
+body {
+    font-family: 'Courier New', monospace;
+    margin: 0;
+    padding: 20px;
+    background-color: #ffffff;
+    color: #000000;
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+.factura {
+    max-width: 210mm;
+    margin: 0 auto;
+    background: white;
+    padding: 20px;
+}
+
+.encabezado {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    border-bottom: 2px solid #000000;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+
+.empresa h1 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.empresa p {
+    margin: 2px 0;
+    font-size: 10px;
+}
+
+.documento {
+    text-align: right;
+}
+
+.documento h2 {
+    margin: 0 0 10px 0;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.info-factura,
+.datos-cliente {
+    border-collapse: collapse;
+    font-size: 11px;
+}
+
+.info-factura td,
+.datos-cliente td {
+    padding: 2px 5px;
+    border: none;
+}
+
+.info-factura td:first-child,
+.datos-cliente td:first-child {
+    font-weight: bold;
+    width: 80px;
+}
+
+.cliente {
+    margin-bottom: 20px;
+    border: 1px solid #000000;
+    padding: 10px;
+}
+
+.cliente h3 {
+    margin: 0 0 10px 0;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+    border-bottom: 1px solid #000000;
+    padding-bottom: 5px;
+}
+
+.productos {
+    margin-bottom: 20px;
+}
+
+.tabla-productos {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 10px;
+}
+
+.tabla-productos th,
+.tabla-productos td {
+    border: 1px solid #000000;
+    padding: 6px 4px;
+    text-align: left;
+}
+
+.tabla-productos th {
+    background-color: #f0f0f0;
+    font-weight: bold;
+    text-align: center;
+}
+
+.cantidad,
+.precio,
+.total {
+    text-align: right;
+}
+
+.descripcion {
+    width: 40%;
+}
+
+.marca {
+    width: 20%;
+    text-align: center;
+}
+
+.cantidad {
+    width: 8%;
+}
+
+.precio,
+.total {
+    width: 16%;
+}
+
+.totales {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 20px;
+}
+
+.condiciones {
+    width: 45%;
+    font-size: 10px;
+}
+
+.condiciones h4 {
+    margin: 0 0 8px 0;
+    font-size: 11px;
+    font-weight: bold;
+    border-bottom: 1px solid #000000;
+    padding-bottom: 3px;
+}
+
+.condiciones p {
+    margin: 3px 0;
+}
+
+.total-general {
+    width: 45%;
+}
+
+.tabla-total {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11px;
+}
+
+.tabla-total td {
+    padding: 4px 8px;
+    border: 1px solid #000000;
+}
+
+.tabla-total td:first-child {
+    font-weight: bold;
+    background-color: #f0f0f0;
+}
+
+.tabla-total td:last-child {
+    text-align: right;
+}
+
+.total-final td {
+    font-weight: bold;
+    font-size: 12px;
+    background-color: #e0e0e0;
+}
+
+.pie {
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 15px;
+    border-top: 1px solid #000000;
+    font-size: 10px;
+}
+
+.impresion {
+    color: #666666;
+    font-size: 9px;
+    margin-top: 10px;
+}
+
+@media print {
+    body {
+        margin: 0;
+        padding: 0;
+    }
+    .impresion {
+        display: none;
+    }
+}
+    </style>
+</head>
+<body>
+    <div class='factura'>
+        <header class='encabezado'>
+            <div class='empresa'>
+                <h1>JAO WORKSHOP</h1>
+                <p>Repuestos y Accesorios Kawasaki</p>
+                <p>NIT: 900.123.456-7</p>
+            </div>
+            <div class='documento'>
+                <h2>FACTURA DE VENTA</h2>
+                <table class='info-factura'>
+                    <tr><td>Factura No.:</td><td><strong>FACT002</strong></td></tr>
+                    <tr><td>Venta No.:</td><td>VEN002</td></tr>
+                    <tr><td>Fecha:</td><td>07/11/2025</td></tr>
+                    <tr><td>Hora:</td><td>02:02</td></tr>
+                </table>
+            </div>
+        </header>
+        <section class='cliente'>
+            <h3>DATOS DEL CLIENTE</h3>
+            <table class='datos-cliente'>
+                <tr><td>Nombre:</td><td>María Rodríguez</td></tr>
+                <tr><td>Documento:</td><td>87654321</td></tr>
+                <tr><td>Teléfono:</td><td>3009876543</td></tr>
+                <tr><td>Email:</td><td>maria@email.com</td></tr>
+                <tr><td>Dirección:</td><td>Calle 123 #45-67</td></tr>
+            </table>
+        </section>
+        <section class='productos'>
+            <table class='tabla-productos'>
+                <thead>
+                    <tr>
+                        <th>Cant.</th>
+                        <th>Descripción</th>
+                        <th>Marca</th>
+                        <th>Valor Unit.</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class='cantidad'>10</td>
+                        <td class='descripcion'>Filtro de Aceite</td>
+                        <td class='marca'>Bosch</td>
+                        <td class='precio'>$25,50</td>
+                        <td class='total'>$255,00</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        <section class='totales'>
+            <div class='condiciones'>
+                <h4>CONDICIONES DE VENTA</h4>
+                <p><strong>Modalidad:</strong> Envío a Domicilio</p>
+                <p><strong>Método de Pago:</strong> online</p>
+                <p><strong>Estado:</strong> Pagada</p>
+            </div>
+            <div class='total-general'>
+                <table class='tabla-total'>
+                    <tr><td>Subtotal:</td><td>$255,00</td></tr>
+                    <tr><td>IVA (0%):</td><td>$0.00</td></tr>
+                    <tr class='total-final'><td><strong>TOTAL A PAGAR:</strong></td><td><strong>$255,00</strong></td></tr>
+                </table>
+            </div>
+        </section>
+        <footer class='pie'>
+            <p>Gracias por su compra. JAO Workshop - Tu taller de confianza</p>
+            <p class='impresion'>Para convertir a PDF: Archivo → Imprimir → Guardar como PDF</p>
+        </footer>
+    </div>
+</body>
+</html>

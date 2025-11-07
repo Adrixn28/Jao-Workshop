@@ -5,8 +5,23 @@
 package View;
 
 import Model.Repuesto;
+import Model.ItemCarrito;
+import Model.Carrito;
+import Service.GestorCarrito;
+import Service.ClienteService;
+import Service.LoginService;
+import Service.GestorStock;
+import Service.GeneradorFacturaPDF;
+import Service.GeneradorCodigos;
+import Model.Venta;
+import Model.Factura;
+import Model.ItemVenta;
+import java.util.ArrayList;
 import javax.swing.*;
+import javax.swing.border.AbstractBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.NumberFormat;
 import java.util.*;
 
@@ -22,6 +37,7 @@ public class Cliente extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCerrarSesion;
     private javax.swing.JButton btnLimpiarFiltros;
+    private javax.swing.JButton btnVerCarrito;
     private javax.swing.JComboBox<String> cboCategoria;
     private javax.swing.JComboBox<String> cboOrdenamiento;
     private javax.swing.JLabel lblBuscar;
@@ -40,6 +56,24 @@ public class Cliente extends javax.swing.JFrame {
     // Datos
     private java.util.List<Repuesto> repuestosOriginales;
     private java.util.List<Repuesto> repuestosFiltrados;
+    
+    // Servicios
+    private ClienteService clienteService;
+    private LoginService loginService;
+    private GestorStock gestorStock;
+    private GeneradorFacturaPDF generadorPDF;
+    
+    // Variables del carrito
+    private GestorCarrito gestorCarrito;
+    private String cedulaClienteActual; // Simulamos cliente logueado
+    private Model.Cliente clienteActual; // Información completa del cliente logueado
+    private JDialog dialogCarrito; // Ventana flotante para el carrito
+    private JPanel panelCarrito;
+    private JScrollPane scrollCarrito;
+    private JLabel lblTotalCarrito;
+    private JButton btnProcederPago;
+    private JButton btnLimpiarCarrito;
+    private boolean carritoVisible = false;
     
     // Categorías disponibles
     private final String[] CATEGORIAS = {
@@ -91,6 +125,29 @@ public class Cliente extends javax.swing.JFrame {
     private void inicializarServicios() {
         repuestosOriginales = new ArrayList<>();
         repuestosFiltrados = new ArrayList<>();
+        
+        // Inicializar servicios
+        clienteService = new ClienteService();
+        loginService = new LoginService();
+        gestorStock = new GestorStock();
+        generadorPDF = new GeneradorFacturaPDF();
+        
+        // Inicializar carrito
+        gestorCarrito = new GestorCarrito();
+        
+        // Obtener cliente actual del sistema de login
+        clienteActual = (Model.Cliente) loginService.getUsuarioActualCompleto();
+        
+        if (clienteActual != null) {
+            cedulaClienteActual = clienteActual.getCedula();
+        } else {
+            // Fallback para testing - usar cliente de prueba
+            cedulaClienteActual = "87654321"; // Cedula del cliente de prueba "maria"
+            clienteActual = (Model.Cliente) loginService.buscarUsuarioPorId("CLI001", "Cliente");
+        }
+        
+        // Inicializar componentes del carrito
+        inicializarCarrito();
     }
     
     /**
@@ -149,6 +206,7 @@ public class Cliente extends javax.swing.JFrame {
         lblOrden = new javax.swing.JLabel();
         cboOrdenamiento = new javax.swing.JComboBox<>();
         btnLimpiarFiltros = new javax.swing.JButton();
+        btnVerCarrito = new javax.swing.JButton();
         lblResultados = new javax.swing.JLabel();
         scrollRepuestos = new javax.swing.JScrollPane();
         panelRepuestos = new javax.swing.JPanel();
@@ -207,6 +265,13 @@ public class Cliente extends javax.swing.JFrame {
         btnLimpiarFiltros.setBorder(null);
         btnLimpiarFiltros.setFocusPainted(false);
 
+        btnVerCarrito.setBackground(new java.awt.Color(204, 51, 0));
+        btnVerCarrito.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 1, 12)); // NOI18N
+        btnVerCarrito.setForeground(new java.awt.Color(255, 255, 255));
+        btnVerCarrito.setText("Carrito (0)");
+        btnVerCarrito.setBorder(null);
+        btnVerCarrito.setFocusPainted(false);
+
         lblResultados.setFont(new java.awt.Font("JetBrains Mono", 1, 13)); // NOI18N
         lblResultados.setForeground(new java.awt.Color(0, 153, 0));
         lblResultados.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -217,44 +282,47 @@ public class Cliente extends javax.swing.JFrame {
         panelFiltrosLayout.setHorizontalGroup(
             panelFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelFiltrosLayout.createSequentialGroup()
-                .addGap(15, 15, 15)
                 .addGroup(panelFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(15, 15, 15)
+                    .addGroup(panelFiltrosLayout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addComponent(lblBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(135, 135, 135))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelFiltrosLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)))
                 .addGroup(panelFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cboCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(17, 17, 17)
                 .addGroup(panelFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelFiltrosLayout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addComponent(cboOrdenamiento, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelFiltrosLayout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addComponent(lblOrden, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addComponent(btnLimpiarFiltros, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
-                .addComponent(lblResultados, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(380, Short.MAX_VALUE))
+                        .addComponent(cboOrdenamiento, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnLimpiarFiltros, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(7, 7, 7)
+                        .addComponent(btnVerCarrito, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblResultados, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblOrden, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(250, Short.MAX_VALUE))
         );
         panelFiltrosLayout.setVerticalGroup(
             panelFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelFiltrosLayout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addGroup(panelFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblOrden, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(5, 5, 5)
-                .addGroup(panelFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(panelFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(cboCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(cboOrdenamiento, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cboCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cboOrdenamiento, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnLimpiarFiltros, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnVerCarrito, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblResultados, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10))
+                .addGap(0, 7, Short.MAX_VALUE))
         );
 
         scrollRepuestos.setBackground(new java.awt.Color(0, 0, 0));
@@ -295,7 +363,7 @@ public class Cliente extends javax.swing.JFrame {
                 .addGap(10, 10, 10)
                 .addComponent(lblUsuarioLogueado, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
-                .addComponent(panelFiltros, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panelFiltros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addComponent(scrollRepuestos, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
@@ -320,61 +388,18 @@ public class Cliente extends javax.swing.JFrame {
 
     
     /**
-     * Cargar repuestos - Actualmente usa datos de ejemplo
-     * TODO: Implementar integración con base de datos o servicio de repuestos
+     * Cargar repuestos desde el servicio
      */
     private void cargarRepuestos() {
         repuestosOriginales.clear();
         
-        // Por ahora, crear repuestos de ejemplo
-        // En el futuro, esto se conectaría a un servicio de repuestos
-        crearRepuestosDeEjemplo();
+        // Cargar repuestos desde el servicio
+        repuestosOriginales = clienteService.obtenerTodosLosRepuestos();
         
         aplicarFiltrosYMostrar();
     }
     
-    /**
-     * Crear repuestos de ejemplo para demostración
-     */
-    private void crearRepuestosDeEjemplo() {
-        // MOTOR
-        repuestosOriginales.add(new Repuesto(1, "Filtro de Aceite", "Filtro de aceite original para motor", "Bosch", "Motor", 25.50, 15));
-        repuestosOriginales.add(new Repuesto(2, "Bujías NGK", "Juego de 4 bujías de platino", "NGK", "Motor", 45.99, 25));
-        repuestosOriginales.add(new Repuesto(3, "Correa de Distribución", "Correa de distribución original", "Gates", "Motor", 89.50, 8));
-        repuestosOriginales.add(new Repuesto(4, "Bomba de Agua", "Bomba de agua con junta", "Hepu", "Motor", 125.00, 6));
-        
-        // FRENOS
-        repuestosOriginales.add(new Repuesto(5, "Pastillas de Freno", "Pastillas de freno cerámicas delanteras", "Brembo", "Frenos", 85.00, 8));
-        repuestosOriginales.add(new Repuesto(6, "Discos de Freno", "Par de discos ventilados delanteros", "ATE", "Frenos", 155.75, 4));
-        repuestosOriginales.add(new Repuesto(7, "Líquido de Frenos", "Líquido DOT 4 - 500ml", "Bosch", "Frenos", 18.99, 30));
-        
-        // SUSPENSIÓN
-        repuestosOriginales.add(new Repuesto(8, "Amortiguador Trasero", "Amortiguador trasero para suspensión", "Monroe", "Suspensión", 120.75, 5));
-        repuestosOriginales.add(new Repuesto(9, "Resorte Delantero", "Resorte espiral delantero", "Eibach", "Suspensión", 95.50, 7));
-        repuestosOriginales.add(new Repuesto(10, "Rotula de Dirección", "Rotula de dirección izquierda", "TRW", "Suspensión", 65.25, 10));
-        
-        // ELÉCTRICO
-        repuestosOriginales.add(new Repuesto(11, "Batería 12V", "Batería de 12V 60Ah para automóvil", "Varta", "Eléctrico", 95.00, 12));
-        repuestosOriginales.add(new Repuesto(12, "Alternador", "Alternador 90A para sistema eléctrico", "Valeo", "Eléctrico", 180.50, 6));
-        repuestosOriginales.add(new Repuesto(13, "Starter Motor", "Motor de arranque reconstruido", "Bosch", "Eléctrico", 220.00, 3));
-        repuestosOriginales.add(new Repuesto(14, "Cables de Bujía", "Juego de cables de alta tensión", "NGK", "Eléctrico", 55.75, 18));
-        
-        // TRANSMISIÓN
-        repuestosOriginales.add(new Repuesto(15, "Kit de Embrague", "Kit completo de embrague para transmisión manual", "LUK", "Transmisión", 450.00, 3));
-        repuestosOriginales.add(new Repuesto(16, "Aceite de Transmisión", "Aceite ATF para transmisión automática", "Mobil 1", "Transmisión", 42.99, 14));
-        repuestosOriginales.add(new Repuesto(17, "Filtro de Transmisión", "Filtro interno para caja automática", "Mann", "Transmisión", 38.50, 9));
-        
-        // CARROCERÍA
-        repuestosOriginales.add(new Repuesto(18, "Parachoques Delantero", "Parachoques delantero original", "OEM", "Carrocería", 280.00, 2));
-        repuestosOriginales.add(new Repuesto(19, "Faro Derecho", "Faro delantero derecho con regulación", "Hella", "Carrocería", 165.99, 4));
-        repuestosOriginales.add(new Repuesto(20, "Espejo Retrovisor", "Espejo lateral izquierdo eléctrico", "TYC", "Carrocería", 89.75, 6));
-        
-        // LUBRICANTES
-        repuestosOriginales.add(new Repuesto(21, "Aceite Motor 5W-30", "Aceite sintético para motor 4 litros", "Castrol", "Lubricantes", 35.99, 20));
-        repuestosOriginales.add(new Repuesto(22, "Aceite Motor 15W-40", "Aceite mineral para motor diésel 5 litros", "Shell", "Lubricantes", 28.75, 25));
-        repuestosOriginales.add(new Repuesto(23, "Grasa Multiuso", "Grasa de litio para rodamientos", "Mobil", "Lubricantes", 15.50, 35));
-        repuestosOriginales.add(new Repuesto(24, "Refrigerante Motor", "Anticongelante concentrado 1 litro", "Prestone", "Lubricantes", 22.99, 40));
-    }
+
     
     /**
      * Aplicar filtros y mostrar repuestos
@@ -547,11 +572,11 @@ public class Cliente extends javax.swing.JFrame {
         txtDescripcion.setBorder(null); // Sin borde
         card.add(txtDescripcion);
         
-        // Precio
+        // Precio - Ajustado para mejor visibilidad
         NumberFormat formatoPrecio = NumberFormat.getCurrencyInstance();
         JLabel lblPrecio = new JLabel("Precio: " + formatoPrecio.format(repuesto.getPrecio()));
-        lblPrecio.setBounds(6, 82, 120, 22); // Ajustado
-        lblPrecio.setFont(new Font("JetBrains Mono ExtraBold", Font.BOLD, 14));
+        lblPrecio.setBounds(6, 82, 180, 22); // Ancho aumentado para el precio
+        lblPrecio.setFont(new Font("JetBrains Mono ExtraBold", Font.BOLD, 12)); // Fuente más pequeña
         lblPrecio.setForeground(new Color(0, 153, 0));
         card.add(lblPrecio);
         
@@ -577,6 +602,76 @@ public class Cliente extends javax.swing.JFrame {
         lblDisponible.setFont(new Font("JetBrains Mono ExtraBold", Font.BOLD, 9));
         lblDisponible.setForeground(repuesto.getStock() > 0 ? new Color(0, 153, 0) : new Color(220, 53, 69));
         card.add(lblDisponible);
+        
+        // Controles del carrito (solo si hay stock disponible)
+        if (repuesto.getStock() > 0) {
+            // Selector de cantidad
+            JSpinner spinnerCantidad = new JSpinner(new SpinnerNumberModel(1, 1, repuesto.getStock(), 1));
+            spinnerCantidad.setBounds(115, 128, 50, 20);
+            spinnerCantidad.setFont(new Font("JetBrains Mono ExtraBold", Font.BOLD, 10));
+            
+            // Configurar colores del spinner para mejor visibilidad
+            JSpinner.DefaultEditor editor = (JSpinner.DefaultEditor) spinnerCantidad.getEditor();
+            editor.getTextField().setBackground(Color.BLACK);
+            editor.getTextField().setForeground(Color.WHITE);
+            editor.getTextField().setHorizontalAlignment(SwingConstants.CENTER);
+            editor.getTextField().setBorder(BorderFactory.createLineBorder(new Color(0, 153, 0), 1));
+            editor.getTextField().setCaretColor(Color.WHITE);
+            
+            // Configurar los botones del spinner
+            for (Component comp : spinnerCantidad.getComponents()) {
+                if (comp instanceof JButton) {
+                    comp.setBackground(new Color(0, 153, 0));
+                    comp.setForeground(Color.WHITE);
+                }
+            }
+            
+            card.add(spinnerCantidad);
+            
+            // Botón Agregar al carrito
+            JButton btnAgregar = new JButton("+");
+            btnAgregar.setBounds(170, 128, 30, 20);
+            btnAgregar.setFont(new Font("JetBrains Mono ExtraBold", Font.BOLD, 12));
+            btnAgregar.setBackground(new Color(0, 153, 0));
+            btnAgregar.setForeground(Color.WHITE);
+            btnAgregar.setBorder(BorderFactory.createLineBorder(new Color(0, 100, 0), 1));
+            btnAgregar.setFocusPainted(false);
+            btnAgregar.setToolTipText("Agregar al carrito");
+            
+            // Acción del botón agregar
+            btnAgregar.addActionListener(e -> {
+                int cantidad = (Integer) spinnerCantidad.getValue();
+                if (gestorCarrito.agregarAlCarrito(cedulaClienteActual, repuesto, cantidad)) {
+                    actualizarVistaCarrito();
+                    JOptionPane.showMessageDialog(card, 
+                        repuesto.getNombre() + " agregado al carrito\nCantidad: " + cantidad, 
+                        "Agregado", JOptionPane.INFORMATION_MESSAGE);
+                    
+                    // Actualizar el stock máximo del spinner si es necesario
+                    Carrito carrito = gestorCarrito.obtenerCarritoCliente(cedulaClienteActual);
+                    ItemCarrito[] items = carrito.obtenerItemsArray();
+                    for (ItemCarrito item : items) {
+                        if (item.getRepuesto().getIdRepuesto() == repuesto.getIdRepuesto()) {
+                            int stockDisponible = repuesto.getStock() - item.getCantidad();
+                            if (stockDisponible > 0) {
+                                spinnerCantidad.setModel(new SpinnerNumberModel(1, 1, stockDisponible, 1));
+                            } else {
+                                btnAgregar.setEnabled(false);
+                                btnAgregar.setText("MAX");
+                                btnAgregar.setBackground(Color.GRAY);
+                            }
+                            break;
+                        }
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(card, 
+                        "No se pudo agregar al carrito.\nStock insuficiente.", 
+                        "Error", JOptionPane.WARNING_MESSAGE);
+                }
+            });
+            
+            card.add(btnAgregar);
+        }
         
         // Efectos hover con colores Kawasaki
         card.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -644,10 +739,809 @@ public class Cliente extends javax.swing.JFrame {
             
             if (confirmacion == JOptionPane.YES_OPTION) {
                 this.dispose();
-                // Aquí puedes abrir la ventana de login si es necesario
-                // new Login().setVisible(true);
+                // Abrir la ventana de login
+                new Login().setVisible(true);
             }
         });
+    }
+    
+    /**
+     * Clase para crear bordes redondeados
+     */
+    private static class RoundedBorder extends AbstractBorder {
+        private final Color color;
+        private final int radius;
+        
+        public RoundedBorder(Color color, int radius) {
+            this.color = color;
+            this.radius = radius;
+        }
+        
+        @Override
+        public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
+            Graphics2D g2d = (Graphics2D) g.create();
+            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            g2d.setColor(color);
+            g2d.setStroke(new BasicStroke(2));
+            g2d.drawRoundRect(x + 1, y + 1, width - 3, height - 3, radius, radius);
+            g2d.dispose();
+        }
+        
+        @Override
+        public Insets getBorderInsets(Component c) {
+            return new Insets(radius/2, radius/2, radius/2, radius/2);
+        }
+    }
+    
+    /**
+     * Crear un botón con estilo redondeado Kawasaki
+     */
+    private JButton crearBotonRedondeado(String texto, Color colorFondo, Color colorTexto, Color colorBorde) {
+        JButton boton = new JButton(texto) {
+            @Override
+            protected void paintComponent(Graphics g) {
+                Graphics2D g2d = (Graphics2D) g.create();
+                g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                
+                // Fondo redondeado
+                g2d.setColor(getBackground());
+                g2d.fillRoundRect(0, 0, getWidth(), getHeight(), 15, 15);
+                
+                // Llamar al paintComponent original para el texto
+                super.paintComponent(g2d);
+                g2d.dispose();
+            }
+            
+            @Override
+            protected void paintBorder(Graphics g) {
+                Graphics2D g2d = (Graphics2D) g.create();
+                g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                g2d.setColor(colorBorde);
+                g2d.setStroke(new BasicStroke(2));
+                g2d.drawRoundRect(1, 1, getWidth() - 3, getHeight() - 3, 15, 15);
+                g2d.dispose();
+            }
+        };
+        
+        boton.setFont(new Font("JetBrains Mono ExtraBold", Font.BOLD, 10));
+        boton.setBackground(colorFondo);
+        boton.setForeground(colorTexto);
+        boton.setFocusPainted(false);
+        boton.setBorderPainted(false);
+        boton.setContentAreaFilled(false);
+        boton.setOpaque(false);
+        
+        return boton;
+    }
+    
+    /**
+     * Aplicar estilo redondeado a un botón existente
+     */
+    private void aplicarEstiloRedondeadoABoton(JButton boton, Color colorFondo, Color colorTexto, Color colorBorde) {
+        boton.setUI(new javax.swing.plaf.basic.BasicButtonUI() {
+            @Override
+            public void paint(Graphics g, JComponent c) {
+                Graphics2D g2d = (Graphics2D) g.create();
+                g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                
+                // Fondo redondeado
+                g2d.setColor(boton.getBackground());
+                g2d.fillRoundRect(0, 0, c.getWidth(), c.getHeight(), 15, 15);
+                
+                // Borde redondeado
+                g2d.setColor(colorBorde);
+                g2d.setStroke(new BasicStroke(2));
+                g2d.drawRoundRect(1, 1, c.getWidth() - 3, c.getHeight() - 3, 15, 15);
+                
+                g2d.dispose();
+                super.paint(g, c);
+            }
+        });
+        
+        boton.setBackground(colorFondo);
+        boton.setForeground(colorTexto);
+        boton.setFocusPainted(false);
+        boton.setBorderPainted(false);
+        boton.setContentAreaFilled(false);
+        boton.setOpaque(false);
+    }
+
+    /**
+     * Inicializar los componentes del carrito
+     */
+    private void inicializarCarrito() {
+        // El botón del carrito ya está definido en el .form
+        // Solo actualizamos su texto inicial sin emoji
+        btnVerCarrito.setText("Carrito (0)");
+        
+        // Aplicar estilo redondeado al botón del carrito
+        aplicarEstiloRedondeadoABoton(btnVerCarrito, new Color(0, 153, 0), Color.WHITE, new Color(0, 100, 0));
+        
+        // Crear dialog para el carrito
+        dialogCarrito = new JDialog(this, "Carrito de Compras", false);
+        dialogCarrito.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
+        dialogCarrito.setSize(350, 400);
+        dialogCarrito.setLocationRelativeTo(this);
+        
+        // Crear panel del carrito
+        panelCarrito = new JPanel();
+        panelCarrito.setLayout(new BorderLayout());
+        panelCarrito.setBackground(new Color(0, 0, 0));
+        panelCarrito.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(new Color(0, 153, 0), 2),
+            BorderFactory.createEmptyBorder(10, 10, 10, 10)
+        ));
+        
+        // Panel para contenido del carrito con scroll
+        JPanel contenidoCarrito = new JPanel();
+        contenidoCarrito.setLayout(new BoxLayout(contenidoCarrito, BoxLayout.Y_AXIS));
+        contenidoCarrito.setBackground(new Color(0, 0, 0));
+        
+        scrollCarrito = new JScrollPane(contenidoCarrito);
+        scrollCarrito.setPreferredSize(new Dimension(300, 200));
+        scrollCarrito.setBackground(new Color(0, 0, 0));
+        scrollCarrito.setBorder(null);
+        
+        // Panel para botones del carrito
+        JPanel panelBotonesCarrito = new JPanel(new FlowLayout());
+        panelBotonesCarrito.setBackground(new Color(0, 0, 0));
+        
+        btnLimpiarCarrito = crearBotonRedondeado("Limpiar Carrito", 
+                                               new Color(220, 53, 69), 
+                                               Color.WHITE, 
+                                               new Color(180, 40, 50));
+        btnLimpiarCarrito.setPreferredSize(new Dimension(140, 35));
+        btnLimpiarCarrito.addActionListener(e -> limpiarCarrito());
+        
+        btnProcederPago = crearBotonRedondeado("Proceder al Pago", 
+                                             new Color(0, 153, 0), 
+                                             Color.WHITE, 
+                                             new Color(0, 100, 0));
+        btnProcederPago.setPreferredSize(new Dimension(140, 35));
+        btnProcederPago.addActionListener(e -> procederAlPago());
+        
+        panelBotonesCarrito.add(btnLimpiarCarrito);
+        panelBotonesCarrito.add(btnProcederPago);
+        
+        // Total del carrito
+        lblTotalCarrito = new JLabel("Total: $0.00");
+        lblTotalCarrito.setFont(new Font("JetBrains Mono ExtraBold", Font.BOLD, 14));
+        lblTotalCarrito.setForeground(new Color(0, 153, 0));
+        lblTotalCarrito.setHorizontalAlignment(SwingConstants.CENTER);
+        
+        // Agregar componentes al panel carrito
+        panelCarrito.add(scrollCarrito, BorderLayout.CENTER);
+        panelCarrito.add(lblTotalCarrito, BorderLayout.NORTH);
+        panelCarrito.add(panelBotonesCarrito, BorderLayout.SOUTH);
+        
+        // Agregar panel al dialog
+        dialogCarrito.add(panelCarrito);
+        dialogCarrito.getContentPane().setBackground(new Color(0, 0, 0));
+        
+        // Agregar botón y panel carrito al frame principal
+        agregarCarritoAlFrame();
+    }
+    
+    /**
+     * Agregar componentes del carrito al frame principal
+     */
+    private void agregarCarritoAlFrame() {
+        // El botón del carrito ya está en el .form, solo necesitamos configurar el evento
+        btnVerCarrito.addActionListener(e -> toggleCarrito());
+        
+        // NO agregamos el panel aquí, se mostrará como ventana flotante
+    }
+    
+    /**
+     * Mostrar/ocultar carrito
+     */
+    private void toggleCarrito() {
+        carritoVisible = !carritoVisible;
+        
+        if (carritoVisible) {
+            actualizarVistaCarrito();
+            btnVerCarrito.setText("X Cerrar");
+            dialogCarrito.setVisible(true);
+        } else {
+            btnVerCarrito.setText("Carrito (" + gestorCarrito.obtenerCarritoCliente(cedulaClienteActual).getNumeroItems() + ")");
+            dialogCarrito.setVisible(false);
+        }
+    }
+    
+    /**
+     * Limpiar carrito completamente
+     */
+    private void limpiarCarrito() {
+        gestorCarrito.limpiarCarrito(cedulaClienteActual);
+        actualizarVistaCarrito();
+        JOptionPane.showMessageDialog(dialogCarrito, "Carrito limpiado correctamente", "Carrito", JOptionPane.INFORMATION_MESSAGE);
+    }
+    
+    /**
+     * Proceder al pago (placeholder)
+     */
+    private void procederAlPago() {
+        Carrito carrito = gestorCarrito.obtenerCarritoCliente(cedulaClienteActual);
+        if (carrito.estaVacio()) {
+            JOptionPane.showMessageDialog(dialogCarrito, "El carrito está vacío", "Error", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        // Mostrar diálogo de venta con opciones de pago
+        mostrarDialogoVenta(carrito);
+    }
+    
+    /**
+     * Mostrar diálogo completo de venta con opciones de pago y prefactura
+     */
+    private void mostrarDialogoVenta(Carrito carrito) {
+        // Crear diálogo principal
+        JDialog dialogoVenta = new JDialog(this, "Procesar Venta - JAO Workshop", true);
+        dialogoVenta.setSize(600, 700);
+        dialogoVenta.setLocationRelativeTo(this);
+        dialogoVenta.setBackground(new Color(0, 0, 0));
+        
+        // Panel principal con fondo negro
+        JPanel panelPrincipal = new JPanel(new BorderLayout(10, 10));
+        panelPrincipal.setBackground(new Color(0, 0, 0));
+        panelPrincipal.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        
+        // === TÍTULO ===
+        JLabel lblTitulo = new JLabel("FINALIZAR COMPRA", SwingConstants.CENTER);
+        lblTitulo.setFont(new Font("JetBrains Mono ExtraBold", Font.BOLD, 18));
+        lblTitulo.setForeground(new Color(0, 153, 0)); // Verde Kawasaki
+        lblTitulo.setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 0));
+        panelPrincipal.add(lblTitulo, BorderLayout.NORTH);
+        
+        // === PANEL CENTRAL ===
+        JPanel panelCentral = new JPanel(new BorderLayout(0, 15));
+        panelCentral.setBackground(new Color(0, 0, 0));
+        
+        // --- SECCIÓN: OPCIONES DE PAGO ---
+        JPanel panelOpciones = crearPanelOpcionesPago();
+        panelCentral.add(panelOpciones, BorderLayout.NORTH);
+        
+        // --- SECCIÓN: PREFACTURA ---
+        JPanel panelPrefactura = crearPanelPrefactura(carrito);
+        panelCentral.add(panelPrefactura, BorderLayout.CENTER);
+        
+        // --- SECCIÓN: DIRECCIÓN (inicialmente oculta) ---
+        JPanel panelDireccion = crearPanelDireccion();
+        panelDireccion.setVisible(false);
+        panelCentral.add(panelDireccion, BorderLayout.SOUTH);
+        
+        panelPrincipal.add(panelCentral, BorderLayout.CENTER);
+        
+        // === BOTONES ===
+        JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.RIGHT, 15, 0));
+        panelBotones.setBackground(new Color(0, 0, 0));
+        
+        JButton btnCancelar = crearBotonRedondeado("Cancelar", 
+                                                   new Color(128, 128, 128), 
+                                                   Color.WHITE, 
+                                                   new Color(100, 100, 100));
+        btnCancelar.setPreferredSize(new Dimension(100, 35));
+        btnCancelar.addActionListener(e -> dialogoVenta.dispose());
+        
+        JButton btnConfirmar = crearBotonRedondeado("Confirmar Compra", 
+                                                    new Color(0, 153, 0), 
+                                                    Color.WHITE, 
+                                                    new Color(0, 100, 0));
+        btnConfirmar.setPreferredSize(new Dimension(140, 35));
+        
+        panelBotones.add(btnCancelar);
+        panelBotones.add(btnConfirmar);
+        panelPrincipal.add(panelBotones, BorderLayout.SOUTH);
+        
+        // Configurar eventos dinámicos
+        configurarEventosVenta(panelOpciones, panelDireccion, btnConfirmar, carrito, dialogoVenta);
+        
+        dialogoVenta.add(panelPrincipal);
+        dialogoVenta.setVisible(true);
+    }
+    
+    /**
+     * Crear panel con opciones de pago
+     */
+    private JPanel crearPanelOpcionesPago() {
+        JPanel panel = new JPanel(new BorderLayout(0, 10));
+        panel.setBackground(new Color(0, 0, 0));
+        
+        // Título de la sección
+        JLabel lblTitulo = new JLabel("OPCIONES DE PAGO");
+        lblTitulo.setFont(new Font("JetBrains Mono ExtraBold", Font.BOLD, 14));
+        lblTitulo.setForeground(Color.WHITE);
+        panel.add(lblTitulo, BorderLayout.NORTH);
+        
+        // ComboBox con opciones
+        String[] opcionesPago = {
+            "Seleccionar opción...",
+            "Pagar Online + Domicilio → Pagada",
+            "Pagar Online + Recoger en Local → Pagada", 
+            "Domicilio Contraentrega → Falta por pagar",
+            "Recoger en Local → Falta por pagar"
+        };
+        
+        JComboBox<String> comboOpciones = new JComboBox<>(opcionesPago);
+        comboOpciones.setFont(new Font("JetBrains Mono", Font.PLAIN, 12));
+        comboOpciones.setBackground(new Color(40, 40, 40));
+        comboOpciones.setForeground(Color.WHITE);
+        comboOpciones.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(new Color(0, 153, 0), 2),
+            BorderFactory.createEmptyBorder(8, 12, 8, 12)
+        ));
+        
+        panel.add(comboOpciones, BorderLayout.CENTER);
+        
+        // Guardar referencia del combo para eventos
+        panel.putClientProperty("comboOpciones", comboOpciones);
+        
+        return panel;
+    }
+    
+    /**
+     * Crear panel con prefactura (resumen de items)
+     */
+    private JPanel crearPanelPrefactura(Carrito carrito) {
+        JPanel panel = new JPanel(new BorderLayout(0, 10));
+        panel.setBackground(new Color(0, 0, 0));
+        
+        // Título de la sección
+        JLabel lblTitulo = new JLabel("RESUMEN DE COMPRA");
+        lblTitulo.setFont(new Font("JetBrains Mono ExtraBold", Font.BOLD, 14));
+        lblTitulo.setForeground(Color.WHITE);
+        panel.add(lblTitulo, BorderLayout.NORTH);
+        
+        // Panel con scroll para los items
+        JPanel panelItems = new JPanel();
+        panelItems.setLayout(new BoxLayout(panelItems, BoxLayout.Y_AXIS));
+        panelItems.setBackground(new Color(20, 20, 20));
+        panelItems.setBorder(BorderFactory.createEmptyBorder(10, 15, 10, 15));
+        
+        // Agregar cada item del carrito
+        for (ItemCarrito item : carrito.obtenerItemsArray()) {
+            JPanel itemPanel = crearPanelItemPrefactura(item);
+            panelItems.add(itemPanel);
+            panelItems.add(Box.createVerticalStrut(8));
+        }
+        
+        // Total general
+        JPanel panelTotal = new JPanel(new BorderLayout());
+        panelTotal.setBackground(new Color(20, 20, 20));
+        panelTotal.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createMatteBorder(2, 0, 0, 0, new Color(0, 153, 0)),
+            BorderFactory.createEmptyBorder(10, 0, 5, 0)
+        ));
+        
+        JLabel lblTotal = new JLabel("TOTAL: $" + String.format("%.2f", carrito.getTotalCarrito()));
+        lblTotal.setFont(new Font("JetBrains Mono ExtraBold", Font.BOLD, 16));
+        lblTotal.setForeground(new Color(0, 153, 0));
+        lblTotal.setHorizontalAlignment(SwingConstants.RIGHT);
+        panelTotal.add(lblTotal, BorderLayout.EAST);
+        
+        panelItems.add(panelTotal);
+        
+        // Scroll pane
+        JScrollPane scroll = new JScrollPane(panelItems);
+        scroll.setPreferredSize(new Dimension(0, 250));
+        scroll.setBorder(BorderFactory.createLineBorder(new Color(0, 153, 0), 2));
+        scroll.getViewport().setBackground(new Color(20, 20, 20));
+        
+        panel.add(scroll, BorderLayout.CENTER);
+        
+        return panel;
+    }
+    
+    /**
+     * Crear panel individual para cada item en la prefactura
+     */
+    private JPanel crearPanelItemPrefactura(ItemCarrito item) {
+        JPanel panel = new JPanel(new BorderLayout(10, 0));
+        panel.setBackground(new Color(20, 20, 20));
+        
+        // Información del producto
+        JPanel panelInfo = new JPanel();
+        panelInfo.setLayout(new BoxLayout(panelInfo, BoxLayout.Y_AXIS));
+        panelInfo.setBackground(new Color(20, 20, 20));
+        
+        JLabel lblNombre = new JLabel(item.getRepuesto().getNombre());
+        lblNombre.setFont(new Font("JetBrains Mono", Font.BOLD, 12));
+        lblNombre.setForeground(Color.WHITE);
+        lblNombre.setAlignmentX(Component.LEFT_ALIGNMENT);
+        
+        JLabel lblDetalles = new JLabel(item.getRepuesto().getMarca() + " • " + 
+                                       item.getRepuesto().getCategoria());
+        lblDetalles.setFont(new Font("JetBrains Mono", Font.PLAIN, 10));
+        lblDetalles.setForeground(new Color(180, 180, 180));
+        lblDetalles.setAlignmentX(Component.LEFT_ALIGNMENT);
+        
+        panelInfo.add(lblNombre);
+        panelInfo.add(Box.createVerticalStrut(2)); // Reducir espacio entre líneas
+        panelInfo.add(lblDetalles);
+        
+        // Cantidad y precios
+        JPanel panelPrecio = new JPanel(new GridLayout(2, 1, 0, 2));
+        panelPrecio.setBackground(new Color(20, 20, 20));
+        
+        JLabel lblCantidad = new JLabel("x" + item.getCantidad() + 
+                                       " • $" + String.format("%.2f", item.getPrecioUnitario()));
+        lblCantidad.setFont(new Font("JetBrains Mono", Font.PLAIN, 10));
+        lblCantidad.setForeground(new Color(180, 180, 180));
+        lblCantidad.setHorizontalAlignment(SwingConstants.RIGHT);
+        
+        JLabel lblSubtotal = new JLabel("$" + String.format("%.2f", item.getSubtotal()));
+        lblSubtotal.setFont(new Font("JetBrains Mono", Font.BOLD, 12));
+        lblSubtotal.setForeground(new Color(0, 153, 0));
+        lblSubtotal.setHorizontalAlignment(SwingConstants.RIGHT);
+        
+        panelPrecio.add(lblCantidad);
+        panelPrecio.add(lblSubtotal);
+        
+        panel.add(panelInfo, BorderLayout.CENTER);
+        panel.add(panelPrecio, BorderLayout.EAST);
+        
+        return panel;
+    }
+    
+    /**
+     * Crear panel de dirección (se muestra solo para opciones con domicilio)
+     */
+    private JPanel crearPanelDireccion() {
+        JPanel panel = new JPanel(new BorderLayout(0, 10));
+        panel.setBackground(new Color(0, 0, 0));
+        
+        // Título de la sección
+        JLabel lblTitulo = new JLabel("DIRECCIÓN DE ENTREGA");
+        lblTitulo.setFont(new Font("JetBrains Mono ExtraBold", Font.BOLD, 14));
+        lblTitulo.setForeground(Color.WHITE);
+        panel.add(lblTitulo, BorderLayout.NORTH);
+        
+        // Campo de texto para dirección
+        JTextArea txtDireccion = new JTextArea(2, 30);
+        txtDireccion.setFont(new Font("JetBrains Mono", Font.PLAIN, 12));
+        txtDireccion.setBackground(new Color(40, 40, 40));
+        txtDireccion.setForeground(Color.WHITE);
+        txtDireccion.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(new Color(0, 153, 0), 2),
+            BorderFactory.createEmptyBorder(8, 12, 8, 12)
+        ));
+        txtDireccion.setLineWrap(true);
+        txtDireccion.setWrapStyleWord(true);
+        
+        // Dirección del cliente logueado
+        txtDireccion.setText(clienteActual.getDireccion());
+        
+        JScrollPane scrollDireccion = new JScrollPane(txtDireccion);
+        scrollDireccion.setBorder(null);
+        panel.add(scrollDireccion, BorderLayout.CENTER);
+        
+        // Guardar referencia del campo para eventos
+        panel.putClientProperty("txtDireccion", txtDireccion);
+        
+        return panel;
+    }
+    
+    /**
+     * Configurar eventos dinámicos del diálogo de venta
+     */
+    private void configurarEventosVenta(JPanel panelOpciones, JPanel panelDireccion, 
+                                      JButton btnConfirmar, Carrito carrito, JDialog dialogoVenta) {
+        
+        JComboBox<String> comboOpciones = (JComboBox<String>) panelOpciones.getClientProperty("comboOpciones");
+        JTextArea txtDireccion = (JTextArea) panelDireccion.getClientProperty("txtDireccion");
+        
+        // Evento para mostrar/ocultar panel de dirección según la opción elegida
+        comboOpciones.addActionListener(e -> {
+            String opcionSeleccionada = (String) comboOpciones.getSelectedItem();
+            boolean requiereDomicilio = opcionSeleccionada != null && 
+                                       opcionSeleccionada.contains("Domicilio");
+            
+            panelDireccion.setVisible(requiereDomicilio);
+            dialogoVenta.revalidate();
+            dialogoVenta.repaint();
+        });
+        
+        // Evento para confirmar venta
+        btnConfirmar.addActionListener(e -> {
+            String opcionSeleccionada = (String) comboOpciones.getSelectedItem();
+            
+            if (opcionSeleccionada == null || opcionSeleccionada.contains("Seleccionar")) {
+                JOptionPane.showMessageDialog(dialogoVenta, 
+                    "Por favor selecciona una opción de pago", 
+                    "Opción requerida", 
+                    JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            
+            // Verificar dirección si es domicilio
+            if (opcionSeleccionada.contains("Domicilio")) {
+                String direccion = txtDireccion.getText().trim();
+                if (direccion.isEmpty()) {
+                    JOptionPane.showMessageDialog(dialogoVenta, 
+                        "Por favor ingresa la dirección de entrega", 
+                        "Dirección requerida", 
+                        JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+            }
+            
+            // Mostrar confirmación antes de procesar la compra
+            String mensajeConfirmacion = String.format(
+                "🛒 ¿Confirmar Compra?\n\n" +
+                "• Items: %d\n" +
+                "• Total: $%.2f\n" +
+                "• Modalidad: %s%s",
+                carrito.getNumeroItems(),
+                carrito.getTotalCarrito(),
+                opcionSeleccionada,
+                opcionSeleccionada.contains("Domicilio") ? 
+                    "\n• Dirección: " + txtDireccion.getText().trim() : ""
+            );
+            
+            int confirmarCompra = JOptionPane.showConfirmDialog(dialogoVenta,
+                mensajeConfirmacion,
+                "Confirmar Compra - JAO Workshop",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE
+            );
+            
+            if (confirmarCompra != JOptionPane.YES_OPTION) {
+                return; // El usuario canceló
+            }
+            
+            // Procesar la venta
+            procesarVenta(opcionSeleccionada, txtDireccion.getText(), carrito, dialogoVenta);
+        });
+    }
+    
+    /**
+     * Procesar la venta según la opción seleccionada
+     */
+    private void procesarVenta(String opcionPago, String direccion, Carrito carrito, JDialog dialogoVenta) {
+        try {
+            // 1. Verificar disponibilidad antes de procesar
+            if (!gestorStock.verificarDisponibilidad(carrito)) {
+                JOptionPane.showMessageDialog(dialogoVenta, 
+                    "❌ Algunos productos no tienen stock suficiente.\nPor favor revisa tu carrito.", 
+                    "Stock Insuficiente", 
+                    JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            
+            // 2. Generar códigos únicos
+            String codigoVenta = GeneradorCodigos.generarCodigoVenta();
+            String codigoFactura = GeneradorCodigos.generarCodigoFactura();
+            
+            // 3. Procesar actualización de stock
+            java.util.List<Model.Repuesto> repuestosSinStock = gestorStock.procesarVentaStock(carrito, opcionPago);
+            
+            // 4. Crear objetos Venta y Factura
+            java.util.List<ItemVenta> itemsVenta = new ArrayList<>();
+            for (Model.ItemCarrito itemCarrito : carrito.obtenerItemsArray()) {
+                ItemVenta itemVenta = new ItemVenta(
+                    1, // idVenta temporal
+                    itemCarrito.getRepuesto(),
+                    itemCarrito.getCantidad(),
+                    itemCarrito.getPrecioUnitario(),
+                    itemCarrito.getSubtotal()
+                );
+                itemsVenta.add(itemVenta);
+            }
+            
+            // Crear venta
+            Venta venta = new Venta(
+                1, // ID temporal
+                codigoVenta,
+                new java.util.Date(),
+                clienteActual,
+                itemsVenta,
+                carrito.getTotalCarrito(),
+                determinarEstadoVenta(opcionPago),
+                opcionPago.contains("Domicilio"),
+                opcionPago
+            );
+            
+            // Crear factura basada en la venta
+            String metodoPago = opcionPago.contains("Online") ? "online" : "contraentrega";
+            Factura factura = new Factura(venta, codigoFactura, metodoPago);
+            
+            // 5. Generar factura PDF
+            String rutaFactura = generadorPDF.generarFacturaPDF(factura);
+            
+            // 5. Actualizar vista si hay repuestos sin stock
+            if (!repuestosSinStock.isEmpty()) {
+                // Recargar repuestos para que no aparezcan los que se quedaron sin stock
+                cargarRepuestos();
+                
+                // Mostrar información sobre productos removidos
+                StringBuilder productosRemovidos = new StringBuilder();
+                productosRemovidos.append("🗑️ Productos removidos por falta de stock:\n");
+                for (Model.Repuesto repuesto : repuestosSinStock) {
+                    productosRemovidos.append("• ").append(repuesto.getNombre()).append("\n");
+                }
+                
+                JOptionPane.showMessageDialog(this, 
+                    productosRemovidos.toString(), 
+                    "Inventario Actualizado", 
+                    JOptionPane.INFORMATION_MESSAGE);
+            }
+            
+            // 6. Mostrar confirmación de venta exitosa
+            StringBuilder mensaje = new StringBuilder();
+            mensaje.append("🎉 ¡VENTA PROCESADA EXITOSAMENTE!\n\n");
+            mensaje.append("📋 DETALLES:\n");
+            mensaje.append("• Código de venta: ").append(codigoVenta).append("\n");
+            mensaje.append("• Código de factura: ").append(codigoFactura).append("\n");
+            mensaje.append("• Items: ").append(carrito.getNumeroItems()).append("\n");
+            mensaje.append("• Total: $").append(String.format("%.2f", carrito.getTotalCarrito())).append("\n");
+            mensaje.append("• Modalidad: ").append(opcionPago).append("\n");
+            
+            // Estado de la venta
+            String estado = determinarEstadoVenta(opcionPago) == 1 ? "Pagada ✅" : "Pendiente de pago ⏳";
+            mensaje.append("• Estado: ").append(estado).append("\n");
+            
+            if (opcionPago.contains("Domicilio")) {
+                mensaje.append("• Dirección: ").append(direccion).append("\n");
+            }
+            
+            if (rutaFactura != null) {
+                mensaje.append("\n📄 Factura generada y abierta automáticamente");
+            }
+            
+            // Información sobre stock
+            String reporteStock = gestorStock.generarReporteStock(carrito, opcionPago);
+            mensaje.append("\n\n").append(reporteStock);
+            
+            JOptionPane.showMessageDialog(dialogoVenta, 
+                mensaje.toString(), 
+                "Venta Completada - JAO Workshop", 
+                JOptionPane.INFORMATION_MESSAGE);
+            
+            // 7. Actualizar cards después de la venta para reflejar cambios de stock
+            cargarRepuestos();
+            
+            // 8. Limpiar carrito y cerrar diálogos
+            gestorCarrito.limpiarCarrito(cedulaClienteActual);
+            actualizarVistaCarrito();
+            dialogoVenta.dispose();
+            if (dialogCarrito != null) {
+                dialogCarrito.dispose();
+            }
+            
+            System.out.println("✅ Venta completada exitosamente: " + codigoVenta + " | Factura: " + codigoFactura);
+            
+        } catch (Exception e) {
+            System.err.println("❌ Error al procesar venta: " + e.getMessage());
+            e.printStackTrace();
+            
+            JOptionPane.showMessageDialog(dialogoVenta, 
+                "❌ Error al procesar la venta:\n" + e.getMessage(), 
+                "Error", 
+                JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    /**
+     * Determinar estado de venta según opción de pago
+     */
+    private int determinarEstadoVenta(String opcionPago) {
+        if (opcionPago.contains("Pagar Online")) {
+            return 1; // Pagada
+        } else {
+            return 2; // Falta por pagar
+        }
+    }
+    
+    /**
+     * Actualizar la vista del carrito
+     */
+    private void actualizarVistaCarrito() {
+        Carrito carrito = gestorCarrito.obtenerCarritoCliente(cedulaClienteActual);
+        
+        // Actualizar texto del botón
+        btnVerCarrito.setText("Carrito (" + carrito.getNumeroItems() + ")");
+        
+        // Actualizar total
+        lblTotalCarrito.setText("Total: $" + String.format("%.2f", carrito.getTotalCarrito()));
+        
+        // Actualizar contenido del carrito
+        JPanel contenido = (JPanel) scrollCarrito.getViewport().getView();
+        contenido.removeAll();
+        
+        if (carrito.estaVacio()) {
+            JLabel lblVacio = new JLabel("Carrito vacío");
+            lblVacio.setFont(new Font("JetBrains Mono", Font.PLAIN, 12));
+            lblVacio.setForeground(Color.GRAY);
+            lblVacio.setAlignmentX(Component.CENTER_ALIGNMENT);
+            contenido.add(lblVacio);
+        } else {
+            ItemCarrito[] items = carrito.obtenerItemsArray();
+            for (ItemCarrito item : items) {
+                contenido.add(crearItemCarritoUI(item));
+            }
+        }
+        
+        contenido.revalidate();
+        contenido.repaint();
+    }
+    
+    /**
+     * Crear UI para un item del carrito
+     */
+    private JPanel crearItemCarritoUI(ItemCarrito item) {
+        JPanel panelItem = new JPanel();
+        panelItem.setLayout(new BorderLayout());
+        panelItem.setBackground(new Color(20, 20, 20));
+        panelItem.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(new Color(0, 153, 0), 1),
+            BorderFactory.createEmptyBorder(5, 5, 5, 5)
+        ));
+        panelItem.setMaximumSize(new Dimension(280, 60));
+        
+        // Información del producto
+        JLabel lblNombre = new JLabel(item.getRepuesto().getNombre());
+        lblNombre.setFont(new Font("JetBrains Mono", Font.BOLD, 10));
+        lblNombre.setForeground(Color.WHITE);
+        
+        JLabel lblPrecio = new JLabel("$" + String.format("%.2f", item.getSubtotal()));
+        lblPrecio.setFont(new Font("JetBrains Mono ExtraBold", Font.BOLD, 10));
+        lblPrecio.setForeground(new Color(0, 153, 0));
+        
+        // Panel de cantidad con botones
+        JPanel panelCantidad = new JPanel(new FlowLayout(FlowLayout.CENTER, 2, 0));
+        panelCantidad.setBackground(new Color(20, 20, 20));
+        
+        JButton btnMenos = crearBotonRedondeado("-", new Color(220, 53, 69), Color.WHITE, new Color(180, 40, 50));
+        btnMenos.setPreferredSize(new Dimension(25, 20));
+        btnMenos.setFont(new Font("JetBrains Mono ExtraBold", Font.BOLD, 10));
+        btnMenos.addActionListener(e -> cambiarCantidad(item, -1));
+        
+        JLabel lblCantidad = new JLabel(String.valueOf(item.getCantidad()));
+        lblCantidad.setFont(new Font("JetBrains Mono ExtraBold", Font.BOLD, 10));
+        lblCantidad.setForeground(Color.WHITE);
+        lblCantidad.setHorizontalAlignment(SwingConstants.CENTER);
+        lblCantidad.setPreferredSize(new Dimension(20, 20));
+        
+        JButton btnMas = crearBotonRedondeado("+", new Color(0, 153, 0), Color.WHITE, new Color(0, 100, 0));
+        btnMas.setPreferredSize(new Dimension(25, 20));
+        btnMas.setFont(new Font("JetBrains Mono ExtraBold", Font.BOLD, 10));
+        btnMas.addActionListener(e -> cambiarCantidad(item, 1));
+        
+        panelCantidad.add(btnMenos);
+        panelCantidad.add(lblCantidad);
+        panelCantidad.add(btnMas);
+        
+        // Organizar layout
+        JPanel panelInfo = new JPanel(new BorderLayout());
+        panelInfo.setBackground(new Color(20, 20, 20));
+        panelInfo.add(lblNombre, BorderLayout.NORTH);
+        panelInfo.add(lblPrecio, BorderLayout.SOUTH);
+        
+        panelItem.add(panelInfo, BorderLayout.CENTER);
+        panelItem.add(panelCantidad, BorderLayout.EAST);
+        
+        return panelItem;
+    }
+    
+    /**
+     * Cambiar cantidad de un item en el carrito
+     */
+    private void cambiarCantidad(ItemCarrito item, int delta) {
+        int nuevaCantidad = item.getCantidad() + delta;
+        
+        if (nuevaCantidad <= 0) {
+            // Eliminar item del carrito
+            gestorCarrito.eliminarDelCarrito(cedulaClienteActual, item.getRepuesto().getIdRepuesto());
+        } else {
+            // Actualizar cantidad
+            if (!gestorCarrito.actualizarCantidadCarrito(cedulaClienteActual, item.getRepuesto().getIdRepuesto(), nuevaCantidad)) {
+                JOptionPane.showMessageDialog(this, "Stock insuficiente. Stock disponible: " + item.getRepuesto().getStock(), 
+                                            "Error", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+        }
+        
+        actualizarVistaCarrito();
     }
     
     /**
