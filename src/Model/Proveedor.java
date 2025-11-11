@@ -24,6 +24,10 @@ public class Proveedor extends Usuario {
         this.aniosExperiencia = aniosExperiencia;
     }
 
+    public Proveedor() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
     // Solo necesitamos los getters y setters específicos de Proveedor
     public String getIdProveedor() {
         return idProveedor;

@@ -1,6 +1,6 @@
 package View;
 
-import Model.Cliente;
+import Model.Proveedor;
 import Model.Sesion;
 import javax.swing.JOptionPane;
 import listaDoble.Lista;
@@ -12,7 +12,7 @@ import listaDoble.Lista;
 public class Recepcionista2 extends javax.swing.JFrame {
 
     //Creacion de la lista de Clientes
-    Lista listaClientes;
+    Lista listaProveedores;
 
     public Recepcionista2() {
         initComponents();
@@ -74,8 +74,8 @@ public class Recepcionista2 extends javax.swing.JFrame {
         jLabel22 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
         lblRepuesto1 = new javax.swing.JLabel();
-        txtIdCliente = new javax.swing.JTextField();
-        btnBuscarCliente = new javax.swing.JButton();
+        txtProvActualizar = new javax.swing.JTextField();
+        btnBuscarProvActualizar = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jLabel24 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
@@ -87,10 +87,10 @@ public class Recepcionista2 extends javax.swing.JFrame {
         panelDecoración11 = new javax.swing.JPanel();
         jLabel27 = new javax.swing.JLabel();
         lblRepuesto2 = new javax.swing.JLabel();
-        jButton5 = new javax.swing.JButton();
+        btnBuscarProvEliminar = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jLabel30 = new javax.swing.JLabel();
-        txtIdRepuesto2 = new javax.swing.JTextField();
+        txtProvEliminar = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
         PanelAgregar = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
@@ -105,7 +105,7 @@ public class Recepcionista2 extends javax.swing.JFrame {
         lblStock = new javax.swing.JLabel();
         lblPrecioRepuesto = new javax.swing.JLabel();
         lblNombreRepuesto = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnCancelarProceso = new javax.swing.JButton();
         jLabel21 = new javax.swing.JLabel();
         txtPrimerNombreProveedor = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
@@ -119,7 +119,7 @@ public class Recepcionista2 extends javax.swing.JFrame {
         txtCedulaProveedor = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         txtTelefonoProveedor = new javax.swing.JTextField();
-        cboGeneroCliente = new javax.swing.JComboBox<>();
+        cboGeneroProveedor = new javax.swing.JComboBox<>();
         txtCorreoProveedor = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         txtUsuarioProveedor = new javax.swing.JTextField();
@@ -669,21 +669,21 @@ public class Recepcionista2 extends javax.swing.JFrame {
         lblRepuesto1.setText("1. INGRESE EL ID DEL REPUESTO PARA HALLARLO EN EL SISTEMA:");
         PanelActualizar.add(lblRepuesto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, -1, -1));
 
-        txtIdCliente.setBackground(new java.awt.Color(204, 204, 204));
-        txtIdCliente.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
-        txtIdCliente.setForeground(new java.awt.Color(0, 0, 0));
-        PanelActualizar.add(txtIdCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 240, 30));
+        txtProvActualizar.setBackground(new java.awt.Color(204, 204, 204));
+        txtProvActualizar.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
+        txtProvActualizar.setForeground(new java.awt.Color(0, 0, 0));
+        PanelActualizar.add(txtProvActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 240, 30));
 
-        btnBuscarCliente.setBackground(new java.awt.Color(0, 153, 0));
-        btnBuscarCliente.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
-        btnBuscarCliente.setForeground(new java.awt.Color(255, 255, 255));
-        btnBuscarCliente.setText("BUSCAR");
-        btnBuscarCliente.addActionListener(new java.awt.event.ActionListener() {
+        btnBuscarProvActualizar.setBackground(new java.awt.Color(0, 153, 0));
+        btnBuscarProvActualizar.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
+        btnBuscarProvActualizar.setForeground(new java.awt.Color(255, 255, 255));
+        btnBuscarProvActualizar.setText("BUSCAR");
+        btnBuscarProvActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarClienteActionPerformed(evt);
+                btnBuscarProvActualizarActionPerformed(evt);
             }
         });
-        PanelActualizar.add(btnBuscarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 160, 80, 30));
+        PanelActualizar.add(btnBuscarProvActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 160, 80, 30));
 
         jButton4.setBackground(new java.awt.Color(153, 0, 0));
         jButton4.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
@@ -777,16 +777,16 @@ public class Recepcionista2 extends javax.swing.JFrame {
         lblRepuesto2.setText("1. INGRESE EL ID DEL REPUESTO PARA HALLARLO EN EL SISTEMA:");
         panelEliminar.add(lblRepuesto2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, -1, -1));
 
-        jButton5.setBackground(new java.awt.Color(0, 153, 0));
-        jButton5.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
-        jButton5.setForeground(new java.awt.Color(255, 255, 255));
-        jButton5.setText("BUSCAR");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        btnBuscarProvEliminar.setBackground(new java.awt.Color(0, 153, 0));
+        btnBuscarProvEliminar.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
+        btnBuscarProvEliminar.setForeground(new java.awt.Color(255, 255, 255));
+        btnBuscarProvEliminar.setText("BUSCAR");
+        btnBuscarProvEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                btnBuscarProvEliminarActionPerformed(evt);
             }
         });
-        panelEliminar.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 160, 80, 30));
+        panelEliminar.add(btnBuscarProvEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 160, 80, 30));
 
         jButton6.setBackground(new java.awt.Color(153, 0, 0));
         jButton6.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
@@ -797,10 +797,10 @@ public class Recepcionista2 extends javax.swing.JFrame {
         jLabel30.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buscar.png"))); // NOI18N
         panelEliminar.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 160, -1, -1));
 
-        txtIdRepuesto2.setBackground(new java.awt.Color(204, 204, 204));
-        txtIdRepuesto2.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
-        txtIdRepuesto2.setForeground(new java.awt.Color(0, 0, 0));
-        panelEliminar.add(txtIdRepuesto2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 240, 30));
+        txtProvEliminar.setBackground(new java.awt.Color(204, 204, 204));
+        txtProvEliminar.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
+        txtProvEliminar.setForeground(new java.awt.Color(0, 0, 0));
+        panelEliminar.add(txtProvEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 240, 30));
 
         jPanel5.setBackground(new java.awt.Color(216, 216, 217));
 
@@ -910,18 +910,18 @@ public class Recepcionista2 extends javax.swing.JFrame {
         lblNombreRepuesto.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
         lblNombreRepuesto.setForeground(new java.awt.Color(0, 0, 0));
         lblNombreRepuesto.setText("2. SEGUNDO NOMBRE:");
-        PanelAgregar.add(lblNombreRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 120, -1, -1));
+        PanelAgregar.add(lblNombreRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 120, -1, -1));
 
-        jButton1.setBackground(new java.awt.Color(204, 0, 0));
-        jButton1.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("CANCELAR PROCESO");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnCancelarProceso.setBackground(new java.awt.Color(204, 0, 0));
+        btnCancelarProceso.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
+        btnCancelarProceso.setForeground(new java.awt.Color(255, 255, 255));
+        btnCancelarProceso.setText("CANCELAR PROCESO");
+        btnCancelarProceso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnCancelarProcesoActionPerformed(evt);
             }
         });
-        PanelAgregar.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 380, 200, 30));
+        PanelAgregar.add(btnCancelarProceso, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 380, 200, 30));
 
         jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/piezas-de-repuesto.png"))); // NOI18N
         PanelAgregar.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
@@ -929,7 +929,7 @@ public class Recepcionista2 extends javax.swing.JFrame {
         txtPrimerNombreProveedor.setBackground(new java.awt.Color(204, 204, 204));
         txtPrimerNombreProveedor.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
         txtPrimerNombreProveedor.setForeground(new java.awt.Color(0, 0, 0));
-        PanelAgregar.add(txtPrimerNombreProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 140, -1));
+        PanelAgregar.add(txtPrimerNombreProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 140, -1));
 
         jPanel3.setBackground(new java.awt.Color(0, 0, 0));
         jPanel3.setForeground(new java.awt.Color(0, 0, 0));
@@ -950,7 +950,7 @@ public class Recepcionista2 extends javax.swing.JFrame {
         jButton2.setBackground(new java.awt.Color(0, 153, 0));
         jButton2.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("AGREGAR REPUESTO");
+        jButton2.setText("AGREGAR PROVEEDOR");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -981,7 +981,7 @@ public class Recepcionista2 extends javax.swing.JFrame {
         txtSegundoNombreProveedor.setBackground(new java.awt.Color(204, 204, 204));
         txtSegundoNombreProveedor.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
         txtSegundoNombreProveedor.setForeground(new java.awt.Color(0, 0, 0));
-        PanelAgregar.add(txtSegundoNombreProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 140, 160, -1));
+        PanelAgregar.add(txtSegundoNombreProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 140, 160, -1));
 
         txtSegundoApellidoProveedor.setBackground(new java.awt.Color(204, 204, 204));
         txtSegundoApellidoProveedor.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
@@ -1008,11 +1008,11 @@ public class Recepcionista2 extends javax.swing.JFrame {
         });
         PanelAgregar.add(txtTelefonoProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 210, 140, -1));
 
-        cboGeneroCliente.setBackground(new java.awt.Color(204, 204, 204));
-        cboGeneroCliente.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
-        cboGeneroCliente.setForeground(new java.awt.Color(0, 0, 0));
-        cboGeneroCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Masculino", "Femenino" }));
-        PanelAgregar.add(cboGeneroCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 120, -1));
+        cboGeneroProveedor.setBackground(new java.awt.Color(204, 204, 204));
+        cboGeneroProveedor.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
+        cboGeneroProveedor.setForeground(new java.awt.Color(0, 0, 0));
+        cboGeneroProveedor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Masculino", "Femenino" }));
+        PanelAgregar.add(cboGeneroProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 120, -1));
 
         txtCorreoProveedor.setBackground(new java.awt.Color(204, 204, 204));
         txtCorreoProveedor.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
@@ -1041,7 +1041,7 @@ public class Recepcionista2 extends javax.swing.JFrame {
 
         txtAñosExperienciaProveedor.setBackground(new java.awt.Color(204, 204, 204));
         txtAñosExperienciaProveedor.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
-        PanelAgregar.add(txtAñosExperienciaProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 280, 130, -1));
+        PanelAgregar.add(txtAñosExperienciaProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 280, 180, -1));
 
         jLabel8.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(0, 0, 0));
@@ -1050,7 +1050,7 @@ public class Recepcionista2 extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Agregar", PanelAgregar);
 
-        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 180, 690, 480));
+        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 190, 690, 470));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -1081,44 +1081,69 @@ public class Recepcionista2 extends javax.swing.JFrame {
                 || txtPrimerApellidoProveedor.getText().trim().isEmpty()
                 || txtSegundoApellidoProveedor.getText().trim().isEmpty()
                 || txtCedulaProveedor.getText().trim().isEmpty()
-                || cboGeneroCliente.getSelectedItem().toString().equals("Seleccionar")
+                || cboGeneroProveedor.getSelectedItem().toString().equals("Seleccionar")
                 || txtTelefonoProveedor.getText().trim().isEmpty()) {
 
             JOptionPane.showMessageDialog(null, "Hay campos que estan vacios");
         } else {
 
-            /* // Crear el nuevo cliente con los datos del formulario
-        Cliente nuevoCliente = new Cliente(
-            txtPrimerNombreCliente.getText().trim(),
-            txtSegundoNombreCliente.getText().trim(),
-            txtPrimerApellidoCliente.getText().trim(),
-            txtSegundoApellidoCliente.getText().trim(),
-            txtCedulaCliente.getText().trim(),
-            txtTelefonoCliente.getText().trim(),
-            txtCorreoCliente.getText().trim(),
-            txtDireccionCliente.getText().trim()
-        );
-        
-        // Insertar el cliente al final de la lista
-        listaClientes.insertarFinal(nuevoCliente);
-        
-        JOptionPane.showMessageDialog(null, "Cliente Agregado Correctamente");
-        
-             */
+       //Usar el constructor por defecto (sin argumentos)
+            Proveedor nuevoProveedor = new Proveedor();
+
+            // ASIGNAR VALORES UNO POR UNO USANDO SETTERS
+            nuevoProveedor.setPrimerNombre(txtPrimerNombreProveedor.getText().trim());
+            nuevoProveedor.setSegundoNombre(txtSegundoNombreProveedor.getText().trim());
+            nuevoProveedor.setPrimerApellido(txtPrimerApellidoProveedor.getText().trim());
+            nuevoProveedor.setSegundoApellido(txtSegundoApellidoProveedor.getText().trim());
+
+            nuevoProveedor.setGenero(cboGeneroProveedor.getSelectedItem().toString());
+
+            nuevoProveedor.setCedula(txtCedulaProveedor.getText().trim());
+            nuevoProveedor.setTelefono(txtTelefonoProveedor.getText().trim());
+            nuevoProveedor.setCorreo(txtCorreoProveedor.getText().trim());
+            nuevoProveedor.setAniosExperiencia(Integer.parseInt(txtAñosExperienciaProveedor.getText().trim()));
+
+            // Asignación de usuario y contraseña 
+            nuevoProveedor.setUsuario(txtUsuarioProveedor.getText().trim());
+            nuevoProveedor.setContraseña(txtContraseñaProveedor.getText().trim());
+
+            // Insertar el cliente al final de la lista
+            listaProveedores.insertarFinal(nuevoProveedor);
+
+            JOptionPane.showMessageDialog(null, "Proveedor Agregado Correctamente");
+
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnCancelarProcesoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarProcesoActionPerformed
+      
+        JOptionPane.showMessageDialog(this, "PROCESO CANCELADO");
+        // 1. Limpiar campos de texto (JTextField)
+        txtPrimerNombreProveedor.setText("");
+        txtSegundoNombreProveedor.setText("");
+        txtPrimerApellidoProveedor.setText("");
+        txtSegundoApellidoProveedor.setText("");
+        txtCedulaProveedor.setText("");
+        txtTelefonoProveedor.setText("");
+        txtCorreoProveedor.setText("");
+        txtAñosExperienciaProveedor.setText("");
+        txtUsuarioProveedor.setText("");
+        txtContraseñaProveedor.setText("");
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+        // 2. Restablecer ComboBox
+        if (cboGeneroProveedor.getItemCount() > 0) {
+            cboGeneroProveedor.setSelectedIndex(0);
+        }
 
-    private void btnBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarClienteActionPerformed
+    }//GEN-LAST:event_btnCancelarProcesoActionPerformed
+
+    private void btnBuscarProvActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarProvActualizarActionPerformed
         // TODO add your handling code here:
-        if (txtIdCliente.getText().trim().isEmpty()) {
+        if (txtProvActualizar.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "La ID es incorrecta o esta vacia");
         }
 
-    }//GEN-LAST:event_btnBuscarClienteActionPerformed
+    }//GEN-LAST:event_btnBuscarProvActualizarActionPerformed
 
     private void txtTelefonoProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefonoProveedorActionPerformed
         // TODO add your handling code here:
@@ -1134,9 +1159,9 @@ public class Recepcionista2 extends javax.swing.JFrame {
          dispose();
     }//GEN-LAST:event_labelCerrarSesion1MouseClicked
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void btnBuscarProvEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarProvEliminarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_btnBuscarProvEliminarActionPerformed
 
     //Proveedor p = Sesion.proveedorActual;
     public static void main(String args[]) {
@@ -1152,8 +1177,10 @@ public class Recepcionista2 extends javax.swing.JFrame {
     private javax.swing.JPanel PanelActualizar;
     private javax.swing.JPanel PanelAgregar;
     private javax.swing.JPanel PanelNegro2;
-    private javax.swing.JButton btnBuscarCliente;
-    private javax.swing.JComboBox<String> cboGeneroCliente;
+    private javax.swing.JButton btnBuscarProvActualizar;
+    private javax.swing.JButton btnBuscarProvEliminar;
+    private javax.swing.JButton btnCancelarProceso;
+    private javax.swing.JComboBox<String> cboGeneroProveedor;
     private javax.swing.JLabel iconAgendarCita;
     private javax.swing.JLabel iconAgregarPaciente;
     private javax.swing.JLabel iconCerrarSesion;
@@ -1161,10 +1188,8 @@ public class Recepcionista2 extends javax.swing.JFrame {
     private javax.swing.JLabel iconEditarPaciente;
     private javax.swing.JLabel iconInicio;
     private javax.swing.JLabel iconRecepcinista;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -1244,10 +1269,10 @@ public class Recepcionista2 extends javax.swing.JFrame {
     private javax.swing.JTextField txtCedulaProveedor;
     private javax.swing.JTextField txtContraseñaProveedor;
     private javax.swing.JTextField txtCorreoProveedor;
-    private javax.swing.JTextField txtIdCliente;
-    private javax.swing.JTextField txtIdRepuesto2;
     private javax.swing.JTextField txtPrimerApellidoProveedor;
     private javax.swing.JTextField txtPrimerNombreProveedor;
+    private javax.swing.JTextField txtProvActualizar;
+    private javax.swing.JTextField txtProvEliminar;
     private javax.swing.JTextField txtSegundoApellidoProveedor;
     private javax.swing.JTextField txtSegundoNombreProveedor;
     private javax.swing.JTextField txtTelefonoProveedor;
