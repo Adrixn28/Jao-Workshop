@@ -240,6 +240,9 @@ public class Lista {
     public void setPrimero(Nodo primero) {
         this.primero = primero;
     }
-    
+   
+    public boolean estaVacia() {
+    return this.primero == null;
+}
     
 }

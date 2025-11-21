@@ -5,6 +5,7 @@ import Percistencia.ActualizarRepuestoId;
 import Percistencia.BuscarRepuestoId;
 import Percistencia.EliminarRepuestoId;
 import Percistencia.ExisteRepuestoId;
+import Percistencia.SistemaDatos;
 import Service.LoginService;
 import javax.swing.JOptionPane;
 import javax.swing.SpinnerNumberModel;
@@ -20,15 +21,13 @@ import listaDoble.Nodo;
 public class Proveedor extends javax.swing.JFrame {
 
     //Listas y utilidades
-    public class lista {
-
-        public static Lista listaRepuestos = new Lista();
-    }
+  
 
     //Variable global
     private Model.Proveedor prov;
 
     //Métodos
+    private boolean repuestosCargados = false;
     ExisteRepuestoId buscar_repuesto = new ExisteRepuestoId();
     BuscarRepuestoId buscador = new BuscarRepuestoId();
     EliminarRepuestoId eliminar = new EliminarRepuestoId();
@@ -42,13 +41,16 @@ public class Proveedor extends javax.swing.JFrame {
         initComponents();
         ocultarZonaDeActualizar();
         inicializarServicios();
-        cargarRepuestos();
+        
+        cargarTabla(tablaRepuestos, SistemaDatos.getInstancia().listaRepuestos);
+
         setLocationRelativeTo(null);
         jspinnerStock.setModel(modelo);
         spiActualizarStock.setModel(modelo2);
         btnLimpiarCampoDelete.setEnabled(false);
         inicializarServicios();
-        cargarTabla(tablaRepuestos, lista.listaRepuestos);
+        cargarTabla(tablaRepuestos, SistemaDatos.getInstancia().listaRepuestos
+);
     }
 
     //Constructor con ID
@@ -57,12 +59,14 @@ public class Proveedor extends javax.swing.JFrame {
         ocultarZonaDeActualizar();
         inicializarServicios();
         precargarDatosProveedorPorId(idProveedor);
-        cargarRepuestos();
+            cargarTabla(tablaRepuestos, SistemaDatos.getInstancia().listaRepuestos);
+
         jspinnerStock.setModel(modelo);
         spiActualizarStock.setModel(modelo2);
         btnLimpiarCampoDelete.setEnabled(false);
         setLocationRelativeTo(null);
-        cargarTabla(tablaRepuestos, lista.listaRepuestos);
+        cargarTabla(tablaRepuestos, SistemaDatos.getInstancia().listaRepuestos
+);
 
     }
 
@@ -634,10 +638,10 @@ public class Proveedor extends javax.swing.JFrame {
         );
         PanelNegro2Layout.setVerticalGroup(
             PanelNegro2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+            .addGap(0, 130, Short.MAX_VALUE)
         );
 
-        getContentPane().add(PanelNegro2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 80, 690, 100));
+        getContentPane().add(PanelNegro2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 80, 690, 130));
 
         panelMenu.setBackground(new java.awt.Color(255, 255, 255));
         panelMenu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -1413,7 +1417,7 @@ public class Proveedor extends javax.swing.JFrame {
                         //Validación que solo exista un repuesto registrado con dicho id
                         int idBuscar = Integer.parseInt(idRepuesto);
 
-                        if (buscar_repuesto.existeRepuestoPorId(lista.listaRepuestos, idBuscar)) {
+                        if (buscar_repuesto.existeRepuestoPorId(SistemaDatos.getInstancia().listaRepuestos, idBuscar)) {
                             JOptionPane.showMessageDialog(null, "Ya existe un registro del repuesto en el inventario con ese ID que digitó.", "Verificación.", JOptionPane.ERROR_MESSAGE);
                         } else {
 
@@ -1423,7 +1427,7 @@ public class Proveedor extends javax.swing.JFrame {
 
                             //Agregar repuesto
                             Repuesto nuevo = new Repuesto(idRepuestoI, nombre, descripcion, marca, categoria, precioD, stock, estado, prov);
-                            lista.listaRepuestos.insertarFinal(nuevo);
+                            SistemaDatos.getInstancia().listaRepuestos.insertarFinal(nuevo);
                             JOptionPane.showMessageDialog(null, "Repuesto agregado correctamente.", "Completado.", JOptionPane.INFORMATION_MESSAGE);
                             limpiarCampos();
                             //Código para volver al menú principal
@@ -1483,7 +1487,7 @@ public class Proveedor extends javax.swing.JFrame {
             //Eliminación
             int id = Integer.parseInt(idRepuesto);
             EliminarRepuestoId eliminador = new EliminarRepuestoId();
-            eliminador.eliminarPorId(lista.listaRepuestos, id);
+            eliminador.eliminarPorId(SistemaDatos.getInstancia().listaRepuestos, id);
 
         } else if (resultado == JOptionPane.NO_OPTION) {
             JOptionPane.showMessageDialog(null, "Proceso cancelado.");
@@ -1521,7 +1525,7 @@ public class Proveedor extends javax.swing.JFrame {
                 } else {
 
                     int id = Integer.parseInt(idRepuesto);
-                    Repuesto encontrado = buscador.buscarPorId(lista.listaRepuestos, id);
+                    Repuesto encontrado = buscador.buscarPorId(SistemaDatos.getInstancia().listaRepuestos, id);
 
                     if (encontrado != null) {
                         txtCargarNombreRepuesto3.setText(encontrado.getNombre());
@@ -1545,30 +1549,32 @@ public class Proveedor extends javax.swing.JFrame {
         switch (campo) {
 
             case "Precio":
-            nuevoValor = txtActualizarPrecioR.getText().toString().trim();
-            break;
+                nuevoValor = txtActualizarPrecioR.getText().toString().trim();
+                break;
 
             case "Stock":
-            nuevoValor = spiActualizarStock.getValue().toString().trim();
-            break;
+                nuevoValor = spiActualizarStock.getValue().toString().trim();
+                break;
 
             case "Estado":
-            nuevoValor = cboActualizarEstado.getSelectedItem().toString().trim();
-            break;
+                nuevoValor = cboActualizarEstado.getSelectedItem().toString().trim();
+                break;
         }
-        
-        boolean actualizado = actualizar.actualizarPorId(lista.listaRepuestos, idRef, campo, nuevoValor);
 
-        if(actualizado){
-        JOptionPane.showMessageDialog(null, "Repuesto actualizado correctamente.", "Actualización.", JOptionPane.INFORMATION_MESSAGE);
+        boolean actualizado = actualizar.actualizarPorId(SistemaDatos.getInstancia().listaRepuestos, idRef, campo, nuevoValor);
+
+        if (actualizado) {
+            JOptionPane.showMessageDialog(null, "Repuesto actualizado correctamente.", "Actualización.", JOptionPane.INFORMATION_MESSAGE);
+
+            ocultarDespuesQueActualice();
         } else {
-          JOptionPane.showMessageDialog(null, "El repuesto no se actualizó correctamente.", "Actualización.", JOptionPane.ERROR_MESSAGE);  
+            JOptionPane.showMessageDialog(null, "El repuesto no se actualizó correctamente.", "Actualización.", JOptionPane.ERROR_MESSAGE);
         }
-        
+
     }//GEN-LAST:event_btnActualizarRActionPerformed
 
     private void btnReiniciarTablaRepuestosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReiniciarTablaRepuestosActionPerformed
-        recargarTabla(tablaRepuestos, lista.listaRepuestos);
+        recargarTabla(tablaRepuestos, SistemaDatos.getInstancia().listaRepuestos);
         JOptionPane.showMessageDialog(null, "Tabla refrescada correctamente.", "Actualización.", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnReiniciarTablaRepuestosActionPerformed
 
@@ -1590,10 +1596,10 @@ public class Proveedor extends javax.swing.JFrame {
                 } else {
 
                     int id = Integer.parseInt(idRepuesto);
-                    Repuesto encontrado = buscador.buscarPorId(lista.listaRepuestos, id);
+                    Repuesto encontrado = buscador.buscarPorId(SistemaDatos.getInstancia().listaRepuestos, id);
 
                     if (encontrado != null) {
-                        JOptionPane.showMessageDialog(null, "¡Repuesto encontrado existosamente, puedes dormir!", "Correcto.", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "¡Repuesto encontrado existosamente", "Correcto.", JOptionPane.INFORMATION_MESSAGE);
                         mostrarZonaDeActualizar();
                         ocultarDespuesDeTodoExitoso();
                     } else {
@@ -1857,48 +1863,7 @@ public class Proveedor extends javax.swing.JFrame {
         cboCategoria.setSelectedIndex(0);
     }
 
-    private void cargarRepuestos() {
-        // === REPUESTOS ===
-        Repuesto repuesto1 = new Repuesto(
-                987654321,
-                "Filtro de aceite",
-                "Filtro de alta eficiencia para motor 1.6",
-                "Bosch",
-                "Motor",
-                45000.0,
-                20,
-                "Disponible"
-        );
-
-        Repuesto repuesto2 = new Repuesto(
-                87654321,
-                "Pastillas de freno",
-                "Pastillas cerámicas para alto rendimiento",
-                "Brembo",
-                "Frenos",
-                95000.0,
-                15,
-                "Agotado"
-        );
-
-        Repuesto repuesto3 = new Repuesto(
-                12345678,
-                "Bujías de iridio NGK",
-                "Set de 4 bujías NGK Iridium IX",
-                "NGK",
-                "Encendido",
-                120000.0,
-                25,
-                "Retirado"
-        );
-
-        // === AGREGAR A LA LISTA DOBLEMENTE ENLAZADA ===
-        lista.listaRepuestos.insertarFinal(repuesto1);
-        lista.listaRepuestos.insertarFinal(repuesto2);
-        lista.listaRepuestos.insertarFinal(repuesto3);
-
-        System.out.println("Repuestos iniciales cargados con éxito.");
-    }
+  
 
     public void cargarTabla(JTable tablaRepuestos, Lista lista) {
         DefaultTableModel model = (DefaultTableModel) tablaRepuestos.getModel();
@@ -1976,4 +1941,15 @@ public class Proveedor extends javax.swing.JFrame {
         lblActualizarPrecio.setVisible(false);
         txtActualizarPrecioR.setVisible(false);
     }
+
+    private void ocultarDespuesQueActualice() {
+        cboSolicitudActualizar.setSelectedIndex(0);
+        jPanel6.setVisible(false);
+        btnActualizarR.setVisible(false);
+        btnCancelarR.setVisible(false);
+        lblQuéQuieresActualizar1.setVisible(false);
+        lblActualizarPrecio.setVisible(false);
+        cboSolicitudActualizar.setVisible(false);
+    }
+
 }
