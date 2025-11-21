@@ -25,7 +25,9 @@ public class Cliente extends Usuario {
     }
 
     public Cliente() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        super();
+        this.idCliente = "";
+        this.direccion = "";
     }
 
     // Solo necesitamos los getters y setters específicos de Cliente

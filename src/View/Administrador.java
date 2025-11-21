@@ -187,37 +187,6 @@ public class Administrador extends javax.swing.JFrame {
         txtIdNombresDelAdministrador = new javax.swing.JTextField();
         txtApellidosAdministrador1 = new javax.swing.JTextField();
         BtnCancelarEdicion = new javax.swing.JButton();
-        PanelAgregar1 = new javax.swing.JPanel();
-        jLabel20 = new javax.swing.JLabel();
-        jLabel22 = new javax.swing.JLabel();
-        panelDecoración6 = new javax.swing.JPanel();
-        panelDecoración7 = new javax.swing.JPanel();
-        panelDecoración8 = new javax.swing.JPanel();
-        lblRepuesto1 = new javax.swing.JLabel();
-        cboMarcaRepuesto1 = new javax.swing.JComboBox<>();
-        lblCOP1 = new javax.swing.JLabel();
-        cboCategoria1 = new javax.swing.JComboBox<>();
-        lblCategoria1 = new javax.swing.JLabel();
-        txtPrecio1 = new javax.swing.JTextField();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jtxtareaDescripcion1 = new javax.swing.JTextArea();
-        lblMarcaRepuesto1 = new javax.swing.JLabel();
-        lblDescripcionRepuesto1 = new javax.swing.JLabel();
-        txtNombreRepuesto1 = new javax.swing.JTextField();
-        lblStock1 = new javax.swing.JLabel();
-        lblPrecioRepuesto1 = new javax.swing.JLabel();
-        jPanel4 = new javax.swing.JPanel();
-        jspinnerStock1 = new javax.swing.JSpinner();
-        lblNombreRepuesto1 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
-        jLabel23 = new javax.swing.JLabel();
-        txtIdRepuesto1 = new javax.swing.JTextField();
-        jPanel5 = new javax.swing.JPanel();
-        jButton4 = new javax.swing.JButton();
-        jLabel24 = new javax.swing.JLabel();
-        jLabel25 = new javax.swing.JLabel();
-        jLabel26 = new javax.swing.JLabel();
-        jLabel27 = new javax.swing.JLabel();
         PanelAgregar2 = new javax.swing.JPanel();
         jLabel28 = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
@@ -311,6 +280,37 @@ public class Administrador extends javax.swing.JFrame {
         jLabel46 = new javax.swing.JLabel();
         jLabel47 = new javax.swing.JLabel();
         jLabel48 = new javax.swing.JLabel();
+        PanelAgregar1 = new javax.swing.JPanel();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        panelDecoración6 = new javax.swing.JPanel();
+        panelDecoración7 = new javax.swing.JPanel();
+        panelDecoración8 = new javax.swing.JPanel();
+        lblRepuesto1 = new javax.swing.JLabel();
+        cboMarcaRepuesto1 = new javax.swing.JComboBox<>();
+        lblCOP1 = new javax.swing.JLabel();
+        cboCategoria1 = new javax.swing.JComboBox<>();
+        lblCategoria1 = new javax.swing.JLabel();
+        txtPrecio1 = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jtxtareaDescripcion1 = new javax.swing.JTextArea();
+        lblMarcaRepuesto1 = new javax.swing.JLabel();
+        lblDescripcionRepuesto1 = new javax.swing.JLabel();
+        txtNombreRepuesto1 = new javax.swing.JTextField();
+        lblStock1 = new javax.swing.JLabel();
+        lblPrecioRepuesto1 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        jspinnerStock1 = new javax.swing.JSpinner();
+        lblNombreRepuesto1 = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
+        jLabel23 = new javax.swing.JLabel();
+        txtIdRepuesto1 = new javax.swing.JTextField();
+        jPanel5 = new javax.swing.JPanel();
+        jButton4 = new javax.swing.JButton();
+        jLabel24 = new javax.swing.JLabel();
+        jLabel25 = new javax.swing.JLabel();
+        jLabel26 = new javax.swing.JLabel();
+        jLabel27 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -887,6 +887,11 @@ public class Administrador extends javax.swing.JFrame {
         GuardarDatosEditados.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
         GuardarDatosEditados.setForeground(new java.awt.Color(255, 255, 255));
         GuardarDatosEditados.setText("Guardar");
+        GuardarDatosEditados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         PanelAgregar.add(GuardarDatosEditados, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 370, 150, 30));
 
         jLabel16.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 24)); // NOI18N
@@ -950,209 +955,6 @@ public class Administrador extends javax.swing.JFrame {
         PanelAgregar.add(BtnCancelarEdicion, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 410, 150, 30));
 
         jTabbedPane1.addTab("PANEL INICIO", PanelAgregar);
-
-        PanelAgregar1.setBackground(new java.awt.Color(255, 255, 255));
-        PanelAgregar1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel20.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 10)); // NOI18N
-        jLabel20.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel20.setText("- AL MEJOR PRECIO.");
-        PanelAgregar1.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 40, -1, -1));
-
-        jLabel22.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 8)); // NOI18N
-        jLabel22.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel22.setText("* ¡Recuerda colocar las especificaciones del repuesto!");
-        PanelAgregar1.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 270, 10));
-
-        panelDecoración6.setBackground(new java.awt.Color(0, 153, 0));
-
-        javax.swing.GroupLayout panelDecoración6Layout = new javax.swing.GroupLayout(panelDecoración6);
-        panelDecoración6.setLayout(panelDecoración6Layout);
-        panelDecoración6Layout.setHorizontalGroup(
-            panelDecoración6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        panelDecoración6Layout.setVerticalGroup(
-            panelDecoración6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        PanelAgregar1.add(panelDecoración6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 690, 10));
-
-        panelDecoración7.setBackground(new java.awt.Color(51, 51, 51));
-
-        javax.swing.GroupLayout panelDecoración7Layout = new javax.swing.GroupLayout(panelDecoración7);
-        panelDecoración7.setLayout(panelDecoración7Layout);
-        panelDecoración7Layout.setHorizontalGroup(
-            panelDecoración7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        panelDecoración7Layout.setVerticalGroup(
-            panelDecoración7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        PanelAgregar1.add(panelDecoración7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 690, 10));
-
-        panelDecoración8.setBackground(new java.awt.Color(15, 15, 15));
-
-        javax.swing.GroupLayout panelDecoración8Layout = new javax.swing.GroupLayout(panelDecoración8);
-        panelDecoración8.setLayout(panelDecoración8Layout);
-        panelDecoración8Layout.setHorizontalGroup(
-            panelDecoración8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        panelDecoración8Layout.setVerticalGroup(
-            panelDecoración8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        PanelAgregar1.add(panelDecoración8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 690, 10));
-
-        lblRepuesto1.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
-        lblRepuesto1.setForeground(new java.awt.Color(0, 0, 0));
-        lblRepuesto1.setText("1. ID DEL REPUESTO:");
-        PanelAgregar1.add(lblRepuesto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, -1, -1));
-
-        cboMarcaRepuesto1.setBackground(new java.awt.Color(204, 204, 204));
-        cboMarcaRepuesto1.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
-        cboMarcaRepuesto1.setForeground(new java.awt.Color(0, 0, 0));
-        cboMarcaRepuesto1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sin seleccionar", "Kawasaki", "Yamaha", "BMW", "Ducati", "Bajaj", "Hero", "KTM", "Honda", "Suzuki" }));
-        PanelAgregar1.add(cboMarcaRepuesto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 140, 210, -1));
-
-        lblCOP1.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 18)); // NOI18N
-        lblCOP1.setForeground(new java.awt.Color(0, 153, 0));
-        lblCOP1.setText("COP");
-        PanelAgregar1.add(lblCOP1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 210, 40, -1));
-
-        cboCategoria1.setBackground(new java.awt.Color(204, 204, 204));
-        cboCategoria1.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
-        cboCategoria1.setForeground(new java.awt.Color(0, 0, 0));
-        cboCategoria1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sin seleccionar", "Motor", "Transmisión", "Frenos", "Eléctrico", "Suspensión", "Carrocería", "Lubricantes" }));
-        PanelAgregar1.add(cboCategoria1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 270, 220, -1));
-
-        lblCategoria1.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
-        lblCategoria1.setForeground(new java.awt.Color(0, 0, 0));
-        lblCategoria1.setText("6. CATEGORÍA (USO/ENFOQUE):");
-        PanelAgregar1.add(lblCategoria1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 250, 220, -1));
-
-        txtPrecio1.setBackground(new java.awt.Color(204, 204, 204));
-        txtPrecio1.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
-        txtPrecio1.setForeground(new java.awt.Color(0, 0, 0));
-        PanelAgregar1.add(txtPrecio1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 210, 140, -1));
-
-        jtxtareaDescripcion1.setBackground(new java.awt.Color(204, 204, 204));
-        jtxtareaDescripcion1.setColumns(20);
-        jtxtareaDescripcion1.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
-        jtxtareaDescripcion1.setForeground(new java.awt.Color(0, 0, 0));
-        jtxtareaDescripcion1.setRows(5);
-        jScrollPane2.setViewportView(jtxtareaDescripcion1);
-
-        PanelAgregar1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 270, -1));
-
-        lblMarcaRepuesto1.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
-        lblMarcaRepuesto1.setForeground(new java.awt.Color(0, 0, 0));
-        lblMarcaRepuesto1.setText("3. MARCA DEL REPUESTO:");
-        PanelAgregar1.add(lblMarcaRepuesto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 120, -1, -1));
-
-        lblDescripcionRepuesto1.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
-        lblDescripcionRepuesto1.setForeground(new java.awt.Color(0, 0, 0));
-        lblDescripcionRepuesto1.setText("4. DESCRIPCIÓN ACERCA DEL REPUESTO");
-        PanelAgregar1.add(lblDescripcionRepuesto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, -1, -1));
-
-        txtNombreRepuesto1.setBackground(new java.awt.Color(204, 204, 204));
-        txtNombreRepuesto1.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
-        txtNombreRepuesto1.setForeground(new java.awt.Color(0, 0, 0));
-        PanelAgregar1.add(txtNombreRepuesto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 140, 160, -1));
-
-        lblStock1.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
-        lblStock1.setForeground(new java.awt.Color(0, 0, 0));
-        lblStock1.setText("6. STOCK/CANTIDAD:");
-        PanelAgregar1.add(lblStock1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 190, -1, -1));
-
-        lblPrecioRepuesto1.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
-        lblPrecioRepuesto1.setForeground(new java.awt.Color(0, 0, 0));
-        lblPrecioRepuesto1.setText("5. PRECIO DEL REPUESTO");
-        PanelAgregar1.add(lblPrecioRepuesto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 190, -1, -1));
-
-        jPanel4.setBackground(new java.awt.Color(229, 229, 255));
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        PanelAgregar1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 180, 10, 150));
-
-        jspinnerStock1.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
-        PanelAgregar1.add(jspinnerStock1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 210, 140, -1));
-
-        lblNombreRepuesto1.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
-        lblNombreRepuesto1.setForeground(new java.awt.Color(0, 0, 0));
-        lblNombreRepuesto1.setText("2. NOMBRE DEL REPUESTO:");
-        PanelAgregar1.add(lblNombreRepuesto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 120, -1, -1));
-
-        jButton3.setBackground(new java.awt.Color(204, 0, 0));
-        jButton3.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("CANCELAR PROCESO");
-        PanelAgregar1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 350, 160, 30));
-        PanelAgregar1.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
-
-        txtIdRepuesto1.setBackground(new java.awt.Color(204, 204, 204));
-        txtIdRepuesto1.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
-        txtIdRepuesto1.setForeground(new java.awt.Color(0, 0, 0));
-        PanelAgregar1.add(txtIdRepuesto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 140, -1));
-
-        jPanel5.setBackground(new java.awt.Color(0, 0, 0));
-        jPanel5.setForeground(new java.awt.Color(0, 0, 0));
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 690, Short.MAX_VALUE)
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 40, Short.MAX_VALUE)
-        );
-
-        PanelAgregar1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 410, 690, 40));
-
-        jButton4.setBackground(new java.awt.Color(0, 153, 0));
-        jButton4.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jButton4.setText("AGREGAR REPUESTO");
-        PanelAgregar1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 310, 160, 30));
-
-        jLabel24.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 16)); // NOI18N
-        jLabel24.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel24.setText("LLENA LOS CAMPOS PARA AGREGAR UN REPUESTO AL INVENTARIO");
-        PanelAgregar1.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, -1, -1));
-
-        jLabel25.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 10)); // NOI18N
-        jLabel25.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel25.setText("- EFICIENTES.");
-        PanelAgregar1.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, -1, -1));
-
-        jLabel26.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 10)); // NOI18N
-        jLabel26.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel26.setText("- DURABLES.");
-        PanelAgregar1.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 40, -1, -1));
-
-        jLabel27.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 10)); // NOI18N
-        jLabel27.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel27.setText("- ALTA CALIDAD.");
-        PanelAgregar1.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 40, -1, -1));
-
-        jTabbedPane1.addTab("PROVEEDOR", PanelAgregar1);
 
         PanelAgregar2.setBackground(new java.awt.Color(255, 255, 255));
         PanelAgregar2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -1772,6 +1574,209 @@ public class Administrador extends javax.swing.JFrame {
         PanelAgregar4.add(jLabel48, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 40, -1, -1));
 
         jTabbedPane1.addTab("SEDE", PanelAgregar4);
+
+        PanelAgregar1.setBackground(new java.awt.Color(255, 255, 255));
+        PanelAgregar1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel20.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 10)); // NOI18N
+        jLabel20.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel20.setText("- AL MEJOR PRECIO.");
+        PanelAgregar1.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 40, -1, -1));
+
+        jLabel22.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 8)); // NOI18N
+        jLabel22.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel22.setText("* ¡Recuerda colocar las especificaciones del repuesto!");
+        PanelAgregar1.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 270, 10));
+
+        panelDecoración6.setBackground(new java.awt.Color(0, 153, 0));
+
+        javax.swing.GroupLayout panelDecoración6Layout = new javax.swing.GroupLayout(panelDecoración6);
+        panelDecoración6.setLayout(panelDecoración6Layout);
+        panelDecoración6Layout.setHorizontalGroup(
+            panelDecoración6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        panelDecoración6Layout.setVerticalGroup(
+            panelDecoración6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        PanelAgregar1.add(panelDecoración6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 690, 10));
+
+        panelDecoración7.setBackground(new java.awt.Color(51, 51, 51));
+
+        javax.swing.GroupLayout panelDecoración7Layout = new javax.swing.GroupLayout(panelDecoración7);
+        panelDecoración7.setLayout(panelDecoración7Layout);
+        panelDecoración7Layout.setHorizontalGroup(
+            panelDecoración7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        panelDecoración7Layout.setVerticalGroup(
+            panelDecoración7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        PanelAgregar1.add(panelDecoración7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 690, 10));
+
+        panelDecoración8.setBackground(new java.awt.Color(15, 15, 15));
+
+        javax.swing.GroupLayout panelDecoración8Layout = new javax.swing.GroupLayout(panelDecoración8);
+        panelDecoración8.setLayout(panelDecoración8Layout);
+        panelDecoración8Layout.setHorizontalGroup(
+            panelDecoración8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        panelDecoración8Layout.setVerticalGroup(
+            panelDecoración8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        PanelAgregar1.add(panelDecoración8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 690, 10));
+
+        lblRepuesto1.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
+        lblRepuesto1.setForeground(new java.awt.Color(0, 0, 0));
+        lblRepuesto1.setText("1. ID DEL REPUESTO:");
+        PanelAgregar1.add(lblRepuesto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, -1, -1));
+
+        cboMarcaRepuesto1.setBackground(new java.awt.Color(204, 204, 204));
+        cboMarcaRepuesto1.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
+        cboMarcaRepuesto1.setForeground(new java.awt.Color(0, 0, 0));
+        cboMarcaRepuesto1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sin seleccionar", "Kawasaki", "Yamaha", "BMW", "Ducati", "Bajaj", "Hero", "KTM", "Honda", "Suzuki" }));
+        PanelAgregar1.add(cboMarcaRepuesto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 140, 210, -1));
+
+        lblCOP1.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 18)); // NOI18N
+        lblCOP1.setForeground(new java.awt.Color(0, 153, 0));
+        lblCOP1.setText("COP");
+        PanelAgregar1.add(lblCOP1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 210, 40, -1));
+
+        cboCategoria1.setBackground(new java.awt.Color(204, 204, 204));
+        cboCategoria1.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
+        cboCategoria1.setForeground(new java.awt.Color(0, 0, 0));
+        cboCategoria1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sin seleccionar", "Motor", "Transmisión", "Frenos", "Eléctrico", "Suspensión", "Carrocería", "Lubricantes" }));
+        PanelAgregar1.add(cboCategoria1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 270, 220, -1));
+
+        lblCategoria1.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
+        lblCategoria1.setForeground(new java.awt.Color(0, 0, 0));
+        lblCategoria1.setText("6. CATEGORÍA (USO/ENFOQUE):");
+        PanelAgregar1.add(lblCategoria1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 250, 220, -1));
+
+        txtPrecio1.setBackground(new java.awt.Color(204, 204, 204));
+        txtPrecio1.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
+        txtPrecio1.setForeground(new java.awt.Color(0, 0, 0));
+        PanelAgregar1.add(txtPrecio1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 210, 140, -1));
+
+        jtxtareaDescripcion1.setBackground(new java.awt.Color(204, 204, 204));
+        jtxtareaDescripcion1.setColumns(20);
+        jtxtareaDescripcion1.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
+        jtxtareaDescripcion1.setForeground(new java.awt.Color(0, 0, 0));
+        jtxtareaDescripcion1.setRows(5);
+        jScrollPane2.setViewportView(jtxtareaDescripcion1);
+
+        PanelAgregar1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 270, -1));
+
+        lblMarcaRepuesto1.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
+        lblMarcaRepuesto1.setForeground(new java.awt.Color(0, 0, 0));
+        lblMarcaRepuesto1.setText("3. MARCA DEL REPUESTO:");
+        PanelAgregar1.add(lblMarcaRepuesto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 120, -1, -1));
+
+        lblDescripcionRepuesto1.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
+        lblDescripcionRepuesto1.setForeground(new java.awt.Color(0, 0, 0));
+        lblDescripcionRepuesto1.setText("4. DESCRIPCIÓN ACERCA DEL REPUESTO");
+        PanelAgregar1.add(lblDescripcionRepuesto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, -1, -1));
+
+        txtNombreRepuesto1.setBackground(new java.awt.Color(204, 204, 204));
+        txtNombreRepuesto1.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
+        txtNombreRepuesto1.setForeground(new java.awt.Color(0, 0, 0));
+        PanelAgregar1.add(txtNombreRepuesto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 140, 160, -1));
+
+        lblStock1.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
+        lblStock1.setForeground(new java.awt.Color(0, 0, 0));
+        lblStock1.setText("6. STOCK/CANTIDAD:");
+        PanelAgregar1.add(lblStock1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 190, -1, -1));
+
+        lblPrecioRepuesto1.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
+        lblPrecioRepuesto1.setForeground(new java.awt.Color(0, 0, 0));
+        lblPrecioRepuesto1.setText("5. PRECIO DEL REPUESTO");
+        PanelAgregar1.add(lblPrecioRepuesto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 190, -1, -1));
+
+        jPanel4.setBackground(new java.awt.Color(229, 229, 255));
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        PanelAgregar1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 180, 10, 150));
+
+        jspinnerStock1.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
+        PanelAgregar1.add(jspinnerStock1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 210, 140, -1));
+
+        lblNombreRepuesto1.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
+        lblNombreRepuesto1.setForeground(new java.awt.Color(0, 0, 0));
+        lblNombreRepuesto1.setText("2. NOMBRE DEL REPUESTO:");
+        PanelAgregar1.add(lblNombreRepuesto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 120, -1, -1));
+
+        jButton3.setBackground(new java.awt.Color(204, 0, 0));
+        jButton3.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
+        jButton3.setForeground(new java.awt.Color(255, 255, 255));
+        jButton3.setText("CANCELAR PROCESO");
+        PanelAgregar1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 350, 160, 30));
+        PanelAgregar1.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+
+        txtIdRepuesto1.setBackground(new java.awt.Color(204, 204, 204));
+        txtIdRepuesto1.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
+        txtIdRepuesto1.setForeground(new java.awt.Color(0, 0, 0));
+        PanelAgregar1.add(txtIdRepuesto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 140, -1));
+
+        jPanel5.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel5.setForeground(new java.awt.Color(0, 0, 0));
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 690, Short.MAX_VALUE)
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 40, Short.MAX_VALUE)
+        );
+
+        PanelAgregar1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 410, 690, 40));
+
+        jButton4.setBackground(new java.awt.Color(0, 153, 0));
+        jButton4.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
+        jButton4.setForeground(new java.awt.Color(255, 255, 255));
+        jButton4.setText("AGREGAR REPUESTO");
+        PanelAgregar1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 310, 160, 30));
+
+        jLabel24.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 16)); // NOI18N
+        jLabel24.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel24.setText("LLENA LOS CAMPOS PARA AGREGAR UN REPUESTO AL INVENTARIO");
+        PanelAgregar1.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, -1, -1));
+
+        jLabel25.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 10)); // NOI18N
+        jLabel25.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel25.setText("- EFICIENTES.");
+        PanelAgregar1.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, -1, -1));
+
+        jLabel26.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 10)); // NOI18N
+        jLabel26.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel26.setText("- DURABLES.");
+        PanelAgregar1.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 40, -1, -1));
+
+        jLabel27.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 10)); // NOI18N
+        jLabel27.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel27.setText("- ALTA CALIDAD.");
+        PanelAgregar1.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 40, -1, -1));
+
+        jTabbedPane1.addTab("PROVEEDOR", PanelAgregar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

@@ -12,11 +12,13 @@ import listaDoble.Lista;
 public class Recepcionista extends javax.swing.JFrame {
 
     //Creacion de la lista de Clientes
-    Lista listaClientes;
+    Lista listaClientes = new Lista();
+
 
     public Recepcionista() {
         initComponents();
         setLocationRelativeTo(null);
+        listaClientes = new Lista();
 
     }
 
@@ -32,7 +34,6 @@ public class Recepcionista extends javax.swing.JFrame {
         panelBtnAgregar = new javax.swing.JPanel();
         iconAgregarPaciente = new javax.swing.JLabel();
         labelAgregarPaciente = new javax.swing.JLabel();
-        labelMenúOpciones = new javax.swing.JLabel();
         panelBtnActualizar = new javax.swing.JPanel();
         iconEditarPaciente = new javax.swing.JLabel();
         labelEditarPaciente = new javax.swing.JLabel();
@@ -49,12 +50,13 @@ public class Recepcionista extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         panelDecoración1 = new javax.swing.JPanel();
         panelDecoración2 = new javax.swing.JPanel();
+        labelMenúOpciones = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        panelBtnCerrarSesion1 = new javax.swing.JPanel();
-        iconCerrarSesion1 = new javax.swing.JLabel();
-        labelCerrarSesion1 = new javax.swing.JLabel();
+        panelBtnCerrarSesion2 = new javax.swing.JPanel();
+        iconCerrarSesion2 = new javax.swing.JLabel();
+        etiVentas = new javax.swing.JLabel();
         panelGris = new javax.swing.JPanel();
         labelRecepcionisa1 = new javax.swing.JLabel();
         PanelNegro2 = new javax.swing.JPanel();
@@ -66,19 +68,8 @@ public class Recepcionista extends javax.swing.JFrame {
         panelDecoración14 = new javax.swing.JPanel();
         jLabel28 = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
-        PanelActualizar = new javax.swing.JPanel();
-        panelDecoración6 = new javax.swing.JPanel();
-        panelDecoración7 = new javax.swing.JPanel();
-        panelDecoración8 = new javax.swing.JPanel();
-        jLabel20 = new javax.swing.JLabel();
-        jLabel22 = new javax.swing.JLabel();
-        jLabel23 = new javax.swing.JLabel();
-        lblRepuesto1 = new javax.swing.JLabel();
-        txtIdClienteActualizar = new javax.swing.JTextField();
-        btnBuscarClienteActualizar = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jLabel24 = new javax.swing.JLabel();
-        jPanel4 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         panelEliminar = new javax.swing.JPanel();
         jLabel25 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
@@ -88,10 +79,34 @@ public class Recepcionista extends javax.swing.JFrame {
         jLabel27 = new javax.swing.JLabel();
         lblRepuesto2 = new javax.swing.JLabel();
         btnBuscarClienteEliminar = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
         jLabel30 = new javax.swing.JLabel();
         txtIdClienteEliminar = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
+        PrimerNombreELiminar = new javax.swing.JTextField();
+        SegundoNombreEliminar = new javax.swing.JTextField();
+        PrimerApellidoEliminar = new javax.swing.JTextField();
+        SegundoApellidoEliminar = new javax.swing.JTextField();
+        GeneroEliminar = new javax.swing.JTextField();
+        CedulaEliminar = new javax.swing.JTextField();
+        TelefonoEliminar = new javax.swing.JTextField();
+        CorreoEliminar = new javax.swing.JTextField();
+        DireccionELiminar = new javax.swing.JTextField();
+        UsuarioEliminar = new javax.swing.JTextField();
+        ContraseñaEliminar = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel31 = new javax.swing.JLabel();
+        jLabel32 = new javax.swing.JLabel();
+        jLabel33 = new javax.swing.JLabel();
+        jLabel34 = new javax.swing.JLabel();
+        jLabel35 = new javax.swing.JLabel();
+        jLabel36 = new javax.swing.JLabel();
+        jLabel37 = new javax.swing.JLabel();
+        jLabel38 = new javax.swing.JLabel();
+        jLabel39 = new javax.swing.JLabel();
+        btnEliminarCliente = new javax.swing.JButton();
+        btnCancelarEliminacion = new javax.swing.JButton();
         PanelAgregar = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         panelDecoración3 = new javax.swing.JPanel();
@@ -127,6 +142,43 @@ public class Recepcionista extends javax.swing.JFrame {
         txtContraseñaCliente = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         txtDireccionCliente = new javax.swing.JTextField();
+        PanelActualizar = new javax.swing.JPanel();
+        panelDecoración6 = new javax.swing.JPanel();
+        panelDecoración7 = new javax.swing.JPanel();
+        panelDecoración8 = new javax.swing.JPanel();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        lblRepuesto1 = new javax.swing.JLabel();
+        txtIdClienteActualizar = new javax.swing.JTextField();
+        btnBuscarClienteActualizar = new javax.swing.JButton();
+        btnCancelarActu = new javax.swing.JButton();
+        jLabel24 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        NombreActualizar = new javax.swing.JTextField();
+        SegundoNombreActualizar = new javax.swing.JTextField();
+        PrimerApellidoActualizar = new javax.swing.JTextField();
+        SegundoApellidoActualizar = new javax.swing.JTextField();
+        GeneroActualizar = new javax.swing.JTextField();
+        CedulaActualizar = new javax.swing.JTextField();
+        TelefonoActualizar = new javax.swing.JTextField();
+        CorreoActualizar = new javax.swing.JTextField();
+        DireccionActualizar = new javax.swing.JTextField();
+        UsuarioActualizar = new javax.swing.JTextField();
+        ContraseñaActualizar = new javax.swing.JTextField();
+        jLabel40 = new javax.swing.JLabel();
+        jLabel41 = new javax.swing.JLabel();
+        jLabel42 = new javax.swing.JLabel();
+        jLabel43 = new javax.swing.JLabel();
+        jLabel44 = new javax.swing.JLabel();
+        jLabel45 = new javax.swing.JLabel();
+        jLabel46 = new javax.swing.JLabel();
+        jLabel47 = new javax.swing.JLabel();
+        jLabel48 = new javax.swing.JLabel();
+        jLabel49 = new javax.swing.JLabel();
+        jLabel50 = new javax.swing.JLabel();
+        btnActualizarCliente = new javax.swing.JButton();
+        btnCancelarEdicion = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -211,10 +263,6 @@ public class Recepcionista extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        labelMenúOpciones.setFont(new java.awt.Font("JetBrains Mono", 2, 18)); // NOI18N
-        labelMenúOpciones.setForeground(new java.awt.Color(255, 255, 255));
-        labelMenúOpciones.setText("OPCIONES EN EL MENÚ:");
-
         panelBtnActualizar.setBackground(new java.awt.Color(0, 153, 0));
         panelBtnActualizar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -265,7 +313,7 @@ public class Recepcionista extends javax.swing.JFrame {
             .addGroup(panelBtnEliminarLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(iconAgendarCita)
-                .addGap(33, 33, 33)
+                .addGap(30, 30, 30)
                 .addComponent(labelEditarPaciente1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -290,6 +338,11 @@ public class Recepcionista extends javax.swing.JFrame {
         labelCerrarSesion.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 23)); // NOI18N
         labelCerrarSesion.setForeground(new java.awt.Color(255, 255, 255));
         labelCerrarSesion.setText("CERRAR SESIÓN");
+        labelCerrarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                labelCerrarSesionMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelBtnCerrarSesionLayout = new javax.swing.GroupLayout(panelBtnCerrarSesion);
         panelBtnCerrarSesion.setLayout(panelBtnCerrarSesionLayout);
@@ -360,15 +413,25 @@ public class Recepcionista extends javax.swing.JFrame {
 
         panelDecoración2.setBackground(new java.awt.Color(15, 15, 15));
 
+        labelMenúOpciones.setFont(new java.awt.Font("JetBrains Mono", 2, 18)); // NOI18N
+        labelMenúOpciones.setForeground(new java.awt.Color(255, 255, 255));
+        labelMenúOpciones.setText("OPCIONES EN EL MENÚ:");
+
         javax.swing.GroupLayout panelDecoración2Layout = new javax.swing.GroupLayout(panelDecoración2);
         panelDecoración2.setLayout(panelDecoración2Layout);
         panelDecoración2Layout.setHorizontalGroup(
             panelDecoración2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 289, Short.MAX_VALUE)
+            .addGroup(panelDecoración2Layout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(labelMenúOpciones)
+                .addContainerGap(35, Short.MAX_VALUE))
         );
         panelDecoración2Layout.setVerticalGroup(
             panelDecoración2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 9, Short.MAX_VALUE)
+            .addGroup(panelDecoración2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(labelMenúOpciones)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jLabel13.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 15)); // NOI18N
@@ -385,40 +448,40 @@ public class Recepcionista extends javax.swing.JFrame {
         jLabel15.setForeground(new java.awt.Color(255, 255, 255));
         jLabel15.setText("¡ENCUÉNTRANOS!");
 
-        panelBtnCerrarSesion1.setBackground(new java.awt.Color(0, 153, 0));
-        panelBtnCerrarSesion1.addMouseListener(new java.awt.event.MouseAdapter() {
+        panelBtnCerrarSesion2.setBackground(new java.awt.Color(0, 153, 0));
+        panelBtnCerrarSesion2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                panelBtnCerrarSesion1MouseClicked(evt);
+                panelBtnCerrarSesion2MouseClicked(evt);
             }
         });
 
-        labelCerrarSesion1.setBackground(new java.awt.Color(204, 0, 0));
-        labelCerrarSesion1.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 23)); // NOI18N
-        labelCerrarSesion1.setForeground(new java.awt.Color(255, 255, 255));
-        labelCerrarSesion1.setText("PROVEEDORES");
-        labelCerrarSesion1.addMouseListener(new java.awt.event.MouseAdapter() {
+        etiVentas.setBackground(new java.awt.Color(204, 0, 0));
+        etiVentas.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 23)); // NOI18N
+        etiVentas.setForeground(new java.awt.Color(255, 255, 255));
+        etiVentas.setText("   VENTAS");
+        etiVentas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                labelCerrarSesion1MouseClicked(evt);
+                etiVentasMouseClicked(evt);
             }
         });
 
-        javax.swing.GroupLayout panelBtnCerrarSesion1Layout = new javax.swing.GroupLayout(panelBtnCerrarSesion1);
-        panelBtnCerrarSesion1.setLayout(panelBtnCerrarSesion1Layout);
-        panelBtnCerrarSesion1Layout.setHorizontalGroup(
-            panelBtnCerrarSesion1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelBtnCerrarSesion1Layout.createSequentialGroup()
+        javax.swing.GroupLayout panelBtnCerrarSesion2Layout = new javax.swing.GroupLayout(panelBtnCerrarSesion2);
+        panelBtnCerrarSesion2.setLayout(panelBtnCerrarSesion2Layout);
+        panelBtnCerrarSesion2Layout.setHorizontalGroup(
+            panelBtnCerrarSesion2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelBtnCerrarSesion2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(iconCerrarSesion1)
-                .addGap(60, 60, 60)
-                .addComponent(labelCerrarSesion1)
+                .addComponent(iconCerrarSesion2)
+                .addGap(50, 50, 50)
+                .addComponent(etiVentas, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        panelBtnCerrarSesion1Layout.setVerticalGroup(
-            panelBtnCerrarSesion1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(iconCerrarSesion1, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
-            .addGroup(panelBtnCerrarSesion1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(labelCerrarSesion1)
+        panelBtnCerrarSesion2Layout.setVerticalGroup(
+            panelBtnCerrarSesion2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(iconCerrarSesion2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(panelBtnCerrarSesion2Layout.createSequentialGroup()
+                .addGap(7, 7, 7)
+                .addComponent(etiVentas)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -426,11 +489,6 @@ public class Recepcionista extends javax.swing.JFrame {
         panelNegro.setLayout(panelNegroLayout);
         panelNegroLayout.setHorizontalGroup(
             panelNegroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelBtnMenuP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(panelBtnActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(panelBtnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(panelBtnAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(panelBtnCerrarSesion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(panelNegroLayout.createSequentialGroup()
                 .addGroup(panelNegroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -441,19 +499,24 @@ public class Recepcionista extends javax.swing.JFrame {
             .addGroup(panelNegroLayout.createSequentialGroup()
                 .addGroup(panelNegroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelNegroLayout.createSequentialGroup()
-                        .addGap(110, 110, 110)
-                        .addComponent(iconRecepcinista))
-                    .addGroup(panelNegroLayout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addComponent(labelMenúOpciones))
-                    .addGroup(panelNegroLayout.createSequentialGroup()
                         .addGap(35, 35, 35)
                         .addComponent(jLabel13))
                     .addGroup(panelNegroLayout.createSequentialGroup()
                         .addGap(80, 80, 80)
-                        .addComponent(jLabel15)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(panelBtnCerrarSesion1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel15))
+                    .addComponent(panelBtnCerrarSesion2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(panelNegroLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(panelBtnCerrarSesion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(panelBtnEliminar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelBtnActualizar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelNegroLayout.createSequentialGroup()
+                        .addGroup(panelNegroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(panelBtnAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(panelBtnMenuP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(iconRecepcinista)))
+                .addContainerGap())
             .addGroup(panelNegroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(panelNegroLayout.createSequentialGroup()
                     .addGap(34, 34, 34)
@@ -473,29 +536,30 @@ public class Recepcionista extends javax.swing.JFrame {
                 .addComponent(panelDecoración1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelDecoración2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(44, 44, 44)
-                .addComponent(iconRecepcinista)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(labelMenúOpciones)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(panelBtnMenuP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panelNegroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelNegroLayout.createSequentialGroup()
+                        .addGap(44, 44, 44)
+                        .addComponent(iconRecepcinista))
+                    .addGroup(panelNegroLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(panelBtnMenuP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(20, 20, 20)
                 .addComponent(panelBtnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addComponent(panelBtnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(20, 20, 20)
                 .addComponent(panelBtnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(20, 20, 20)
+                .addComponent(panelBtnCerrarSesion2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(56, 56, 56)
                 .addComponent(panelBtnCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(panelBtnCerrarSesion1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(106, 106, 106)
+                .addGap(65, 65, 65)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(panelNegroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(panelNegroLayout.createSequentialGroup()
                     .addGap(41, 41, 41)
                     .addComponent(jLabel14)
-                    .addContainerGap(640, Short.MAX_VALUE)))
+                    .addContainerGap(620, Short.MAX_VALUE)))
         );
 
         getContentPane().add(panelNegro, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 290, 660));
@@ -601,127 +665,29 @@ public class Recepcionista extends javax.swing.JFrame {
         jLabel29.setText("RECUERDA HACER TUS TAREAS CON RESPONSABILIDAD Y BUEN MANEJO DE DATOS.");
         panelMenu.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, -1, -1));
 
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        panelMenu.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 670, 320));
+
         jTabbedPane1.addTab("Menú", panelMenu);
-
-        PanelActualizar.setBackground(new java.awt.Color(255, 255, 255));
-        PanelActualizar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        panelDecoración6.setBackground(new java.awt.Color(51, 51, 51));
-
-        javax.swing.GroupLayout panelDecoración6Layout = new javax.swing.GroupLayout(panelDecoración6);
-        panelDecoración6.setLayout(panelDecoración6Layout);
-        panelDecoración6Layout.setHorizontalGroup(
-            panelDecoración6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 690, Short.MAX_VALUE)
-        );
-        panelDecoración6Layout.setVerticalGroup(
-            panelDecoración6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        PanelActualizar.add(panelDecoración6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 690, 10));
-
-        panelDecoración7.setBackground(new java.awt.Color(0, 153, 0));
-
-        javax.swing.GroupLayout panelDecoración7Layout = new javax.swing.GroupLayout(panelDecoración7);
-        panelDecoración7.setLayout(panelDecoración7Layout);
-        panelDecoración7Layout.setHorizontalGroup(
-            panelDecoración7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 690, Short.MAX_VALUE)
-        );
-        panelDecoración7Layout.setVerticalGroup(
-            panelDecoración7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        PanelActualizar.add(panelDecoración7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 690, 10));
-
-        panelDecoración8.setBackground(new java.awt.Color(15, 15, 15));
-
-        javax.swing.GroupLayout panelDecoración8Layout = new javax.swing.GroupLayout(panelDecoración8);
-        panelDecoración8.setLayout(panelDecoración8Layout);
-        panelDecoración8Layout.setHorizontalGroup(
-            panelDecoración8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 690, Short.MAX_VALUE)
-        );
-        panelDecoración8Layout.setVerticalGroup(
-            panelDecoración8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        PanelActualizar.add(panelDecoración8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 690, 10));
-
-        jLabel20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/actualizar.png"))); // NOI18N
-        PanelActualizar.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
-
-        jLabel22.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 16)); // NOI18N
-        jLabel22.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel22.setText("¡PUEDES ACTUALIZAR ALGÚN REPUESTO SOLO CON SU ID!");
-        PanelActualizar.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, -1, -1));
-
-        jLabel23.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 10)); // NOI18N
-        jLabel23.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel23.setText("- BÚSQUEDA RÁPIDA Y EFICIENTE EN EL SISTEMA.");
-        PanelActualizar.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, -1, -1));
-
-        lblRepuesto1.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
-        lblRepuesto1.setForeground(new java.awt.Color(0, 0, 0));
-        lblRepuesto1.setText("1. INGRESE EL ID DEL REPUESTO PARA HALLARLO EN EL SISTEMA:");
-        PanelActualizar.add(lblRepuesto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, -1, -1));
-
-        txtIdClienteActualizar.setBackground(new java.awt.Color(204, 204, 204));
-        txtIdClienteActualizar.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
-        txtIdClienteActualizar.setForeground(new java.awt.Color(0, 0, 0));
-        txtIdClienteActualizar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtIdClienteActualizarActionPerformed(evt);
-            }
-        });
-        PanelActualizar.add(txtIdClienteActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 240, 30));
-
-        btnBuscarClienteActualizar.setBackground(new java.awt.Color(0, 153, 0));
-        btnBuscarClienteActualizar.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
-        btnBuscarClienteActualizar.setForeground(new java.awt.Color(255, 255, 255));
-        btnBuscarClienteActualizar.setText("BUSCAR");
-        btnBuscarClienteActualizar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarClienteActualizarActionPerformed(evt);
-            }
-        });
-        PanelActualizar.add(btnBuscarClienteActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 160, 80, 30));
-
-        jButton4.setBackground(new java.awt.Color(153, 0, 0));
-        jButton4.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jButton4.setText("X");
-        PanelActualizar.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 160, 80, 30));
-
-        jLabel24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buscar.png"))); // NOI18N
-        PanelActualizar.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 160, -1, -1));
-
-        jPanel4.setBackground(new java.awt.Color(216, 216, 217));
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 690, Short.MAX_VALUE)
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 10, Short.MAX_VALUE)
-        );
-
-        PanelActualizar.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 690, 10));
-
-        jTabbedPane1.addTab("Actualizar", PanelActualizar);
 
         panelEliminar.setBackground(new java.awt.Color(255, 255, 255));
         panelEliminar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel25.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 16)); // NOI18N
         jLabel25.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel25.setText("¡REMUEVE ALGÚN REPUESTO DEL SISTEMA!");
+        jLabel25.setText("¡REMUEVE ALGÚN CLIENTE DEL SISTEMA!");
         panelEliminar.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, -1, -1));
 
         jLabel26.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 10)); // NOI18N
@@ -735,7 +701,7 @@ public class Recepcionista extends javax.swing.JFrame {
         panelDecoración9.setLayout(panelDecoración9Layout);
         panelDecoración9Layout.setHorizontalGroup(
             panelDecoración9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 690, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         panelDecoración9Layout.setVerticalGroup(
             panelDecoración9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -750,7 +716,7 @@ public class Recepcionista extends javax.swing.JFrame {
         panelDecoración10.setLayout(panelDecoración10Layout);
         panelDecoración10Layout.setHorizontalGroup(
             panelDecoración10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 690, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         panelDecoración10Layout.setVerticalGroup(
             panelDecoración10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -765,7 +731,7 @@ public class Recepcionista extends javax.swing.JFrame {
         panelDecoración11.setLayout(panelDecoración11Layout);
         panelDecoración11Layout.setHorizontalGroup(
             panelDecoración11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 690, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         panelDecoración11Layout.setVerticalGroup(
             panelDecoración11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -779,7 +745,7 @@ public class Recepcionista extends javax.swing.JFrame {
 
         lblRepuesto2.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
         lblRepuesto2.setForeground(new java.awt.Color(0, 0, 0));
-        lblRepuesto2.setText("1. INGRESE EL ID DEL REPUESTO PARA HALLARLO EN EL SISTEMA:");
+        lblRepuesto2.setText("1. INGRESE EL ID DEL CLIENTE PARA HALLARLO EN EL SISTEMA:");
         panelEliminar.add(lblRepuesto2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, -1, -1));
 
         btnBuscarClienteEliminar.setBackground(new java.awt.Color(0, 153, 0));
@@ -793,11 +759,11 @@ public class Recepcionista extends javax.swing.JFrame {
         });
         panelEliminar.add(btnBuscarClienteEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 160, 80, 30));
 
-        jButton6.setBackground(new java.awt.Color(153, 0, 0));
-        jButton6.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
-        jButton6.setForeground(new java.awt.Color(255, 255, 255));
-        jButton6.setText("X");
-        panelEliminar.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 160, 80, 30));
+        btnCancelar.setBackground(new java.awt.Color(153, 0, 0));
+        btnCancelar.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
+        btnCancelar.setForeground(new java.awt.Color(255, 255, 255));
+        btnCancelar.setText("X");
+        panelEliminar.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 160, 80, 30));
 
         jLabel30.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buscar.png"))); // NOI18N
         panelEliminar.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 160, -1, -1));
@@ -813,14 +779,140 @@ public class Recepcionista extends javax.swing.JFrame {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 690, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 10, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         panelEliminar.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 690, 10));
+
+        PrimerNombreELiminar.setEditable(false);
+        PrimerNombreELiminar.setBackground(new java.awt.Color(204, 204, 204));
+        PrimerNombreELiminar.setForeground(new java.awt.Color(0, 0, 0));
+        PrimerNombreELiminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PrimerNombreELiminarActionPerformed(evt);
+            }
+        });
+        panelEliminar.add(PrimerNombreELiminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 80, -1));
+
+        SegundoNombreEliminar.setEditable(false);
+        SegundoNombreEliminar.setBackground(new java.awt.Color(204, 204, 204));
+        SegundoNombreEliminar.setForeground(new java.awt.Color(0, 0, 0));
+        panelEliminar.add(SegundoNombreEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 230, 110, -1));
+
+        PrimerApellidoEliminar.setEditable(false);
+        PrimerApellidoEliminar.setBackground(new java.awt.Color(204, 204, 204));
+        PrimerApellidoEliminar.setForeground(new java.awt.Color(0, 0, 0));
+        panelEliminar.add(PrimerApellidoEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 230, 100, -1));
+
+        SegundoApellidoEliminar.setEditable(false);
+        SegundoApellidoEliminar.setBackground(new java.awt.Color(204, 204, 204));
+        SegundoApellidoEliminar.setForeground(new java.awt.Color(0, 0, 0));
+        panelEliminar.add(SegundoApellidoEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 230, 110, -1));
+
+        GeneroEliminar.setEditable(false);
+        GeneroEliminar.setBackground(new java.awt.Color(204, 204, 204));
+        GeneroEliminar.setForeground(new java.awt.Color(0, 0, 0));
+        panelEliminar.add(GeneroEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 230, 90, -1));
+
+        CedulaEliminar.setEditable(false);
+        CedulaEliminar.setBackground(new java.awt.Color(204, 204, 204));
+        CedulaEliminar.setForeground(new java.awt.Color(0, 0, 0));
+        panelEliminar.add(CedulaEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 230, 90, -1));
+
+        TelefonoEliminar.setEditable(false);
+        TelefonoEliminar.setBackground(new java.awt.Color(204, 204, 204));
+        panelEliminar.add(TelefonoEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 100, -1));
+
+        CorreoEliminar.setEditable(false);
+        CorreoEliminar.setBackground(new java.awt.Color(204, 204, 204));
+        CorreoEliminar.setForeground(new java.awt.Color(0, 0, 0));
+        panelEliminar.add(CorreoEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 290, 100, -1));
+
+        DireccionELiminar.setEditable(false);
+        DireccionELiminar.setBackground(new java.awt.Color(204, 204, 204));
+        DireccionELiminar.setForeground(new java.awt.Color(0, 0, 0));
+        panelEliminar.add(DireccionELiminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 290, 110, -1));
+
+        UsuarioEliminar.setEditable(false);
+        UsuarioEliminar.setBackground(new java.awt.Color(204, 204, 204));
+        UsuarioEliminar.setForeground(new java.awt.Color(0, 0, 0));
+        panelEliminar.add(UsuarioEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 290, 100, -1));
+
+        ContraseñaEliminar.setEditable(false);
+        ContraseñaEliminar.setBackground(new java.awt.Color(204, 204, 204));
+        ContraseñaEliminar.setForeground(new java.awt.Color(0, 0, 0));
+        panelEliminar.add(ContraseñaEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 290, 90, -1));
+
+        jLabel8.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 12)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel8.setText("NOMBRE");
+        panelEliminar.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, -1, -1));
+
+        jLabel12.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 12)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel12.setText("SEGUNDO NOMBRE");
+        panelEliminar.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 210, -1, -1));
+
+        jLabel31.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 12)); // NOI18N
+        jLabel31.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel31.setText("PRIMER APELLIDO");
+        panelEliminar.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 210, -1, 20));
+
+        jLabel32.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 12)); // NOI18N
+        jLabel32.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel32.setText("SEGUNDO APELLIDO");
+        panelEliminar.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 210, -1, -1));
+
+        jLabel33.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 12)); // NOI18N
+        jLabel33.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel33.setText("GENERO");
+        panelEliminar.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 210, -1, -1));
+
+        jLabel34.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 12)); // NOI18N
+        jLabel34.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel34.setText("CEDULA");
+        panelEliminar.add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 210, -1, -1));
+
+        jLabel35.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 12)); // NOI18N
+        jLabel35.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel35.setText("TELEFONO");
+        panelEliminar.add(jLabel35, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, -1, -1));
+
+        jLabel36.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 12)); // NOI18N
+        jLabel36.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel36.setText("CORREO");
+        panelEliminar.add(jLabel36, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 270, -1, -1));
+
+        jLabel37.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 12)); // NOI18N
+        jLabel37.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel37.setText("DIRECCION");
+        panelEliminar.add(jLabel37, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 270, -1, -1));
+
+        jLabel38.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 12)); // NOI18N
+        jLabel38.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel38.setText("USUARIO ");
+        panelEliminar.add(jLabel38, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 270, -1, -1));
+
+        jLabel39.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 12)); // NOI18N
+        jLabel39.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel39.setText("CONTRASEÑA");
+        panelEliminar.add(jLabel39, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 270, -1, -1));
+
+        btnEliminarCliente.setBackground(new java.awt.Color(0, 153, 51));
+        btnEliminarCliente.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 12)); // NOI18N
+        btnEliminarCliente.setForeground(new java.awt.Color(255, 255, 255));
+        btnEliminarCliente.setText("ELIMINAR CLIENTE");
+        panelEliminar.add(btnEliminarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 340, 160, 30));
+
+        btnCancelarEliminacion.setBackground(new java.awt.Color(204, 0, 0));
+        btnCancelarEliminacion.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 12)); // NOI18N
+        btnCancelarEliminacion.setForeground(new java.awt.Color(255, 255, 255));
+        btnCancelarEliminacion.setText("CANCELAR ELIMINACION\n\n");
+        panelEliminar.add(btnCancelarEliminacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 410, -1, -1));
 
         jTabbedPane1.addTab("Eliminar", panelEliminar);
 
@@ -1056,6 +1148,245 @@ public class Recepcionista extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Agregar", PanelAgregar);
 
+        PanelActualizar.setBackground(new java.awt.Color(255, 255, 255));
+        PanelActualizar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        panelDecoración6.setBackground(new java.awt.Color(51, 51, 51));
+
+        javax.swing.GroupLayout panelDecoración6Layout = new javax.swing.GroupLayout(panelDecoración6);
+        panelDecoración6.setLayout(panelDecoración6Layout);
+        panelDecoración6Layout.setHorizontalGroup(
+            panelDecoración6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 690, Short.MAX_VALUE)
+        );
+        panelDecoración6Layout.setVerticalGroup(
+            panelDecoración6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        PanelActualizar.add(panelDecoración6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 690, 10));
+
+        panelDecoración7.setBackground(new java.awt.Color(0, 153, 0));
+
+        javax.swing.GroupLayout panelDecoración7Layout = new javax.swing.GroupLayout(panelDecoración7);
+        panelDecoración7.setLayout(panelDecoración7Layout);
+        panelDecoración7Layout.setHorizontalGroup(
+            panelDecoración7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 690, Short.MAX_VALUE)
+        );
+        panelDecoración7Layout.setVerticalGroup(
+            panelDecoración7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        PanelActualizar.add(panelDecoración7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 690, 10));
+
+        panelDecoración8.setBackground(new java.awt.Color(15, 15, 15));
+
+        javax.swing.GroupLayout panelDecoración8Layout = new javax.swing.GroupLayout(panelDecoración8);
+        panelDecoración8.setLayout(panelDecoración8Layout);
+        panelDecoración8Layout.setHorizontalGroup(
+            panelDecoración8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 690, Short.MAX_VALUE)
+        );
+        panelDecoración8Layout.setVerticalGroup(
+            panelDecoración8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        PanelActualizar.add(panelDecoración8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 690, 10));
+
+        jLabel20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/actualizar.png"))); // NOI18N
+        PanelActualizar.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+
+        jLabel22.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 16)); // NOI18N
+        jLabel22.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel22.setText("¡PUEDES ACTUALIZAR ALGÚN CLIENTE SOLO CON SU ID!");
+        PanelActualizar.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, -1, -1));
+
+        jLabel23.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 10)); // NOI18N
+        jLabel23.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel23.setText("- BÚSQUEDA RÁPIDA Y EFICIENTE EN EL SISTEMA.");
+        PanelActualizar.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, -1, -1));
+
+        lblRepuesto1.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
+        lblRepuesto1.setForeground(new java.awt.Color(0, 0, 0));
+        lblRepuesto1.setText("1. INGRESE EL ID DEL CLIENTE PARA HALLARLO EN EL SISTEMA:");
+        PanelActualizar.add(lblRepuesto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, -1, -1));
+
+        txtIdClienteActualizar.setBackground(new java.awt.Color(204, 204, 204));
+        txtIdClienteActualizar.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
+        txtIdClienteActualizar.setForeground(new java.awt.Color(0, 0, 0));
+        txtIdClienteActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtIdClienteActualizarActionPerformed(evt);
+            }
+        });
+        PanelActualizar.add(txtIdClienteActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 240, 30));
+
+        btnBuscarClienteActualizar.setBackground(new java.awt.Color(0, 153, 0));
+        btnBuscarClienteActualizar.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
+        btnBuscarClienteActualizar.setForeground(new java.awt.Color(255, 255, 255));
+        btnBuscarClienteActualizar.setText("BUSCAR");
+        btnBuscarClienteActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarClienteActualizarActionPerformed(evt);
+            }
+        });
+        PanelActualizar.add(btnBuscarClienteActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 160, 80, 30));
+
+        btnCancelarActu.setBackground(new java.awt.Color(153, 0, 0));
+        btnCancelarActu.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
+        btnCancelarActu.setForeground(new java.awt.Color(255, 255, 255));
+        btnCancelarActu.setText("X");
+        PanelActualizar.add(btnCancelarActu, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 160, 80, 30));
+
+        jLabel24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buscar.png"))); // NOI18N
+        PanelActualizar.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 160, -1, -1));
+
+        jPanel4.setBackground(new java.awt.Color(216, 216, 217));
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 690, Short.MAX_VALUE)
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 10, Short.MAX_VALUE)
+        );
+
+        PanelActualizar.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 690, 10));
+
+        NombreActualizar.setBackground(new java.awt.Color(204, 204, 204));
+        NombreActualizar.setForeground(new java.awt.Color(0, 0, 0));
+        NombreActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NombreActualizarActionPerformed(evt);
+            }
+        });
+        PanelActualizar.add(NombreActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 80, -1));
+
+        SegundoNombreActualizar.setEditable(false);
+        SegundoNombreActualizar.setBackground(new java.awt.Color(204, 204, 204));
+        SegundoNombreActualizar.setForeground(new java.awt.Color(0, 0, 0));
+        PanelActualizar.add(SegundoNombreActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 240, 100, -1));
+
+        PrimerApellidoActualizar.setEditable(false);
+        PrimerApellidoActualizar.setBackground(new java.awt.Color(204, 204, 204));
+        PrimerApellidoActualizar.setForeground(new java.awt.Color(0, 0, 0));
+        PanelActualizar.add(PrimerApellidoActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 240, 90, -1));
+
+        SegundoApellidoActualizar.setEditable(false);
+        SegundoApellidoActualizar.setBackground(new java.awt.Color(204, 204, 204));
+        SegundoApellidoActualizar.setForeground(new java.awt.Color(0, 0, 0));
+        PanelActualizar.add(SegundoApellidoActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 240, 100, -1));
+
+        GeneroActualizar.setEditable(false);
+        GeneroActualizar.setBackground(new java.awt.Color(204, 204, 204));
+        GeneroActualizar.setForeground(new java.awt.Color(0, 0, 0));
+        PanelActualizar.add(GeneroActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(464, 240, 80, -1));
+
+        CedulaActualizar.setEditable(false);
+        CedulaActualizar.setBackground(new java.awt.Color(204, 204, 204));
+        CedulaActualizar.setForeground(new java.awt.Color(0, 0, 0));
+        PanelActualizar.add(CedulaActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(574, 240, 80, -1));
+
+        TelefonoActualizar.setEditable(false);
+        TelefonoActualizar.setBackground(new java.awt.Color(204, 204, 204));
+        TelefonoActualizar.setForeground(new java.awt.Color(0, 0, 0));
+        PanelActualizar.add(TelefonoActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, 80, -1));
+
+        CorreoActualizar.setEditable(false);
+        CorreoActualizar.setBackground(new java.awt.Color(204, 204, 204));
+        CorreoActualizar.setForeground(new java.awt.Color(0, 0, 0));
+        PanelActualizar.add(CorreoActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 300, 80, -1));
+
+        DireccionActualizar.setEditable(false);
+        DireccionActualizar.setBackground(new java.awt.Color(204, 204, 204));
+        DireccionActualizar.setForeground(new java.awt.Color(0, 0, 0));
+        PanelActualizar.add(DireccionActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 300, 90, -1));
+
+        UsuarioActualizar.setEditable(false);
+        UsuarioActualizar.setBackground(new java.awt.Color(204, 204, 204));
+        UsuarioActualizar.setForeground(new java.awt.Color(0, 0, 0));
+        PanelActualizar.add(UsuarioActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 300, 90, -1));
+
+        ContraseñaActualizar.setEditable(false);
+        ContraseñaActualizar.setBackground(new java.awt.Color(204, 204, 204));
+        ContraseñaActualizar.setForeground(new java.awt.Color(0, 0, 0));
+        PanelActualizar.add(ContraseñaActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 300, 100, -1));
+
+        jLabel40.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 12)); // NOI18N
+        jLabel40.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel40.setText("NOMBRE");
+        PanelActualizar.add(jLabel40, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, -1, -1));
+
+        jLabel41.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 12)); // NOI18N
+        jLabel41.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel41.setText("SEGUNDO NOMBRE");
+        PanelActualizar.add(jLabel41, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 220, -1, -1));
+
+        jLabel42.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 12)); // NOI18N
+        jLabel42.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel42.setText("PRIMER APELLIDO");
+        PanelActualizar.add(jLabel42, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 220, -1, -1));
+
+        jLabel43.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 12)); // NOI18N
+        jLabel43.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel43.setText("SEGUNDO APELLIDO");
+        PanelActualizar.add(jLabel43, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 220, -1, -1));
+
+        jLabel44.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 12)); // NOI18N
+        jLabel44.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel44.setText("GENERO");
+        PanelActualizar.add(jLabel44, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 220, -1, -1));
+
+        jLabel45.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 12)); // NOI18N
+        jLabel45.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel45.setText("CEDULA");
+        PanelActualizar.add(jLabel45, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 220, -1, -1));
+
+        jLabel46.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 12)); // NOI18N
+        jLabel46.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel46.setText("CORREO");
+        PanelActualizar.add(jLabel46, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 280, -1, -1));
+
+        jLabel47.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 12)); // NOI18N
+        jLabel47.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel47.setText("TELEFONO");
+        PanelActualizar.add(jLabel47, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, -1, -1));
+
+        jLabel48.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 12)); // NOI18N
+        jLabel48.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel48.setText("DIRECCION");
+        PanelActualizar.add(jLabel48, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 280, -1, -1));
+
+        jLabel49.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 12)); // NOI18N
+        jLabel49.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel49.setText("USUARIO");
+        PanelActualizar.add(jLabel49, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 280, -1, -1));
+
+        jLabel50.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 12)); // NOI18N
+        jLabel50.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel50.setText("CONTRASEÑA");
+        PanelActualizar.add(jLabel50, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 280, -1, -1));
+
+        btnActualizarCliente.setBackground(new java.awt.Color(0, 153, 51));
+        btnActualizarCliente.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 12)); // NOI18N
+        btnActualizarCliente.setForeground(new java.awt.Color(255, 255, 255));
+        btnActualizarCliente.setText("ACTUALIZAR CLIENTE");
+        PanelActualizar.add(btnActualizarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 350, 160, 30));
+
+        btnCancelarEdicion.setBackground(new java.awt.Color(153, 0, 0));
+        btnCancelarEdicion.setFont(new java.awt.Font("JetBrains Mono NL ExtraBold", 0, 12)); // NOI18N
+        btnCancelarEdicion.setForeground(new java.awt.Color(255, 255, 255));
+        btnCancelarEdicion.setText("CANCELAR EDICION");
+        PanelActualizar.add(btnCancelarEdicion, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 410, 150, 30));
+
+        jTabbedPane1.addTab("Actualizar", PanelActualizar);
+
         getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 180, 690, 480));
 
         pack();
@@ -1108,6 +1439,7 @@ public class Recepcionista extends javax.swing.JFrame {
             nuevoCliente.setTelefono(txtTelefonoCliente.getText().trim());
             nuevoCliente.setCorreo(txtCorreoCliente.getText().trim());
             nuevoCliente.setDireccion(txtDireccionCliente.getText().trim());
+            //nuevoCliente.setRol(Cliente);
 
             // Asignación de usuario y contraseña 
             nuevoCliente.setUsuario(txtUsuarioCliente.getText().trim());
@@ -1117,6 +1449,7 @@ public class Recepcionista extends javax.swing.JFrame {
             listaClientes.insertarFinal(nuevoCliente);
 
             JOptionPane.showMessageDialog(null, "Cliente Agregado Correctamente");
+            System.out.println(nuevoCliente);
 
         }
     }//GEN-LAST:event_btnAgregarClienteActionPerformed
@@ -1156,16 +1489,6 @@ public class Recepcionista extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTelefonoClienteActionPerformed
 
-    private void panelBtnCerrarSesion1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnCerrarSesion1MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_panelBtnCerrarSesion1MouseClicked
-
-    private void labelCerrarSesion1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelCerrarSesion1MouseClicked
-        // TODO add your handling code here:
-        new Recepcionista2().setVisible(true);
-        dispose();
-    }//GEN-LAST:event_labelCerrarSesion1MouseClicked
-
     private void txtIdClienteActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdClienteActualizarActionPerformed
         // TODO add your handling code here:
 
@@ -1178,6 +1501,29 @@ public class Recepcionista extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnBuscarClienteEliminarActionPerformed
 
+    private void panelBtnCerrarSesion2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnCerrarSesion2MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_panelBtnCerrarSesion2MouseClicked
+
+    private void etiVentasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_etiVentasMouseClicked
+        // TODO add your handling code here:
+        //new VentaRecepcionista(id).setVisible(true);
+        new Login().setVisible(true);
+         this.dispose();
+    }//GEN-LAST:event_etiVentasMouseClicked
+
+    private void labelCerrarSesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelCerrarSesionMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_labelCerrarSesionMouseClicked
+
+    private void PrimerNombreELiminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PrimerNombreELiminarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_PrimerNombreELiminarActionPerformed
+
+    private void NombreActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NombreActualizarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_NombreActualizarActionPerformed
+
     //Proveedor p = Sesion.proveedorActual;
     public static void main(String args[]) {
 
@@ -1189,26 +1535,54 @@ public class Recepcionista extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField CedulaActualizar;
+    private javax.swing.JTextField CedulaEliminar;
+    private javax.swing.JTextField ContraseñaActualizar;
+    private javax.swing.JTextField ContraseñaEliminar;
+    private javax.swing.JTextField CorreoActualizar;
+    private javax.swing.JTextField CorreoEliminar;
+    private javax.swing.JTextField DireccionActualizar;
+    private javax.swing.JTextField DireccionELiminar;
+    private javax.swing.JTextField GeneroActualizar;
+    private javax.swing.JTextField GeneroEliminar;
+    private javax.swing.JTextField NombreActualizar;
     private javax.swing.JPanel PanelActualizar;
     private javax.swing.JPanel PanelAgregar;
     private javax.swing.JPanel PanelNegro2;
+    private javax.swing.JTextField PrimerApellidoActualizar;
+    private javax.swing.JTextField PrimerApellidoEliminar;
+    private javax.swing.JTextField PrimerNombreELiminar;
+    private javax.swing.JTextField SegundoApellidoActualizar;
+    private javax.swing.JTextField SegundoApellidoEliminar;
+    private javax.swing.JTextField SegundoNombreActualizar;
+    private javax.swing.JTextField SegundoNombreEliminar;
+    private javax.swing.JTextField TelefonoActualizar;
+    private javax.swing.JTextField TelefonoEliminar;
+    private javax.swing.JTextField UsuarioActualizar;
+    private javax.swing.JTextField UsuarioEliminar;
+    private javax.swing.JButton btnActualizarCliente;
     private javax.swing.JButton btnAgregarCliente;
     private javax.swing.JButton btnBuscarClienteActualizar;
     private javax.swing.JButton btnBuscarClienteEliminar;
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnCancelarActu;
+    private javax.swing.JButton btnCancelarEdicion;
+    private javax.swing.JButton btnCancelarEliminacion;
     private javax.swing.JButton btnCancelarProcess;
+    private javax.swing.JButton btnEliminarCliente;
     private javax.swing.JComboBox<String> cboGeneroCliente;
+    private javax.swing.JLabel etiVentas;
     private javax.swing.JLabel iconAgendarCita;
     private javax.swing.JLabel iconAgregarPaciente;
     private javax.swing.JLabel iconCerrarSesion;
-    private javax.swing.JLabel iconCerrarSesion1;
+    private javax.swing.JLabel iconCerrarSesion2;
     private javax.swing.JLabel iconEditarPaciente;
     private javax.swing.JLabel iconInicio;
     private javax.swing.JLabel iconRecepcinista;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
@@ -1229,19 +1603,41 @@ public class Recepcionista extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel34;
+    private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel36;
+    private javax.swing.JLabel jLabel37;
+    private javax.swing.JLabel jLabel38;
+    private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel40;
+    private javax.swing.JLabel jLabel41;
+    private javax.swing.JLabel jLabel42;
+    private javax.swing.JLabel jLabel43;
+    private javax.swing.JLabel jLabel44;
+    private javax.swing.JLabel jLabel45;
+    private javax.swing.JLabel jLabel46;
+    private javax.swing.JLabel jLabel47;
+    private javax.swing.JLabel jLabel48;
+    private javax.swing.JLabel jLabel49;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel50;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JLabel labelAgregarPaciente;
     private javax.swing.JLabel labelCerrarSesion;
-    private javax.swing.JLabel labelCerrarSesion1;
     private javax.swing.JLabel labelEditarPaciente;
     private javax.swing.JLabel labelEditarPaciente1;
     private javax.swing.JLabel labelMenúOpciones;
@@ -1258,7 +1654,7 @@ public class Recepcionista extends javax.swing.JFrame {
     private javax.swing.JPanel panelBtnActualizar;
     private javax.swing.JPanel panelBtnAgregar;
     private javax.swing.JPanel panelBtnCerrarSesion;
-    private javax.swing.JPanel panelBtnCerrarSesion1;
+    private javax.swing.JPanel panelBtnCerrarSesion2;
     private javax.swing.JPanel panelBtnEliminar;
     private javax.swing.JPanel panelBtnMenuP;
     private javax.swing.JPanel panelDecoración;
