@@ -1377,7 +1377,7 @@
                   <StringArray count="4">
                     <StringItem index="0" value="Sin seleccionar"/>
                     <StringItem index="1" value="Disponible"/>
-                    <StringItem index="2" value="Descontinuado"/>
+                    <StringItem index="2" value="Retirado"/>
                     <StringItem index="3" value="Agotado"/>
                   </StringArray>
                 </Property>

@@ -1,6 +1,7 @@
 package View;
 
 import Model.Repuesto;
+import Percistencia.ActualizarRepuestoId;
 import Percistencia.BuscarRepuestoId;
 import Percistencia.EliminarRepuestoId;
 import Percistencia.ExisteRepuestoId;
@@ -31,6 +32,7 @@ public class Proveedor extends javax.swing.JFrame {
     ExisteRepuestoId buscar_repuesto = new ExisteRepuestoId();
     BuscarRepuestoId buscador = new BuscarRepuestoId();
     EliminarRepuestoId eliminar = new EliminarRepuestoId();
+    ActualizarRepuestoId actualizar = new ActualizarRepuestoId();
 
     //Servicios
     private LoginService loginService;
@@ -938,7 +940,7 @@ public class Proveedor extends javax.swing.JFrame {
         cboActualizarEstado.setBackground(new java.awt.Color(204, 204, 205));
         cboActualizarEstado.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
         cboActualizarEstado.setForeground(new java.awt.Color(0, 0, 0));
-        cboActualizarEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sin seleccionar", "Disponible", "Descontinuado", "Agotado" }));
+        cboActualizarEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sin seleccionar", "Disponible", "Retirado", "Agotado" }));
         PanelActualizar.add(cboActualizarEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 250, 220, -1));
 
         jTabbedPane1.addTab("Actualizar", PanelActualizar);
@@ -1536,7 +1538,33 @@ public class Proveedor extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarParaEliminar1ActionPerformed
 
     private void btnActualizarRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarRActionPerformed
+        int idRef = Integer.parseInt(txtActualizarRepuesto.getText());
+        String campo = cboSolicitudActualizar.getSelectedItem().toString().trim();
+        String nuevoValor = "";
 
+        switch (campo) {
+
+            case "Precio":
+            nuevoValor = txtActualizarPrecioR.getText().toString().trim();
+            break;
+
+            case "Stock":
+            nuevoValor = spiActualizarStock.getValue().toString().trim();
+            break;
+
+            case "Estado":
+            nuevoValor = cboActualizarEstado.getSelectedItem().toString().trim();
+            break;
+        }
+        
+        boolean actualizado = actualizar.actualizarPorId(lista.listaRepuestos, idRef, campo, nuevoValor);
+
+        if(actualizado){
+        JOptionPane.showMessageDialog(null, "Repuesto actualizado correctamente.", "Actualización.", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+          JOptionPane.showMessageDialog(null, "El repuesto no se actualizó correctamente.", "Actualización.", JOptionPane.ERROR_MESSAGE);  
+        }
+        
     }//GEN-LAST:event_btnActualizarRActionPerformed
 
     private void btnReiniciarTablaRepuestosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReiniciarTablaRepuestosActionPerformed
@@ -1850,7 +1878,7 @@ public class Proveedor extends javax.swing.JFrame {
                 "Frenos",
                 95000.0,
                 15,
-                "No disponible"
+                "Agotado"
         );
 
         Repuesto repuesto3 = new Repuesto(
