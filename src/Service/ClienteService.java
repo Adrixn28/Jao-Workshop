@@ -208,4 +208,116 @@ public class ClienteService {
                 .findFirst()
                 .orElse(null);
     }
+    
+    // ========== MÉTODOS DE LÓGICA DE NEGOCIO PARA VENTAS ==========
+    
+    /**
+     * Crea objetos ItemVenta a partir de los items del carrito
+     * SOLO lógica de transformación de datos, sin UI
+     */
+    public java.util.List<Model.ItemVenta> crearItemsVenta(Model.Carrito carrito) {
+        java.util.List<Model.ItemVenta> itemsVenta = new java.util.ArrayList<>();
+        
+        for (Model.ItemCarrito itemCarrito : carrito.obtenerItemsArray()) {
+            Model.ItemVenta itemVenta = new Model.ItemVenta(
+                1, // idVenta temporal
+                itemCarrito.getRepuesto(),
+                itemCarrito.getCantidad(),
+                itemCarrito.getPrecioUnitario(),
+                itemCarrito.getSubtotal()
+            );
+            itemsVenta.add(itemVenta);
+        }
+        
+        return itemsVenta;
+    }
+    
+    /**
+     * Crea un objeto Venta con todos los datos necesarios
+     * SOLO lógica de negocio, sin UI
+     */
+    public Model.Venta crearVenta(String codigoVenta, Model.Cliente cliente, 
+                                 java.util.List<Model.ItemVenta> itemsVenta,
+                                 double total, String opcionPago) {
+        return new Model.Venta(
+            1, // ID temporal
+            codigoVenta,
+            new java.util.Date(),
+            cliente,
+            itemsVenta,
+            total,
+            determinarEstadoVenta(opcionPago),
+            opcionPago.contains("Domicilio"),
+            opcionPago
+        );
+    }
+    
+    /**
+     * Crea una factura basada en una venta
+     * SOLO lógica de negocio, sin UI
+     */
+    public Model.Factura crearFactura(Model.Venta venta, String codigoFactura, String opcionPago) {
+        String metodoPago = opcionPago.contains("Online") ? "online" : "contraentrega";
+        return new Model.Factura(venta, codigoFactura, metodoPago);
+    }
+    
+    /**
+     * Determina el estado de una venta según la opción de pago
+     * SOLO lógica de negocio, sin UI
+     */
+    public int determinarEstadoVenta(String opcionPago) {
+        if (opcionPago.contains("Pagar Online")) {
+            return 1; // Pagada
+        } else {
+            return 2; // Falta por pagar
+        }
+    }
+    
+    /**
+     * Construye el mensaje de confirmación de venta
+     * SOLO lógica de construcción de texto, sin UI
+     */
+    public String construirMensajeConfirmacion(String codigoVenta, String codigoFactura,
+                                              Model.Carrito carrito, String opcionPago,
+                                              String direccion, String rutaFactura,
+                                              String reporteStock) {
+        StringBuilder mensaje = new StringBuilder();
+        mensaje.append("🎉 ¡VENTA PROCESADA EXITOSAMENTE!\n\n");
+        mensaje.append("📋 DETALLES:\n");
+        mensaje.append("• Código de venta: ").append(codigoVenta).append("\n");
+        mensaje.append("• Código de factura: ").append(codigoFactura).append("\n");
+        mensaje.append("• Items: ").append(carrito.getNumeroItems()).append("\n");
+        mensaje.append("• Total: $").append(String.format("%.2f", carrito.getTotalCarrito())).append("\n");
+        mensaje.append("• Modalidad: ").append(opcionPago).append("\n");
+        
+        // Estado de la venta
+        String estado = determinarEstadoVenta(opcionPago) == 1 ? "Pagada ✅" : "Pendiente de pago ⏳";
+        mensaje.append("• Estado: ").append(estado).append("\n");
+        
+        if (opcionPago.contains("Domicilio")) {
+            mensaje.append("• Dirección: ").append(direccion).append("\n");
+        }
+        
+        if (rutaFactura != null) {
+            mensaje.append("\n📄 Factura generada y abierta automáticamente");
+        }
+        
+        // Información sobre stock
+        mensaje.append("\n\n").append(reporteStock);
+        
+        return mensaje.toString();
+    }
+    
+    /**
+     * Construye el mensaje de productos removidos por falta de stock
+     * SOLO lógica de construcción de texto, sin UI
+     */
+    public String construirMensajeProductosRemovidos(java.util.List<Repuesto> repuestosSinStock) {
+        StringBuilder mensaje = new StringBuilder();
+        mensaje.append("🗑️ Productos removidos por falta de stock:\n");
+        for (Repuesto repuesto : repuestosSinStock) {
+            mensaje.append("• ").append(repuesto.getNombre()).append("\n");
+        }
+        return mensaje.toString();
+    }
 }

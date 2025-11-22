@@ -177,6 +177,28 @@ public class AdministradorService {
         return null;
     }
     
+    /**
+     * Buscar cliente por cédula
+     * @param cedula Cédula del cliente a buscar
+     * @return Cliente encontrado o null si no existe
+     */
+    public Cliente buscarClientePorCedula(String cedula) {
+        Lista listaClientes = loginService.getListaClientes();
+        if (listaClientes == null || listaClientes.getPrimero() == null) {
+            return null;
+        }
+        
+        Nodo actual = listaClientes.getPrimero();
+        while (actual != null) {
+            Cliente cliente = (Cliente) actual.getDato();
+            if (cliente.getCedula().equals(cedula)) {
+                return cliente;
+            }
+            actual = actual.getSiguiente();
+        }
+        return null;
+    }
+    
     public boolean actualizarCliente(Cliente clienteActualizado) {
         Lista listaClientes = loginService.getListaClientes();
         if (listaClientes == null || listaClientes.getPrimero() == null) {

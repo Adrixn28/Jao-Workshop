@@ -13,6 +13,7 @@ import Service.LoginService;
 import Service.GestorStock;
 import Service.GeneradorFacturaPDF;
 import Service.GeneradorCodigos;
+import Service.AdministradorService;
 import Model.Venta;
 import Model.Factura;
 import Model.ItemVenta;
@@ -23,15 +24,17 @@ import java.awt.*;
 import java.text.NumberFormat;
 
 /**
- * Frame principal para clientes - Vista de repuestos con filtros y ordenamiento
- * Diseño: 1098x795 píxeles
+ * Frame de ventas para recepcionista - Sistema de punto de venta
+ * Permite buscar clientes registrados o ingresar datos manualmente
+ * Diseño: 1200x810 píxeles
  * @author Osvaldo
  */
-public class Cliente extends javax.swing.JFrame {
+public class VentaRecepcionista extends javax.swing.JFrame {
     
     // Datos de ejemplo (en el futuro se conectará a un servicio real)
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscarCliente;
     private javax.swing.JButton btnCerrarSesion;
     private javax.swing.JButton btnLimpiarFiltros;
     private javax.swing.JButton btnVerCarrito;
@@ -39,15 +42,20 @@ public class Cliente extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cboOrdenamiento;
     private javax.swing.JLabel lblBuscar;
     private javax.swing.JLabel lblCategoria;
+    private javax.swing.JLabel lblCedulaCliente;
+    private javax.swing.JLabel lblNombreCliente;
     private javax.swing.JLabel lblOrden;
     private javax.swing.JLabel lblResultados;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JLabel lblUsuarioLogueado;
+    private javax.swing.JPanel panelBusquedaCliente;
     private javax.swing.JPanel panelFiltros;
     private javax.swing.JPanel panelPrincipal;
     private javax.swing.JPanel panelRepuestos;
     private javax.swing.JScrollPane scrollRepuestos;
     private javax.swing.JTextField txtBuscar;
+    private javax.swing.JTextField txtCedulaCliente;
+    private javax.swing.JTextField txtNombreCliente;
     // End of variables declaration//GEN-END:variables
     
     // Datos
@@ -62,8 +70,11 @@ public class Cliente extends javax.swing.JFrame {
     
     // Variables del carrito
     private GestorCarrito gestorCarrito;
-    private String cedulaClienteActual; // Simulamos cliente logueado
-    private Model.Cliente clienteActual; // Información completa del cliente logueado
+    private String cedulaClienteVenta; // Cédula del cliente para la venta actual
+    private String nombreClienteVenta; // Nombre del cliente para la venta actual
+    private boolean clienteRegistrado; // Si el cliente está registrado en el sistema
+    private Model.Cliente clienteActual; // Información completa si el cliente está registrado
+    private AdministradorService administradorService; // Para buscar clientes
     private JDialog dialogCarrito; // Ventana flotante para el carrito
     private JPanel panelCarrito;
     private JScrollPane scrollCarrito;
@@ -97,23 +108,13 @@ public class Cliente extends javax.swing.JFrame {
     /**
      * Constructor principal
      */
-    public Cliente() {
+    public VentaRecepcionista() {
         initComponents();
         inicializarServicios();
         cargarUsuarioLogueado();
         cargarRepuestos();
         configurarEventos();
-    }
-    
-    /**
-     * Constructor con usuario específico
-     */
-    public Cliente(String nombreUsuario) {
-        initComponents();
-        inicializarServicios();
-        establecerUsuarioLogueado(nombreUsuario);
-        cargarRepuestos();
-        configurarEventos();
+        configurarEventosCliente();
     }
     
     /**
@@ -128,20 +129,16 @@ public class Cliente extends javax.swing.JFrame {
         loginService = new LoginService();
         gestorStock = new GestorStock();
         generadorPDF = new GeneradorFacturaPDF();
+        administradorService = new AdministradorService(loginService);
         
         // Inicializar carrito
         gestorCarrito = new GestorCarrito();
         
-        // Obtener cliente actual del sistema de login
-        clienteActual = (Model.Cliente) loginService.getUsuarioActualCompleto();
-        
-        if (clienteActual != null) {
-            cedulaClienteActual = clienteActual.getCedula();
-        } else {
-            // Fallback para testing - usar cliente de prueba
-            cedulaClienteActual = "87654321"; // Cedula del cliente de prueba "maria"
-            clienteActual = (Model.Cliente) loginService.buscarUsuarioPorId("CLI001", "Cliente");
-        }
+        // Inicializar variables de cliente (vacías hasta que se busque)
+        cedulaClienteVenta = "";
+        nombreClienteVenta = "";
+        clienteRegistrado = false;
+        clienteActual = null;
         
         // Inicializar componentes del carrito
         inicializarCarrito();
@@ -195,6 +192,12 @@ public class Cliente extends javax.swing.JFrame {
         panelPrincipal = new javax.swing.JPanel();
         lblTitulo = new javax.swing.JLabel();
         lblUsuarioLogueado = new javax.swing.JLabel();
+        panelBusquedaCliente = new javax.swing.JPanel();
+        lblCedulaCliente = new javax.swing.JLabel();
+        txtCedulaCliente = new javax.swing.JTextField();
+        btnBuscarCliente = new javax.swing.JButton();
+        lblNombreCliente = new javax.swing.JLabel();
+        txtNombreCliente = new javax.swing.JTextField();
         panelFiltros = new javax.swing.JPanel();
         lblBuscar = new javax.swing.JLabel();
         txtBuscar = new javax.swing.JTextField();
@@ -209,22 +212,77 @@ public class Cliente extends javax.swing.JFrame {
         panelRepuestos = new javax.swing.JPanel();
         btnCerrarSesion = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("JAO Workshop - Cliente - Catalogo de Repuestos");
-
         panelPrincipal.setBackground(new java.awt.Color(0, 0, 0));
-        panelPrincipal.setPreferredSize(new java.awt.Dimension(980, 660));
+        panelPrincipal.setPreferredSize(new java.awt.Dimension(1200, 810));
 
         lblTitulo.setBackground(new java.awt.Color(0, 153, 0));
         lblTitulo.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 1, 22)); // NOI18N
         lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
         lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTitulo.setText("CATALOGO DE REPUESTOS - JAO WORKSHOP");
+        lblTitulo.setText("SISTEMA DE VENTAS - RECEPCIONISTA - JAO WORKSHOP");
         lblTitulo.setOpaque(true);
 
         lblUsuarioLogueado.setFont(new java.awt.Font("JetBrains Mono", 1, 16)); // NOI18N
         lblUsuarioLogueado.setForeground(new java.awt.Color(255, 255, 255));
         lblUsuarioLogueado.setText("Usuario: Cargando...");
+
+        panelBusquedaCliente.setBackground(new java.awt.Color(0, 0, 0));
+        panelBusquedaCliente.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 153, 0), 2), "DATOS DEL CLIENTE", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("JetBrains Mono ExtraBold", 1, 14), new java.awt.Color(204, 153, 0))); // NOI18N
+
+        lblCedulaCliente.setFont(new java.awt.Font("JetBrains Mono", 1, 13)); // NOI18N
+        lblCedulaCliente.setForeground(new java.awt.Color(255, 255, 255));
+        lblCedulaCliente.setText("Cédula Cliente:");
+
+        txtCedulaCliente.setBackground(new java.awt.Color(255, 255, 255));
+        txtCedulaCliente.setFont(new java.awt.Font("JetBrains Mono", 0, 13)); // NOI18N
+        txtCedulaCliente.setForeground(new java.awt.Color(0, 0, 0));
+
+        btnBuscarCliente.setBackground(new java.awt.Color(204, 153, 0));
+        btnBuscarCliente.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 1, 13)); // NOI18N
+        btnBuscarCliente.setForeground(new java.awt.Color(255, 255, 255));
+        btnBuscarCliente.setText("Buscar");
+        btnBuscarCliente.setBorder(null);
+        btnBuscarCliente.setFocusPainted(false);
+
+        lblNombreCliente.setFont(new java.awt.Font("JetBrains Mono", 1, 13)); // NOI18N
+        lblNombreCliente.setForeground(new java.awt.Color(255, 255, 255));
+        lblNombreCliente.setText("Nombre Cliente:");
+
+        txtNombreCliente.setBackground(new java.awt.Color(255, 255, 255));
+        txtNombreCliente.setFont(new java.awt.Font("JetBrains Mono", 0, 13)); // NOI18N
+        txtNombreCliente.setForeground(new java.awt.Color(0, 0, 0));
+
+        javax.swing.GroupLayout panelBusquedaClienteLayout = new javax.swing.GroupLayout(panelBusquedaCliente);
+        panelBusquedaCliente.setLayout(panelBusquedaClienteLayout);
+        panelBusquedaClienteLayout.setHorizontalGroup(
+            panelBusquedaClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelBusquedaClienteLayout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addGroup(panelBusquedaClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblCedulaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCedulaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20)
+                .addComponent(btnBuscarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addGroup(panelBusquedaClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblNombreCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNombreCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(265, Short.MAX_VALUE))
+        );
+        panelBusquedaClienteLayout.setVerticalGroup(
+            panelBusquedaClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelBusquedaClienteLayout.createSequentialGroup()
+                .addGap(5, 5, 5)
+                .addGroup(panelBusquedaClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblCedulaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblNombreCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelBusquedaClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtCedulaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNombreCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 9, Short.MAX_VALUE))
+        );
 
         panelFiltros.setBackground(new java.awt.Color(0, 0, 0));
         panelFiltros.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 0)), "FILTROS Y BUSQUEDA", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("JetBrains Mono ExtraBold", 1, 14), new java.awt.Color(0, 153, 0))); // NOI18N
@@ -332,7 +390,7 @@ public class Cliente extends javax.swing.JFrame {
         btnCerrarSesion.setBackground(new java.awt.Color(220, 53, 69));
         btnCerrarSesion.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 1, 14)); // NOI18N
         btnCerrarSesion.setForeground(new java.awt.Color(255, 255, 255));
-        btnCerrarSesion.setText("Cerrar Sesion");
+        btnCerrarSesion.setText("Volver");
         btnCerrarSesion.setFocusPainted(false);
 
         javax.swing.GroupLayout panelPrincipalLayout = new javax.swing.GroupLayout(panelPrincipal);
@@ -343,6 +401,7 @@ public class Cliente extends javax.swing.JFrame {
                 .addGap(10, 10, 10)
                 .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 1180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelBusquedaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(panelFiltros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(scrollRepuestos, javax.swing.GroupLayout.PREFERRED_SIZE, 1180, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblUsuarioLogueado, javax.swing.GroupLayout.PREFERRED_SIZE, 477, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -360,23 +419,28 @@ public class Cliente extends javax.swing.JFrame {
                 .addGap(10, 10, 10)
                 .addComponent(lblUsuarioLogueado, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
+                .addComponent(panelBusquedaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
                 .addComponent(panelFiltros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
-                .addComponent(scrollRepuestos, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(scrollRepuestos, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addComponent(btnCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("JAO Workshop - Sistema de Ventas - Recepcionista");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, 1200, Short.MAX_VALUE)
+            .addGap(0, 1200, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, 710, Short.MAX_VALUE)
+            .addGap(0, 810, Short.MAX_VALUE)
         );
 
         pack();
@@ -397,6 +461,89 @@ public class Cliente extends javax.swing.JFrame {
     }
     
 
+    
+    /**
+     * Configurar eventos del panel de búsqueda de cliente
+     */
+    private void configurarEventosCliente() {
+        // Evento del botón buscar
+        btnBuscarCliente.addActionListener(e -> buscarCliente());
+        
+        // Búsqueda con Enter en campo cédula
+        txtCedulaCliente.addActionListener(e -> buscarCliente());
+    }
+    
+    /**
+     * Buscar cliente por cédula
+     */
+    private void buscarCliente() {
+        String cedula = txtCedulaCliente.getText().trim();
+        
+        if (cedula.isEmpty()) {
+            JOptionPane.showMessageDialog(this, 
+                "Por favor ingrese una cédula", 
+                "Búsqueda de Cliente", 
+                JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        // Buscar cliente en el sistema
+        Model.Cliente cliente = administradorService.buscarClientePorCedula(cedula);
+        
+        if (cliente != null) {
+            // Cliente encontrado - cargar datos automáticamente
+            clienteRegistrado = true;
+            cedulaClienteVenta = cliente.getCedula();
+            nombreClienteVenta = cliente.getPrimerNombre() + " " + cliente.getPrimerApellido();
+            txtNombreCliente.setText(nombreClienteVenta);
+            txtNombreCliente.setEditable(false);
+            txtNombreCliente.setBackground(new Color(200, 255, 200)); // Verde claro
+            
+            JOptionPane.showMessageDialog(this, 
+                "✅ Cliente encontrado:\n" + nombreClienteVenta, 
+                "Cliente Registrado", 
+                JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            // Cliente NO encontrado - permitir ingreso manual
+            clienteRegistrado = false;
+            cedulaClienteVenta = cedula;
+            txtNombreCliente.setText("");
+            txtNombreCliente.setEditable(true);
+            txtNombreCliente.setBackground(Color.WHITE);
+            txtNombreCliente.requestFocus();
+            
+            JOptionPane.showMessageDialog(this, 
+                "⚠ Cliente no registrado.\nPor favor ingrese el nombre del cliente manualmente.", 
+                "Cliente Nuevo", 
+                JOptionPane.WARNING_MESSAGE);
+        }
+    }
+    
+    /**
+     * Validar datos del cliente antes de procesar venta
+     */
+    private boolean validarDatosCliente() {
+        if (cedulaClienteVenta == null || cedulaClienteVenta.isEmpty()) {
+            JOptionPane.showMessageDialog(this, 
+                "Por favor busque o ingrese la cédula del cliente", 
+                "Datos Incompletos", 
+                JOptionPane.WARNING_MESSAGE);
+            txtCedulaCliente.requestFocus();
+            return false;
+        }
+        
+        nombreClienteVenta = txtNombreCliente.getText().trim();
+        if (nombreClienteVenta.isEmpty()) {
+            JOptionPane.showMessageDialog(this, 
+                "Por favor ingrese el nombre del cliente", 
+                "Datos Incompletos", 
+                JOptionPane.WARNING_MESSAGE);
+            txtNombreCliente.requestFocus();
+            return false;
+        }
+        
+        return true;
+    }
     
     /**
      * Aplicar filtros y mostrar repuestos
@@ -638,14 +785,14 @@ public class Cliente extends javax.swing.JFrame {
             // Acción del botón agregar
             btnAgregar.addActionListener(e -> {
                 int cantidad = (Integer) spinnerCantidad.getValue();
-                if (gestorCarrito.agregarAlCarrito(cedulaClienteActual, repuesto, cantidad)) {
+                if (gestorCarrito.agregarAlCarrito(cedulaClienteVenta, repuesto, cantidad)) {
                     actualizarVistaCarrito();
                     JOptionPane.showMessageDialog(card, 
                         repuesto.getNombre() + " agregado al carrito\nCantidad: " + cantidad, 
                         "Agregado", JOptionPane.INFORMATION_MESSAGE);
                     
                     // Actualizar el stock máximo del spinner si es necesario
-                    Carrito carrito = gestorCarrito.obtenerCarritoCliente(cedulaClienteActual);
+                    Carrito carrito = gestorCarrito.obtenerCarritoCliente(cedulaClienteVenta);
                     ItemCarrito[] items = carrito.obtenerItemsArray();
                     for (ItemCarrito item : items) {
                         if (item.getRepuesto().getIdRepuesto() == repuesto.getIdRepuesto()) {
@@ -724,21 +871,9 @@ public class Cliente extends javax.swing.JFrame {
             aplicarFiltrosYMostrar();
         });
         
-        // Evento cerrar sesión
+        // Evento volver (cerrar este frame)
         btnCerrarSesion.addActionListener(e -> {
-            int confirmacion = JOptionPane.showConfirmDialog(
-                this,
-                "¿Está seguro que desea cerrar la sesión?",
-                "Confirmar Cierre de Sesión",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE
-            );
-            
-            if (confirmacion == JOptionPane.YES_OPTION) {
-                this.dispose();
-                // Abrir la ventana de login
-                new Login().setVisible(true);
-            }
+            this.dispose();
         });
     }
     
@@ -940,7 +1075,7 @@ public class Cliente extends javax.swing.JFrame {
             btnVerCarrito.setText("X Cerrar");
             dialogCarrito.setVisible(true);
         } else {
-            btnVerCarrito.setText("Carrito (" + gestorCarrito.obtenerCarritoCliente(cedulaClienteActual).getNumeroItems() + ")");
+            btnVerCarrito.setText("Carrito (" + gestorCarrito.obtenerCarritoCliente(cedulaClienteVenta).getNumeroItems() + ")");
             dialogCarrito.setVisible(false);
         }
     }
@@ -949,7 +1084,7 @@ public class Cliente extends javax.swing.JFrame {
      * Limpiar carrito completamente
      */
     private void limpiarCarrito() {
-        gestorCarrito.limpiarCarrito(cedulaClienteActual);
+        gestorCarrito.limpiarCarrito(cedulaClienteVenta);
         actualizarVistaCarrito();
         JOptionPane.showMessageDialog(dialogCarrito, "Carrito limpiado correctamente", "Carrito", JOptionPane.INFORMATION_MESSAGE);
     }
@@ -958,7 +1093,7 @@ public class Cliente extends javax.swing.JFrame {
      * Proceder al pago (placeholder)
      */
     private void procederAlPago() {
-        Carrito carrito = gestorCarrito.obtenerCarritoCliente(cedulaClienteActual);
+        Carrito carrito = gestorCarrito.obtenerCarritoCliente(cedulaClienteVenta);
         if (carrito.estaVacio()) {
             JOptionPane.showMessageDialog(dialogCarrito, "El carrito está vacío", "Error", JOptionPane.WARNING_MESSAGE);
             return;
@@ -1349,7 +1484,7 @@ public class Cliente extends javax.swing.JFrame {
             cargarRepuestos();
             
             // 9. Limpiar carrito y cerrar diálogos (UI)
-            gestorCarrito.limpiarCarrito(cedulaClienteActual);
+            gestorCarrito.limpiarCarrito(cedulaClienteVenta);
             actualizarVistaCarrito();
             dialogoVenta.dispose();
             if (dialogCarrito != null) {
@@ -1374,7 +1509,7 @@ public class Cliente extends javax.swing.JFrame {
      * Actualizar la vista del carrito
      */
     private void actualizarVistaCarrito() {
-        Carrito carrito = gestorCarrito.obtenerCarritoCliente(cedulaClienteActual);
+        Carrito carrito = gestorCarrito.obtenerCarritoCliente(cedulaClienteVenta);
         
         // Actualizar texto del botón
         btnVerCarrito.setText("Carrito (" + carrito.getNumeroItems() + ")");
@@ -1469,10 +1604,10 @@ public class Cliente extends javax.swing.JFrame {
         
         if (nuevaCantidad <= 0) {
             // Eliminar item del carrito
-            gestorCarrito.eliminarDelCarrito(cedulaClienteActual, item.getRepuesto().getIdRepuesto());
+            gestorCarrito.eliminarDelCarrito(cedulaClienteVenta, item.getRepuesto().getIdRepuesto());
         } else {
             // Actualizar cantidad
-            if (!gestorCarrito.actualizarCantidadCarrito(cedulaClienteActual, item.getRepuesto().getIdRepuesto(), nuevaCantidad)) {
+            if (!gestorCarrito.actualizarCantidadCarrito(cedulaClienteVenta, item.getRepuesto().getIdRepuesto(), nuevaCantidad)) {
                 JOptionPane.showMessageDialog(this, "Stock insuficiente. Stock disponible: " + item.getRepuesto().getStock(), 
                                             "Error", JOptionPane.WARNING_MESSAGE);
                 return;
