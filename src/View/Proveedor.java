@@ -15,15 +15,17 @@ import listaDoble.Lista;
  */
 public class Proveedor extends javax.swing.JFrame {
 
-    //Creación de la lista repuestos
-    Lista listaRepuestos;
+    public class lista {
+
+        public static Lista listaRepuestos = new Lista();
+    }
 
     ExisteRepuestoId buscar_repuesto = new ExisteRepuestoId();
     BuscarRepuestoId buscador = new BuscarRepuestoId();
     EliminarRepuestoId eliminar = new EliminarRepuestoId();
-    
 
     public Proveedor() {
+        cargarRepuestos();
         initComponents();
         setLocationRelativeTo(null);
         jspinnerStock.setModel(modelo);
@@ -890,7 +892,6 @@ public class Proveedor extends javax.swing.JFrame {
         lblRepuesto6.setText("NOMBRE:");
         panelEliminar.add(lblRepuesto6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, -1, -1));
 
-        txtEliminarRepuesto.setEditable(false);
         txtEliminarRepuesto.setBackground(new java.awt.Color(204, 204, 204));
         txtEliminarRepuesto.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
         txtEliminarRepuesto.setForeground(new java.awt.Color(0, 0, 0));
@@ -1212,7 +1213,7 @@ public class Proveedor extends javax.swing.JFrame {
                         //Validación que solo exista un repuesto registrado con dicho id
                         int idBuscar = Integer.parseInt(idRepuesto);
 
-                        if (buscar_repuesto.existeRepuestoPorId(listaRepuestos, idBuscar)) {
+                        if (buscar_repuesto.existeRepuestoPorId(lista.listaRepuestos, idBuscar)) {
 
                             JOptionPane.showMessageDialog(null, "Ya existe un registro del repuesto en el inventario con ese ID que digitó.", "Verificación.", JOptionPane.ERROR_MESSAGE);
                         } else {
@@ -1221,7 +1222,7 @@ public class Proveedor extends javax.swing.JFrame {
                             int idRepuestoI = Integer.parseInt(idRepuesto);
                             double precioD = Double.parseDouble(precio);
                             Repuesto nuevo = new Repuesto(idRepuestoI, nombre, descripcion, marca, categoria, precioD, stock);
-                            listaRepuestos.insertarFinal(nuevo);
+                            lista.listaRepuestos.insertarFinal(nuevo);
                             JOptionPane.showMessageDialog(null, "Repuesto agregado correctamente..", "Completado.", JOptionPane.ERROR_MESSAGE);
                         }
                     }
@@ -1236,32 +1237,32 @@ public class Proveedor extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnEliminarRepuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarRepuestoActionPerformed
-          String idRepuesto = txtIdRepuestoDelete1.getText().trim();
-    btnLimpiarCampoDelete.setEnabled(true);
+        String idRepuesto = txtIdRepuestoDelete1.getText().trim();
+        btnLimpiarCampoDelete.setEnabled(true);
 
-    if (idRepuesto.isEmpty()) {
-        JOptionPane.showMessageDialog(null, "El campo está vacío.", "Verificación.", JOptionPane.WARNING_MESSAGE);
-        return;
-    }
+        if (idRepuesto.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "El campo está vacío.", "Verificación.", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
 
-    if (!soloNumeros(idRepuesto)) {
-        JOptionPane.showMessageDialog(null, "El ID solo debe contener números.", "Verificación.", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
+        if (!soloNumeros(idRepuesto)) {
+            JOptionPane.showMessageDialog(null, "El ID solo debe contener números.", "Verificación.", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
-    if (idRepuesto.length() < 6) {
-        JOptionPane.showMessageDialog(null, "La longitud es muy corta.", "Verificación.", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
+        if (idRepuesto.length() < 6) {
+            JOptionPane.showMessageDialog(null, "La longitud es muy corta.", "Verificación.", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
-    //Eliminación
-    int id = Integer.parseInt(idRepuesto);
-    EliminarRepuestoId eliminador = new EliminarRepuestoId(); 
-    eliminador.eliminarPorId(listaRepuestos, id);
+        //Eliminación
+        int id = Integer.parseInt(idRepuesto);
+        EliminarRepuestoId eliminador = new EliminarRepuestoId();
+        eliminador.eliminarPorId(lista.listaRepuestos, id);
     }//GEN-LAST:event_btnEliminarRepuestoActionPerformed
 
     private void btnLimpiarCampoDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarCampoDeleteActionPerformed
-        
+        txtCargarNombreRepuesto3.setText("");
         txtIdRepuestoDelete1.setText("");
         txtEliminarRepuesto.setText("");
         txtCargarMarcaRepuesto.setText("");
@@ -1271,10 +1272,9 @@ public class Proveedor extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLimpiarCampoDeleteActionPerformed
 
     private void btnBuscarParaEliminar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarParaEliminar1ActionPerformed
-    String idRepuesto = txtIdRepuestoDelete1.getText();
+        String idRepuesto = txtIdRepuestoDelete1.getText();
         btnLimpiarCampoDelete.setEnabled(true);
-        
-        
+
         if (idRepuesto.isEmpty() || idRepuesto == null) {
             JOptionPane.showMessageDialog(null, "El campo está vacío.", "Verificación.", JOptionPane.WARNING_MESSAGE);
         } else {
@@ -1287,18 +1287,18 @@ public class Proveedor extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "La longitud es muy corta.", "Verificación.", JOptionPane.ERROR_MESSAGE);
                 } else {
 
-                   /* int id = Integer.parseInt(idRepuesto);
-                    Repuesto encontrado = buscador.buscarPorId(listaRepuestos, id);
+                    int id = Integer.parseInt(idRepuesto);
+                    Repuesto encontrado = buscador.buscarPorId(lista.listaRepuestos, id);
 
                     if (encontrado != null) {
-                        txtCargarNombreRepuesto2.setText(encontrado.getNombre());
+                        txtCargarNombreRepuesto3.setText(encontrado.getNombre());
                         txtCargarMarcaRepuesto.setText(encontrado.getMarca());
                         txtCargarCategoriaRepuesto1.setText(encontrado.getCategoria());
                         txtCargarPrecioRepuesto.setText(String.valueOf(encontrado.getPrecio()));
                         JOptionPane.showMessageDialog(null, "¡Repuesto encontrado existosamente!", "Correcto.", JOptionPane.INFORMATION_MESSAGE);
                     } else {
                         JOptionPane.showMessageDialog(null, "¡No se encontró el repuesto!", "Correcto.", JOptionPane.ERROR_MESSAGE);
-                    }*/
+                    }
                 } //Else
             }
         }
@@ -1467,6 +1467,46 @@ public class Proveedor extends javax.swing.JFrame {
         } else if (resultado == JOptionPane.CLOSED_OPTION) {
             JOptionPane.showMessageDialog(null, "Diálogo cerrado sin seleccionar una opción.");
         }
+    }
+
+    private static void cargarRepuestos() {
+        // === REPUESTOS ===
+        Repuesto repuesto1 = new Repuesto(
+                987654321,
+                "Filtro de aceite",
+                "Filtro de alta eficiencia para motor 1.6",
+                "Bosch",
+                "Motor",
+                45000.0,
+                20
+        );
+
+        Repuesto repuesto2 = new Repuesto(
+                87654321,
+                "Pastillas de freno",
+                "Pastillas cerámicas para alto rendimiento",
+                "Brembo",
+                "Frenos",
+                95000.0,
+                15
+        );
+
+        Repuesto repuesto3 = new Repuesto(
+                12345678,
+                "Bujías de iridio NGK",
+                "Set de 4 bujías NGK Iridium IX",
+                "NGK",
+                "Encendido",
+                120000.0,
+                25
+        );
+
+        // === AGREGAR A LA LISTA DOBLEMENTE ENLAZADA ===
+        lista.listaRepuestos.insertarFinal(repuesto1);
+        lista.listaRepuestos.insertarFinal(repuesto2);
+        lista.listaRepuestos.insertarFinal(repuesto3);
+
+        System.out.println("Repuestos iniciales cargados con éxito.");
     }
 
 }

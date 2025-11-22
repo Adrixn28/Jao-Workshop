@@ -999,6 +999,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Guardar"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+              </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                   <AbsoluteConstraints x="20" y="370" width="150" height="30"/>
@@ -1180,8 +1183,8 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="PROVEEDOR">
-                <Property name="tabTitle" type="java.lang.String" value="PROVEEDOR"/>
+              <JTabbedPaneConstraints tabName="CLIENTE">
+                <Property name="tabTitle" type="java.lang.String" value="CLIENTE"/>
               </JTabbedPaneConstraints>
             </Constraint>
           </Constraints>
@@ -1641,6 +1644,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Agregar Proveedor"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton6ActionPerformed"/>
+              </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                   <AbsoluteConstraints x="10" y="430" width="200" height="30"/>
@@ -2430,7 +2436,7 @@
                 </DimensionLayout>
               </Layout>
             </Container>
-            <Container class="javax.swing.JPanel" name="panelDecoraci&#xf3;n16">
+            <Container class="javax.swing.JPanel" name="panelDecoraci&#xf3;n7">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="33" green="33" red="33" type="rgb"/>
@@ -2455,7 +2461,7 @@
                 </DimensionLayout>
               </Layout>
             </Container>
-            <Container class="javax.swing.JPanel" name="panelDecoraci&#xf3;n17">
+            <Container class="javax.swing.JPanel" name="panelDecoraci&#xf3;n8">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="f" green="f" red="f" type="rgb"/>

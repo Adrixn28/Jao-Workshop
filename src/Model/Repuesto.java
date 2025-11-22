@@ -14,7 +14,15 @@ public class Repuesto {
     private Proveedor proveedor;
     
    
-
+ public Repuesto(int idRepuesto, String nombre, String descripcion, String marca, String categoria, double precio, int stock) {
+        this.idRepuesto = idRepuesto;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.marca = marca;
+        this.categoria = categoria;
+        this.precio = precio;
+        this.stock = stock;
+    }
 
     public Repuesto(int idRepuesto, String nombre, String descripcion, String marca, String categoria, double precio, int stock, Proveedor proveedor) {
         this.idRepuesto = idRepuesto;
@@ -27,16 +35,7 @@ public class Repuesto {
         this.proveedor = proveedor;
     }
     
-      public Repuesto(int idRepuesto, String nombre, String descripcion, String marca, String categoria, double precio, int stock) {
-        this.idRepuesto = idRepuesto;
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-        this.marca = marca;
-        this.categoria = categoria;
-        this.precio = precio;
-        this.stock = stock;
-    }
-
+    
     public int getIdRepuesto() {
         return idRepuesto;
     }
