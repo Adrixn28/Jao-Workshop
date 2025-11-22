@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang='es'>
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Factura JAO Workshop - JAO1762495753609</title>
+    <style>
+body {
+    font-family: 'JetBrains Mono', 'Segoe UI', Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+.factura-container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    border-bottom: 3px solid #009900;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+}
+
+.logo-section h1 {
+    color: #009900;
+    margin: 0;
+    font-size: 2.5em;
+    font-weight: bold;
+}
+
+.logo-section p {
+    color: #666;
+    margin: 5px 0 0 0;
+    font-size: 1.1em;
+}
+
+.factura-info {
+    text-align: right;
+}
+
+.factura-info h2 {
+    color: #009900;
+    margin: 0;
+    font-size: 1.8em;
+}
+
+.cliente-info, .venta-info, .productos-section {
+    margin-bottom: 25px;
+    padding: 15px;
+    background-color: #fafafa;
+    border-radius: 5px;
+    border-left: 4px solid #009900;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.productos-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+.productos-table th,
+.productos-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.productos-table th {
+    background-color: #009900;
+    color: white;
+    font-weight: bold;
+}
+
+.productos-table tbody tr:hover {
+    background-color: #f9f9f9;
+}
+
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+
+.total-row {
+    background-color: #f0f8f0;
+    font-size: 1.2em;
+}
+
+.total-row td {
+    border-top: 2px solid #009900;
+    padding: 15px 12px;
+}
+
+.estado {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+.estado.pagada {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.estado.pendiente {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.footer {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #ddd;
+    color: #666;
+}
+
+.print-info {
+    font-size: 0.9em;
+    color: #999;
+    margin-top: 10px;
+}
+
+@media print {
+    body { background-color: white; }
+    .factura-container { box-shadow: none; }
+    .print-info { display: none; }
+}
+    </style>
+</head>
+<body>
+    <div class='factura-container'>
+        <div class='header'>
+            <div class='logo-section'>
+                <h1>JAO WORKSHOP</h1>
+                <p>Repuestos y Accesorios Automotrices</p>
+            </div>
+            <div class='factura-info'>
+                <h2>FACTURA DE VENTA</h2>
+                <p><strong>No. JAO1762495753609</strong></p>
+                <p>Fecha: 07/11/2025 01:09</p>
+            </div>
+        </div>
+        <div class='cliente-info'>
+            <h3>INFORMACIÓN DEL CLIENTE</h3>
+            <div class='info-grid'>
+                <div>
+                    <p><strong>Nombre:</strong> María Rodríguez</p>
+                    <p><strong>Cédula:</strong> 87654321</p>
+                </div>
+                <div>
+                    <p><strong>Teléfono:</strong> 3009876543</p>
+                    <p><strong>Email:</strong> maria@email.com</p>
+                </div>
+            </div>
+            <p><strong>Dirección de entrega:</strong> Calle 123 #45-67</p>
+        </div>
+        <div class='venta-info'>
+            <h3>DETALLES DE VENTA</h3>
+            <p><strong>Modalidad:</strong> Pagar Online + Domicilio → Pagada</p>
+            <p><strong>Estado:</strong> <span class='estado pagada'>Pagada</span></p>
+        </div>
+        <div class='productos-section'>
+            <h3>PRODUCTOS ADQUIRIDOS</h3>
+            <table class='productos-table'>
+                <thead>
+                    <tr>
+                        <th>Descripción</th>
+                        <th>Marca</th>
+                        <th>Cantidad</th>
+                        <th>Precio Unit.</th>
+                        <th>Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Faro Derecho</td>
+                        <td>Hella</td>
+                        <td class='text-center'>3</td>
+                        <td class='text-right'>$165,99</td>
+                        <td class='text-right'>$497,97</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr class='total-row'>
+                        <td colspan='4'><strong>TOTAL</strong></td>
+                        <td class='text-right'><strong>$497,97</strong></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <div class='footer'>
+            <p>¡Gracias por su compra!</p>
+            <p>JAO Workshop - Tu taller de confianza</p>
+            <p class='print-info'>Para imprimir como PDF: Ctrl+P → Destino: Guardar como PDF</p>
+        </div>
+    </div>
+</body>
+</html>
