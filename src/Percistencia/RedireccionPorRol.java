@@ -137,20 +137,17 @@ public class RedireccionPorRol {
             return false;
         }
         
-        System.out.println("Frame Recepcionista pendiente de implementar con ID: " + id);
-        
-        // ⭐ PARA TUS COMPAÑEROS: Cuando implementen Recepcionista.java, cambiar esta línea:
-        // new Recepcionista(id).setVisible(true);
-        
-        // Por ahora mostrar mensaje informativo
-        JOptionPane.showMessageDialog(frameLogin, 
-            "Recepcionista ID: " + id + "\\n\\nPara implementar:\\n" +
-            "1. Crear constructor Recepcionista(String id)\\n" +
-            "2. Descomentar línea en abrirFrameRecepcionista()\\n" +
-            "3. Seguir guía GUIA_IMPLEMENTACION_ID.md", 
-            "Frame Recepcionista - En Desarrollo", JOptionPane.INFORMATION_MESSAGE);
-        
-        return false; // Retornar false para no cerrar login hasta implementar
+        try {
+            System.out.println("Abriendo frame Recepcionista con ID: " + id);
+            new Recepcionista(id).setVisible(true);
+            return true;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(frameLogin, 
+                "Error al abrir el frame Recepcionista: " + e.getMessage(), 
+                "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+            return false;
+        }
     }
     
     /**

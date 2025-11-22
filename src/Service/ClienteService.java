@@ -182,19 +182,22 @@ public class ClienteService {
     
     /**
      * Actualiza el inventario después de una venta
-     * Remueve repuestos que se quedaron sin stock
+     * IMPORTANTE: NO remueve repuestos sin stock, solo los mantiene con stock 0 para que se sigan mostrando
      * @param repuestosSinStock Lista de repuestos que se quedaron sin stock
      */
     public void actualizarInventarioDespuesVenta(java.util.List<Repuesto> repuestosSinStock) {
-        // Remover repuestos sin stock de la lista principal
+        // NO remover repuestos sin stock, solo asegurar que tengan stock 0
+        // Los repuestos se seguirán mostrando en las cards pero sin controles de carrito
         for (Repuesto repuestoSinStock : repuestosSinStock) {
-            repuestosDisponibles.removeIf(repuesto -> 
-                repuesto.getIdRepuesto() == repuestoSinStock.getIdRepuesto()
-            );
-            System.out.println(" Removido del inventario: " + repuestoSinStock.getNombre());
+            Repuesto repuestoEnLista = buscarPorId(repuestoSinStock.getIdRepuesto());
+            if (repuestoEnLista != null) {
+                repuestoEnLista.setStock(0); // Asegurar que el stock sea 0
+                System.out.println("✅ Repuesto con stock 0 mantenido en inventario: " + repuestoSinStock.getNombre());
+            }
         }
         
-        System.out.println(" Inventario actualizado. Repuestos disponibles: " + repuestosDisponibles.size());
+        System.out.println("✅ Inventario actualizado. Repuestos disponibles: " + repuestosDisponibles.size() + 
+                          " (incluyendo " + repuestosSinStock.size() + " con stock 0)");
     }
     
     /**
@@ -257,7 +260,20 @@ public class ClienteService {
      * SOLO lógica de negocio, sin UI
      */
     public Model.Factura crearFactura(Model.Venta venta, String codigoFactura, String opcionPago) {
-        String metodoPago = opcionPago.contains("Online") ? "online" : "contraentrega";
+        String metodoPago;
+        if (opcionPago.contains("Efectivo")) {
+            metodoPago = "efectivo";
+        } else if (opcionPago.contains("Tarjeta Débito")) {
+            metodoPago = "tarjeta_debito";
+        } else if (opcionPago.contains("Tarjeta Crédito")) {
+            metodoPago = "tarjeta_credito";
+        } else if (opcionPago.contains("Transferencia")) {
+            metodoPago = "transferencia";
+        } else if (opcionPago.contains("Online")) {
+            metodoPago = "online";
+        } else {
+            metodoPago = "contraentrega";
+        }
         return new Model.Factura(venta, codigoFactura, metodoPago);
     }
     
@@ -266,7 +282,11 @@ public class ClienteService {
      * SOLO lógica de negocio, sin UI
      */
     public int determinarEstadoVenta(String opcionPago) {
-        if (opcionPago.contains("Pagar Online")) {
+        // Todos los métodos de pago físico/tarjeta se consideran pagados
+        if (opcionPago.contains("Efectivo") || 
+            opcionPago.contains("Tarjeta") || 
+            opcionPago.contains("Transferencia") ||
+            opcionPago.contains("Pagar Online")) {
             return 1; // Pagada
         } else {
             return 2; // Falta por pagar
@@ -312,12 +332,17 @@ public class ClienteService {
      * Construye el mensaje de productos removidos por falta de stock
      * SOLO lógica de construcción de texto, sin UI
      */
+    /**
+     * Construye mensaje sobre productos que se quedaron sin stock
+     * IMPORTANTE: Los productos NO se remueven, solo se muestran con stock 0
+     */
     public String construirMensajeProductosRemovidos(java.util.List<Repuesto> repuestosSinStock) {
         StringBuilder mensaje = new StringBuilder();
-        mensaje.append("🗑️ Productos removidos por falta de stock:\n");
+        mensaje.append("⚠️ Productos que se quedaron sin stock (se mantienen visibles con stock 0):\n\n");
         for (Repuesto repuesto : repuestosSinStock) {
-            mensaje.append("• ").append(repuesto.getNombre()).append("\n");
+            mensaje.append("• ").append(repuesto.getNombre()).append(" - Stock: 0\n");
         }
+        mensaje.append("\nEstos productos seguirán apareciendo en el catálogo pero sin opción de agregar al carrito.");
         return mensaje.toString();
     }
 }

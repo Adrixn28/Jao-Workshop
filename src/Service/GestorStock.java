@@ -13,9 +13,12 @@ import java.util.List;
 public class GestorStock {
     
     private ClienteService clienteService;
+    private LoginService loginService;
     
     public GestorStock() {
-        this.clienteService = new ClienteService();
+        // IMPORTANTE: Usar la instancia compartida de ClienteService para que el stock se actualice correctamente
+        this.loginService = new LoginService();
+        this.clienteService = loginService.getClienteService();
     }
     
     /**
@@ -47,18 +50,27 @@ public class GestorStock {
                              " | Vendido: " + cantidadVendida + 
                              " | Nuevo stock: " + nuevoStock);
             
-            // Actualizar stock del repuesto
+            // IMPORTANTE: Actualizar stock tanto en el objeto del carrito como en ClienteService
+            // 1. Actualizar stock del repuesto del carrito
             repuesto.setStock(nuevoStock);
             
-            // Si se quedó sin stock, agregarlo a la lista de eliminación
+            // 2. Actualizar stock en ClienteService (la fuente de datos principal)
+            boolean actualizado = clienteService.actualizarStock(repuesto.getIdRepuesto(), nuevoStock);
+            if (!actualizado) {
+                System.out.println("⚠️ No se pudo actualizar stock en ClienteService para: " + repuesto.getNombre());
+            } else {
+                System.out.println("✅ Stock actualizado en ClienteService para: " + repuesto.getNombre());
+            }
+            
+            // Si se quedó sin stock, agregarlo a la lista (pero NO será removido, solo se mostrará con stock 0)
             if (nuevoStock <= 0) {
                 repuesto.setStock(0); // Asegurar que no sea negativo
                 repuestosSinStock.add(repuesto);
-                System.out.println("❌ " + repuesto.getNombre() + " se quedó SIN STOCK - será removido");
+                System.out.println("⚠️ " + repuesto.getNombre() + " se quedó SIN STOCK - se mostrará con stock 0");
             }
         }
         
-        // Actualizar el servicio de cliente con los cambios
+        // Actualizar el servicio de cliente con los cambios (remover repuestos sin stock)
         clienteService.actualizarInventarioDespuesVenta(repuestosSinStock);
         
         return repuestosSinStock;
@@ -95,13 +107,20 @@ public class GestorStock {
     
     /**
      * Verifica disponibilidad antes de procesar venta
+     * IMPORTANTE: Verifica el stock desde ClienteService (fuente de datos principal)
      * @param carrito Carrito a verificar
      * @return true si todos los items tienen stock suficiente
      */
     public boolean verificarDisponibilidad(Carrito carrito) {
         for (ItemCarrito item : carrito.obtenerItemsArray()) {
-            if (item.getRepuesto().getStock() < item.getCantidad()) {
-                System.out.println("⚠️ Stock insuficiente para: " + item.getRepuesto().getNombre());
+            Repuesto repuesto = item.getRepuesto();
+            // Obtener el stock actualizado desde ClienteService (fuente de datos principal)
+            Repuesto repuestoActualizado = clienteService.buscarPorId(repuesto.getIdRepuesto());
+            int stockDisponible = (repuestoActualizado != null) ? repuestoActualizado.getStock() : repuesto.getStock();
+            
+            if (stockDisponible < item.getCantidad()) {
+                System.out.println("⚠️ Stock insuficiente para: " + repuesto.getNombre() + 
+                                 " (Stock disponible: " + stockDisponible + ", Solicitado: " + item.getCantidad() + ")");
                 return false;
             }
         }

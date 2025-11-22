@@ -153,7 +153,7 @@ public class GestorCarrito {
     }
 
     /**
-     * Busca una factura por código serial
+     * Busca una factura por código de factura (FACT001, etc.)
      */
     public Factura buscarFacturaPorCodigo(String codigoFactura) {
         Nodo actual = facturasGeneradas.getPrimero();
@@ -165,6 +165,83 @@ public class GestorCarrito {
             actual = actual.getSiguiente();
         }
         return null;
+    }
+    
+    /**
+     * Busca una factura por código serial de venta (VEN001, etc.)
+     */
+    public Factura buscarFacturaPorCodigoVenta(String codigoVenta) {
+        Nodo actual = facturasGeneradas.getPrimero();
+        while (actual != null) {
+            Factura factura = (Factura) actual.getDato();
+            if (factura.getCodigoSerial().equals(codigoVenta)) {
+                return factura;
+            }
+            actual = actual.getSiguiente();
+        }
+        return null;
+    }
+    
+    /**
+     * Busca una factura por ID de venta
+     */
+    public Factura buscarFacturaPorIdVenta(int idVenta) {
+        Nodo actual = facturasGeneradas.getPrimero();
+        while (actual != null) {
+            Factura factura = (Factura) actual.getDato();
+            if (factura.getIdVenta() == idVenta) {
+                return factura;
+            }
+            actual = actual.getSiguiente();
+        }
+        return null;
+    }
+    
+    /**
+     * Busca una factura por ID de venta (String), código serial o código de factura
+     * Intenta buscar por todos los métodos posibles
+     */
+    public Factura buscarFacturaPorCualquierCodigo(String codigo) {
+        if (codigo == null || codigo.trim().isEmpty()) {
+            return null;
+        }
+        
+        codigo = codigo.trim();
+        
+        // Intentar buscar por código de factura primero
+        Factura factura = buscarFacturaPorCodigo(codigo);
+        if (factura != null) {
+            return factura;
+        }
+        
+        // Intentar buscar por código de venta
+        factura = buscarFacturaPorCodigoVenta(codigo);
+        if (factura != null) {
+            return factura;
+        }
+        
+        // Intentar buscar por ID de venta (si es numérico)
+        try {
+            int idVenta = Integer.parseInt(codigo);
+            factura = buscarFacturaPorIdVenta(idVenta);
+            if (factura != null) {
+                return factura;
+            }
+        } catch (NumberFormatException e) {
+            // No es un número, continuar
+        }
+        
+        return null;
+    }
+    
+    /**
+     * Agrega una factura a la lista de facturas generadas
+     */
+    public void agregarFactura(Factura factura) {
+        if (factura != null) {
+            facturasGeneradas.insertarFinal(factura);
+            System.out.println("Factura agregada: " + factura.getCodigoFactura());
+        }
     }
 
     /**

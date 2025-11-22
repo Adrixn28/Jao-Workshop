@@ -124,8 +124,9 @@ public class Cliente extends javax.swing.JFrame {
         repuestosFiltrados = new ArrayList<>();
         
         // Inicializar servicios
-        clienteService = new ClienteService();
         loginService = new LoginService();
+        // IMPORTANTE: Usar la instancia compartida de ClienteService para que el stock se actualice correctamente
+        clienteService = loginService.getClienteService();
         gestorStock = new GestorStock();
         generadorPDF = new GeneradorFacturaPDF();
         
@@ -1317,6 +1318,10 @@ public class Cliente extends javax.swing.JFrame {
             Venta venta = clienteService.crearVenta(codigoVenta, clienteActual, itemsVenta, 
                                                     carrito.getTotalCarrito(), opcionPago);
             Factura factura = clienteService.crearFactura(venta, codigoFactura, opcionPago);
+            
+            // Guardar la factura en GestorCarrito y LoginService para que pueda ser buscada después
+            gestorCarrito.agregarFactura(factura);
+            loginService.agregarFactura(factura);
             
             // 5. Generar factura PDF
             String rutaFactura = generadorPDF.generarFacturaPDF(factura);

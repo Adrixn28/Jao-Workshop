@@ -14,6 +14,12 @@ public class LoginService {
     private static Lista listaRecepcionistas;
     private static Lista listaProveedores;
     
+    // Lista compartida de facturas (accesible desde cualquier parte del sistema)
+    private static Lista listaFacturas;
+    
+    // Singleton de ClienteService para compartir repuestos entre todos los frames
+    private static ClienteService clienteServiceSingleton;
+    
     // Persistencias organizacionales
     private SesionUsuarioActual sesionActual;
     private RedireccionPorRol redireccionRol;
@@ -47,6 +53,13 @@ public class LoginService {
             listaClientes = new Lista();
             listaRecepcionistas = new Lista();
             listaProveedores = new Lista();
+            listaFacturas = new Lista();
+            
+            // Inicializar singleton de ClienteService (compartido entre todos los frames)
+            if (clienteServiceSingleton == null) {
+                clienteServiceSingleton = new ClienteService();
+                System.out.println("ClienteService singleton inicializado.");
+            }
             
             // Agregar algunos usuarios de prueba
             agregarUsuariosPrueba();
@@ -226,6 +239,68 @@ public class LoginService {
     
     public Lista getListaProveedores() {
         return listaProveedores;
+    }
+    
+    public Lista getListaFacturas() {
+        if (listaFacturas == null) {
+            listaFacturas = new Lista();
+        }
+        return listaFacturas;
+    }
+    
+    /**
+     * Agrega una factura a la lista compartida
+     */
+    public void agregarFactura(Factura factura) {
+        if (factura != null) {
+            getListaFacturas().insertarFinal(factura);
+            System.out.println("Factura agregada a LoginService: " + factura.getCodigoFactura());
+        }
+    }
+    
+    /**
+     * Busca una factura por código de factura, código de venta o ID de venta
+     */
+    public Factura buscarFacturaPorCualquierCodigo(String codigo) {
+        if (codigo == null || codigo.trim().isEmpty()) {
+            return null;
+        }
+        
+        Lista facturas = getListaFacturas();
+        if (facturas == null || facturas.getPrimero() == null) {
+            return null;
+        }
+        
+        codigo = codigo.trim();
+        Nodo actual = facturas.getPrimero();
+        
+        while (actual != null) {
+            Factura factura = (Factura) actual.getDato();
+            
+            // Buscar por código de factura
+            if (factura.getCodigoFactura().equals(codigo)) {
+                return factura;
+            }
+            
+            // Buscar por código de venta
+            if (factura.getCodigoSerial().equals(codigo)) {
+                return factura;
+            }
+            
+            // Buscar por ID de venta (si es numérico)
+            try {
+                int idVenta = Integer.parseInt(codigo);
+                if (factura.getIdVenta() == idVenta) {
+                    return factura;
+                }
+            } catch (NumberFormatException e) {
+                // No es un número, continuar
+            }
+            
+            actual = actual.getSiguiente();
+        }
+        
+        return null;
     }
     
     // ===============================
@@ -441,5 +516,18 @@ public class LoginService {
             e.printStackTrace();
             return false;
         }
+    }
+    
+    /**
+     * Obtiene la instancia compartida de ClienteService (singleton)
+     * Todos los frames deben usar esta instancia para que el stock se actualice correctamente
+     * @return Instancia compartida de ClienteService
+     */
+    public ClienteService getClienteService() {
+        if (clienteServiceSingleton == null) {
+            clienteServiceSingleton = new ClienteService();
+            System.out.println("ClienteService singleton creado.");
+        }
+        return clienteServiceSingleton;
     }
 }

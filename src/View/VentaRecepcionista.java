@@ -125,8 +125,9 @@ public class VentaRecepcionista extends javax.swing.JFrame {
         repuestosFiltrados = new ArrayList<>();
         
         // Inicializar servicios
-        clienteService = new ClienteService();
         loginService = new LoginService();
+        // IMPORTANTE: Usar la instancia compartida de ClienteService para que el stock se actualice correctamente
+        clienteService = loginService.getClienteService();
         gestorStock = new GestorStock();
         generadorPDF = new GeneradorFacturaPDF();
         administradorService = new AdministradorService(loginService);
@@ -503,6 +504,7 @@ public class VentaRecepcionista extends javax.swing.JFrame {
         if (cliente != null) {
             // Cliente encontrado - cargar datos automáticamente
             clienteRegistrado = true;
+            clienteActual = cliente; // IMPORTANTE: Asignar clienteActual para evitar NullPointerException
             cedulaClienteVenta = cliente.getCedula();
             nombreClienteVenta = cliente.getPrimerNombre() + " " + cliente.getPrimerApellido();
             txtNombreCliente.setText(nombreClienteVenta);
@@ -516,6 +518,7 @@ public class VentaRecepcionista extends javax.swing.JFrame {
         } else {
             // Cliente NO encontrado - permitir ingreso manual
             clienteRegistrado = false;
+            clienteActual = null; // Cliente no registrado, no hay datos completos
             cedulaClienteVenta = cedula;
             txtNombreCliente.setText("");
             txtNombreCliente.setEditable(true);
@@ -1195,11 +1198,13 @@ public class VentaRecepcionista extends javax.swing.JFrame {
         lblTitulo.setForeground(Color.WHITE);
         panel.add(lblTitulo, BorderLayout.NORTH);
         
-        // ComboBox con opciones
+        // ComboBox con opciones de pago (físico/tarjeta - solo visual)
         String[] opcionesPago = {
-            "Seleccionar opción...",
-            "Pagar Online + Domicilio → Pagada",
-            "Pagar Online + Recoger en Local → Pagada", 
+            "Seleccionar método de pago...",
+            "Efectivo → Pagada",
+            "Tarjeta Débito → Pagada",
+            "Tarjeta Crédito → Pagada",
+            "Transferencia → Pagada",
             "Domicilio Contraentrega → Falta por pagar",
             "Recoger en Local → Falta por pagar"
         };
@@ -1350,8 +1355,12 @@ public class VentaRecepcionista extends javax.swing.JFrame {
         txtDireccion.setLineWrap(true);
         txtDireccion.setWrapStyleWord(true);
         
-        // Dirección del cliente logueado
-        txtDireccion.setText(clienteActual.getDireccion());
+        // Dirección del cliente (si está registrado) o campo vacío para ingreso manual
+        if (clienteActual != null && clienteActual.getDireccion() != null && !clienteActual.getDireccion().isEmpty()) {
+            txtDireccion.setText(clienteActual.getDireccion());
+        } else {
+            txtDireccion.setText(""); // Campo vacío para ingreso manual
+        }
         
         JScrollPane scrollDireccion = new JScrollPane(txtDireccion);
         scrollDireccion.setBorder(null);
@@ -1458,10 +1467,51 @@ public class VentaRecepcionista extends javax.swing.JFrame {
             java.util.List<Model.Repuesto> repuestosSinStock = gestorStock.procesarVentaStock(carrito, opcionPago);
             
             // 4. Crear objetos Venta y Factura usando ClienteService (SOLO LÓGICA DE NEGOCIO)
+            // Si el cliente no está registrado, crear un cliente temporal con datos mínimos
+            Model.Cliente clienteParaVenta = clienteActual;
+            if (clienteParaVenta == null) {
+                // Crear cliente temporal con datos mínimos
+                String nombreCompleto = txtNombreCliente.getText().trim();
+                if (nombreCompleto.isEmpty()) {
+                    nombreCompleto = "Cliente No Registrado";
+                }
+                String[] partesNombre = nombreCompleto.split(" ", 2);
+                String primerNombre = partesNombre[0];
+                String segundoNombre = partesNombre.length > 1 ? partesNombre[1] : "";
+                
+                clienteParaVenta = new Model.Cliente(
+                    "TEMP_" + cedulaClienteVenta, // ID temporal
+                    primerNombre,
+                    segundoNombre,
+                    "", // primerApellido
+                    "", // segundoApellido
+                    "", // genero
+                    cedulaClienteVenta,
+                    "", // telefono
+                    "", // correo
+                    "", // usuario
+                    "", // contraseña
+                    direccion != null ? direccion : "", // direccion
+                    "Cliente" // rol
+                );
+            }
+            
             java.util.List<ItemVenta> itemsVenta = clienteService.crearItemsVenta(carrito);
-            Venta venta = clienteService.crearVenta(codigoVenta, clienteActual, itemsVenta, 
+            Venta venta = clienteService.crearVenta(codigoVenta, clienteParaVenta, itemsVenta, 
                                                     carrito.getTotalCarrito(), opcionPago);
+            
+            // IMPORTANTE: En VentaRecepcionista, las ventas son instantáneas, se marcan como despachadas
+            venta.setDespachada(true);
+            venta.setEstado(5); // Estado despachada
+            
             Factura factura = clienteService.crearFactura(venta, codigoFactura, opcionPago);
+            
+            // IMPORTANTE: La factura también queda como despachada porque la venta es instantánea
+            factura.setDespachada(true);
+            
+            // Guardar la factura en GestorCarrito y LoginService para que pueda ser buscada después
+            gestorCarrito.agregarFactura(factura);
+            loginService.agregarFactura(factura);
             
             // 5. Generar factura PDF
             String rutaFactura = generadorPDF.generarFacturaPDF(factura);
