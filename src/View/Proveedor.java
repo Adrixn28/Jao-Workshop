@@ -1,13 +1,18 @@
 package View;
 
 import Model.Repuesto;
-import Model.Sesion;
+import Percistencia.ActualizarRepuestoId;
 import Percistencia.BuscarRepuestoId;
 import Percistencia.EliminarRepuestoId;
 import Percistencia.ExisteRepuestoId;
+import Percistencia.SistemaDatos;
+import Service.LoginService;
 import javax.swing.JOptionPane;
 import javax.swing.SpinnerNumberModel;
 import listaDoble.Lista;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import listaDoble.Nodo;
 
 /**
  *
@@ -15,24 +20,92 @@ import listaDoble.Lista;
  */
 public class Proveedor extends javax.swing.JFrame {
 
-    public class lista {
+    //Listas y utilidades
+  
 
-        public static Lista listaRepuestos = new Lista();
-    }
+    //Variable global
+    private Model.Proveedor prov;
 
+    //Métodos
+    private boolean repuestosCargados = false;
     ExisteRepuestoId buscar_repuesto = new ExisteRepuestoId();
     BuscarRepuestoId buscador = new BuscarRepuestoId();
     EliminarRepuestoId eliminar = new EliminarRepuestoId();
+    ActualizarRepuestoId actualizar = new ActualizarRepuestoId();
+
+    //Servicios
+    private LoginService loginService;
+    private String idProveedorActual;
 
     public Proveedor() {
-        cargarRepuestos();
         initComponents();
+        ocultarZonaDeActualizar();
+        inicializarServicios();
+        
+        cargarTabla(tablaRepuestos, SistemaDatos.getInstancia().listaRepuestos);
+
         setLocationRelativeTo(null);
         jspinnerStock.setModel(modelo);
+        spiActualizarStock.setModel(modelo2);
         btnLimpiarCampoDelete.setEnabled(false);
+        inicializarServicios();
+        cargarTabla(tablaRepuestos, SistemaDatos.getInstancia().listaRepuestos
+);
+    }
+
+    //Constructor con ID
+    public Proveedor(String idProveedor) {
+        initComponents();
+        ocultarZonaDeActualizar();
+        inicializarServicios();
+        precargarDatosProveedorPorId(idProveedor);
+            cargarTabla(tablaRepuestos, SistemaDatos.getInstancia().listaRepuestos);
+
+        jspinnerStock.setModel(modelo);
+        spiActualizarStock.setModel(modelo2);
+        btnLimpiarCampoDelete.setEnabled(false);
+        setLocationRelativeTo(null);
+        cargarTabla(tablaRepuestos, SistemaDatos.getInstancia().listaRepuestos
+);
+
+    }
+
+    private void inicializarServicios() {
+        loginService = new LoginService();
+        System.out.println("Servicios inicializados para proveedor");
+    }
+
+    private void precargarDatosProveedorPorId(String idProveedor) {
+        if (idProveedor == null || idProveedor.isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                    "Error: ID de proveedor no válido.",
+                    "Error de Datos", JOptionPane.ERROR_MESSAGE);
+            this.dispose();
+            return;
+        }
+
+        // Buscar proveedor por ID usando el servicio
+        prov = loginService.buscarProveedorPorId(idProveedor);
+
+        if (prov != null) {
+            // Guardar el ID para uso posterior
+            this.idProveedorActual = idProveedor;
+
+            // Precargar datos en los campos del panel de inicio
+            lblNombreProv.setText(prov.getPrimerNombre() + " " + (prov.getPrimerApellido()));
+
+        } else {
+            System.out.println("No se encontró proveedor con ID: " + idProveedor);
+            JOptionPane.showMessageDialog(this,
+                    "Error: No se pudo encontrar la información del administrador.\n"
+                    + "ID: " + idProveedor,
+                    "Error de Búsqueda", JOptionPane.ERROR_MESSAGE);
+            this.dispose();
+        }
     }
 
     SpinnerNumberModel modelo = new SpinnerNumberModel(1, 1, 100, 1);
+    SpinnerNumberModel modelo2 = new SpinnerNumberModel(1, 0, 100, 1);
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -76,14 +149,16 @@ public class Proveedor extends javax.swing.JFrame {
         PanelNegro2 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         panelMenu = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
+        lblNombreProv = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tablaRepuestos = new javax.swing.JTable();
         panelDecoración12 = new javax.swing.JPanel();
         panelDecoración13 = new javax.swing.JPanel();
         panelDecoración14 = new javax.swing.JPanel();
         jLabel28 = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
+        jLabel32 = new javax.swing.JLabel();
+        btnReiniciarTablaRepuestos = new javax.swing.JButton();
         PanelActualizar = new javax.swing.JPanel();
         panelDecoración6 = new javax.swing.JPanel();
         panelDecoración7 = new javax.swing.JPanel();
@@ -91,12 +166,23 @@ public class Proveedor extends javax.swing.JFrame {
         jLabel20 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
-        lblRepuesto1 = new javax.swing.JLabel();
-        txtIdRepuesto1 = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        lblActualizarPrecio = new javax.swing.JLabel();
+        txtActualizarRepuesto = new javax.swing.JTextField();
+        btnActualizarR = new javax.swing.JButton();
+        btnCancelarR = new javax.swing.JButton();
         jLabel24 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
+        lblRepuesto9 = new javax.swing.JLabel();
+        cboSolicitudActualizar = new javax.swing.JComboBox<>();
+        btnBuscarParaAct = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
+        lblQuéQuieresActualizar1 = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        txtActualizarPrecioR = new javax.swing.JTextField();
+        lblDigitaStock = new javax.swing.JLabel();
+        spiActualizarStock = new javax.swing.JSpinner();
+        lblSelecEstadoN = new javax.swing.JLabel();
+        cboActualizarEstado = new javax.swing.JComboBox<>();
         panelEliminar = new javax.swing.JPanel();
         jLabel25 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
@@ -116,7 +202,7 @@ public class Proveedor extends javax.swing.JFrame {
         lblRepuesto5 = new javax.swing.JLabel();
         txtCargarPrecioRepuesto = new javax.swing.JTextField();
         lblRepuesto6 = new javax.swing.JLabel();
-        txtEliminarRepuesto = new javax.swing.JTextField();
+        txtEliminarRepuestoId = new javax.swing.JTextField();
         lblRepuesto7 = new javax.swing.JLabel();
         txtCargarCategoriaRepuesto1 = new javax.swing.JTextField();
         lblRepuesto8 = new javax.swing.JLabel();
@@ -560,36 +646,42 @@ public class Proveedor extends javax.swing.JFrame {
         panelMenu.setBackground(new java.awt.Color(255, 255, 255));
         panelMenu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel5.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 18)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel5.setText("ESTE ES EL MENÚ PRINCIPAL DE PROVEEDORES DE J-WORKSHOP");
-        panelMenu.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, -1, -1));
+        lblNombreProv.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 18)); // NOI18N
+        lblNombreProv.setForeground(new java.awt.Color(0, 0, 0));
+        panelMenu.add(lblNombreProv, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 10, 260, 20));
 
         jScrollPane2.setBackground(new java.awt.Color(204, 204, 204));
 
-        jTable1.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tablaRepuestos.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
+        tablaRepuestos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Categoria", "Nombre", "Precio", "Stock"
+                "Categoria", "Nombre", "Precio", "Stock", "Proveedor", "Estado"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Double.class, java.lang.Integer.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Double.class, java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
-        });
-        jScrollPane2.setViewportView(jTable1);
 
-        panelMenu.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 670, 280));
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(tablaRepuestos);
+
+        panelMenu.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 660, 280));
 
         panelDecoración12.setBackground(new java.awt.Color(0, 153, 0));
 
@@ -643,6 +735,22 @@ public class Proveedor extends javax.swing.JFrame {
         jLabel29.setForeground(new java.awt.Color(0, 0, 0));
         jLabel29.setText("RECUERDA HACER TUS TAREAS CON RESPONSABILIDAD Y BUEN MANEJO DE DATOS.");
         panelMenu.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, -1, -1));
+
+        jLabel32.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 18)); // NOI18N
+        jLabel32.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel32.setText("BIENVENIDO/A");
+        panelMenu.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 140, -1));
+
+        btnReiniciarTablaRepuestos.setBackground(new java.awt.Color(204, 204, 255));
+        btnReiniciarTablaRepuestos.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 12)); // NOI18N
+        btnReiniciarTablaRepuestos.setForeground(new java.awt.Color(0, 0, 0));
+        btnReiniciarTablaRepuestos.setText("REINICIAR");
+        btnReiniciarTablaRepuestos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReiniciarTablaRepuestosActionPerformed(evt);
+            }
+        });
+        panelMenu.add(btnReiniciarTablaRepuestos, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, -1, -1));
 
         jTabbedPane1.addTab("Menú", panelMenu);
 
@@ -707,30 +815,40 @@ public class Proveedor extends javax.swing.JFrame {
         jLabel23.setText("- BÚSQUEDA RÁPIDA Y EFICIENTE EN EL SISTEMA.");
         PanelActualizar.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, -1, -1));
 
-        lblRepuesto1.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
-        lblRepuesto1.setForeground(new java.awt.Color(0, 0, 0));
-        lblRepuesto1.setText("1. INGRESE EL ID DEL REPUESTO PARA HALLARLO EN EL SISTEMA:");
-        PanelActualizar.add(lblRepuesto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, -1, -1));
+        lblActualizarPrecio.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
+        lblActualizarPrecio.setForeground(new java.awt.Color(0, 0, 0));
+        lblActualizarPrecio.setText("DIGITA EL PRECIO PARA ACTUALIZAR:");
+        PanelActualizar.add(lblActualizarPrecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 230, -1, -1));
 
-        txtIdRepuesto1.setBackground(new java.awt.Color(204, 204, 204));
-        txtIdRepuesto1.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
-        txtIdRepuesto1.setForeground(new java.awt.Color(0, 0, 0));
-        PanelActualizar.add(txtIdRepuesto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 240, 30));
+        txtActualizarRepuesto.setBackground(new java.awt.Color(204, 204, 204));
+        txtActualizarRepuesto.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
+        txtActualizarRepuesto.setForeground(new java.awt.Color(0, 0, 0));
+        PanelActualizar.add(txtActualizarRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 240, 30));
 
-        jButton3.setBackground(new java.awt.Color(0, 153, 0));
-        jButton3.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("BUSCAR");
-        PanelActualizar.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 160, 80, 30));
+        btnActualizarR.setBackground(new java.awt.Color(0, 153, 0));
+        btnActualizarR.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
+        btnActualizarR.setForeground(new java.awt.Color(255, 255, 255));
+        btnActualizarR.setText("ACTUALIZAR");
+        btnActualizarR.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarRActionPerformed(evt);
+            }
+        });
+        PanelActualizar.add(btnActualizarR, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, 130, 30));
 
-        jButton4.setBackground(new java.awt.Color(153, 0, 0));
-        jButton4.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jButton4.setText("X");
-        PanelActualizar.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 160, 80, 30));
+        btnCancelarR.setBackground(new java.awt.Color(153, 0, 0));
+        btnCancelarR.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
+        btnCancelarR.setForeground(new java.awt.Color(255, 255, 255));
+        btnCancelarR.setText("X");
+        btnCancelarR.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarRActionPerformed(evt);
+            }
+        });
+        PanelActualizar.add(btnCancelarR, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 280, 80, 30));
 
         jLabel24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buscar.png"))); // NOI18N
-        PanelActualizar.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 160, -1, -1));
+        PanelActualizar.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 160, -1, -1));
 
         jPanel4.setBackground(new java.awt.Color(216, 216, 217));
 
@@ -747,6 +865,88 @@ public class Proveedor extends javax.swing.JFrame {
 
         PanelActualizar.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 690, 10));
 
+        lblRepuesto9.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
+        lblRepuesto9.setForeground(new java.awt.Color(0, 0, 0));
+        lblRepuesto9.setText("1. INGRESE EL ID DEL REPUESTO PARA HALLARLO EN EL SISTEMA:");
+        PanelActualizar.add(lblRepuesto9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, -1, -1));
+
+        cboSolicitudActualizar.setBackground(new java.awt.Color(204, 204, 204));
+        cboSolicitudActualizar.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
+        cboSolicitudActualizar.setForeground(new java.awt.Color(0, 0, 0));
+        cboSolicitudActualizar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--------------------------", "Precio", "Stock", "Estado" }));
+        cboSolicitudActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboSolicitudActualizarActionPerformed(evt);
+            }
+        });
+        PanelActualizar.add(cboSolicitudActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, 220, -1));
+
+        btnBuscarParaAct.setBackground(new java.awt.Color(0, 153, 0));
+        btnBuscarParaAct.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
+        btnBuscarParaAct.setForeground(new java.awt.Color(255, 255, 255));
+        btnBuscarParaAct.setText("BUSCAR");
+        btnBuscarParaAct.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarParaActActionPerformed(evt);
+            }
+        });
+        PanelActualizar.add(btnBuscarParaAct, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 160, 100, 30));
+
+        jButton6.setBackground(new java.awt.Color(204, 204, 255));
+        jButton6.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
+        jButton6.setForeground(new java.awt.Color(255, 255, 255));
+        jButton6.setText("LIMPIAR");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+        PanelActualizar.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 160, 90, 30));
+
+        lblQuéQuieresActualizar1.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
+        lblQuéQuieresActualizar1.setForeground(new java.awt.Color(0, 0, 0));
+        lblQuéQuieresActualizar1.setText("¿QUÉ DATO QUIERES MODIFICAR?");
+        PanelActualizar.add(lblQuéQuieresActualizar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, -1, -1));
+
+        jPanel6.setBackground(new java.awt.Color(204, 204, 204));
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 10, Short.MAX_VALUE)
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 210, Short.MAX_VALUE)
+        );
+
+        PanelActualizar.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 220, 10, 210));
+
+        txtActualizarPrecioR.setBackground(new java.awt.Color(204, 204, 204));
+        txtActualizarPrecioR.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
+        txtActualizarPrecioR.setForeground(new java.awt.Color(0, 0, 0));
+        PanelActualizar.add(txtActualizarPrecioR, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 250, 120, -1));
+
+        lblDigitaStock.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
+        lblDigitaStock.setForeground(new java.awt.Color(0, 0, 0));
+        lblDigitaStock.setText("DIGITA EL NUEVO STOCK:");
+        PanelActualizar.add(lblDigitaStock, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 230, -1, -1));
+
+        spiActualizarStock.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
+        PanelActualizar.add(spiActualizarStock, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 250, 190, -1));
+
+        lblSelecEstadoN.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
+        lblSelecEstadoN.setForeground(new java.awt.Color(0, 0, 0));
+        lblSelecEstadoN.setText("SELECCIONA EL NUEVO ESTADO DEL REPUESTO:");
+        PanelActualizar.add(lblSelecEstadoN, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 230, -1, -1));
+
+        cboActualizarEstado.setBackground(new java.awt.Color(204, 204, 205));
+        cboActualizarEstado.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
+        cboActualizarEstado.setForeground(new java.awt.Color(0, 0, 0));
+        cboActualizarEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sin seleccionar", "Disponible", "Retirado", "Agotado" }));
+        PanelActualizar.add(cboActualizarEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 250, 220, -1));
+
         jTabbedPane1.addTab("Actualizar", PanelActualizar);
 
         panelEliminar.setBackground(new java.awt.Color(255, 255, 255));
@@ -759,8 +959,8 @@ public class Proveedor extends javax.swing.JFrame {
 
         jLabel26.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 10)); // NOI18N
         jLabel26.setForeground(new java.awt.Color(204, 0, 0));
-        jLabel26.setText("- OJO, REVISE BIEN EL NÚMERO DEL ID REPUESTO, YA QUE SÓLO BASTA ESTE NÚMERO PARA PROCEDER A ELIMINAR.");
-        panelEliminar.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 380, -1, -1));
+        jLabel26.setText("REVISE BIEN EL NÚMERO DEL ID REPUESTO, YA QUE SÓLO BASTA ESTE NÚMERO PARA PROCEDER A ELIMINAR.");
+        panelEliminar.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 390, -1, -1));
 
         panelDecoración9.setBackground(new java.awt.Color(0, 153, 0));
 
@@ -824,7 +1024,7 @@ public class Proveedor extends javax.swing.JFrame {
                 btnEliminarRepuestoActionPerformed(evt);
             }
         });
-        panelEliminar.add(btnEliminarRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 350, 150, 20));
+        panelEliminar.add(btnEliminarRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 350, 150, 30));
 
         btnLimpiarCampoDelete.setBackground(new java.awt.Color(153, 153, 255));
         btnLimpiarCampoDelete.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
@@ -844,7 +1044,7 @@ public class Proveedor extends javax.swing.JFrame {
         txtCargarMarcaRepuesto.setBackground(new java.awt.Color(204, 204, 204));
         txtCargarMarcaRepuesto.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
         txtCargarMarcaRepuesto.setForeground(new java.awt.Color(0, 0, 0));
-        panelEliminar.add(txtCargarMarcaRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 270, 220, 20));
+        panelEliminar.add(txtCargarMarcaRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 270, 220, 30));
 
         jPanel5.setBackground(new java.awt.Color(216, 216, 217));
 
@@ -885,17 +1085,17 @@ public class Proveedor extends javax.swing.JFrame {
         txtCargarPrecioRepuesto.setBackground(new java.awt.Color(204, 204, 204));
         txtCargarPrecioRepuesto.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
         txtCargarPrecioRepuesto.setForeground(new java.awt.Color(0, 0, 0));
-        panelEliminar.add(txtCargarPrecioRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 270, 130, 20));
+        panelEliminar.add(txtCargarPrecioRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 270, 130, 30));
 
         lblRepuesto6.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
         lblRepuesto6.setForeground(new java.awt.Color(0, 0, 0));
         lblRepuesto6.setText("NOMBRE:");
         panelEliminar.add(lblRepuesto6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, -1, -1));
 
-        txtEliminarRepuesto.setBackground(new java.awt.Color(204, 204, 204));
-        txtEliminarRepuesto.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
-        txtEliminarRepuesto.setForeground(new java.awt.Color(0, 0, 0));
-        panelEliminar.add(txtEliminarRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 350, 220, 20));
+        txtEliminarRepuestoId.setBackground(new java.awt.Color(204, 204, 204));
+        txtEliminarRepuestoId.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
+        txtEliminarRepuestoId.setForeground(new java.awt.Color(0, 0, 0));
+        panelEliminar.add(txtEliminarRepuestoId, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 350, 220, 30));
 
         lblRepuesto7.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
         lblRepuesto7.setForeground(new java.awt.Color(0, 0, 0));
@@ -906,7 +1106,7 @@ public class Proveedor extends javax.swing.JFrame {
         txtCargarCategoriaRepuesto1.setBackground(new java.awt.Color(204, 204, 204));
         txtCargarCategoriaRepuesto1.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
         txtCargarCategoriaRepuesto1.setForeground(new java.awt.Color(0, 0, 0));
-        panelEliminar.add(txtCargarCategoriaRepuesto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 240, 220, 20));
+        panelEliminar.add(txtCargarCategoriaRepuesto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 230, 220, 30));
 
         lblRepuesto8.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
         lblRepuesto8.setForeground(new java.awt.Color(0, 0, 0));
@@ -917,7 +1117,7 @@ public class Proveedor extends javax.swing.JFrame {
         txtCargarNombreRepuesto3.setBackground(new java.awt.Color(204, 204, 204));
         txtCargarNombreRepuesto3.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
         txtCargarNombreRepuesto3.setForeground(new java.awt.Color(0, 0, 0));
-        panelEliminar.add(txtCargarNombreRepuesto3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 240, 220, 20));
+        panelEliminar.add(txtCargarNombreRepuesto3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 230, 220, 30));
 
         jLabel31.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 10)); // NOI18N
         jLabel31.setForeground(new java.awt.Color(0, 0, 0));
@@ -1188,6 +1388,7 @@ public class Proveedor extends javax.swing.JFrame {
         String categoria = cboCategoria.getSelectedItem().toString().trim();
         String precio = txtPrecio.getText(); //Números
         int stock = (int) jspinnerStock.getValue();
+        String estado;
 
         //Validación de si está nulo
         if (idRepuesto == null || nombre == null || descripcion == null || marca.equalsIgnoreCase("Sin seleccionar") || categoria.equalsIgnoreCase("Sin seleccionar") || precio == null || stock == 0) {
@@ -1200,7 +1401,7 @@ public class Proveedor extends javax.swing.JFrame {
             } else {
 
                 //Validación de longitud
-                if (idRepuesto.length() < 6 || nombre.length() < 4 || descripcion.length() < 10 || precio.length() <= 3 || idRepuesto.length() > 12 || nombre.length() > 15 || descripcion.length() > 30 || precio.length() > 7) {
+                if (idRepuesto.length() < 6 || nombre.length() < 4 || descripcion.length() < 10 || precio.length() <= 3 || idRepuesto.length() > 12) {
                     JOptionPane.showMessageDialog(null, "Hay campos con longitud inválida.", "Verificación.", JOptionPane.ERROR_MESSAGE);
                 } else {
 
@@ -1210,21 +1411,49 @@ public class Proveedor extends javax.swing.JFrame {
 
                     } else {
 
+                        //Como el stock no es 0, ya sabemos que el estado automáticamente  es disponible.
+                        estado = "Disponible";
+
                         //Validación que solo exista un repuesto registrado con dicho id
                         int idBuscar = Integer.parseInt(idRepuesto);
 
-                        if (buscar_repuesto.existeRepuestoPorId(lista.listaRepuestos, idBuscar)) {
-
+                        if (buscar_repuesto.existeRepuestoPorId(SistemaDatos.getInstancia().listaRepuestos, idBuscar)) {
                             JOptionPane.showMessageDialog(null, "Ya existe un registro del repuesto en el inventario con ese ID que digitó.", "Verificación.", JOptionPane.ERROR_MESSAGE);
                         } else {
 
-                            //Repuesta para agregar un repuesto!
+                            //Casteo para agregar un repuesto!
                             int idRepuestoI = Integer.parseInt(idRepuesto);
                             double precioD = Double.parseDouble(precio);
-                            Repuesto nuevo = new Repuesto(idRepuestoI, nombre, descripcion, marca, categoria, precioD, stock);
-                            lista.listaRepuestos.insertarFinal(nuevo);
-                            JOptionPane.showMessageDialog(null, "Repuesto agregado correctamente..", "Completado.", JOptionPane.ERROR_MESSAGE);
+
+                            //Agregar repuesto
+                            Repuesto nuevo = new Repuesto(idRepuestoI, nombre, descripcion, marca, categoria, precioD, stock, estado, prov);
+                            SistemaDatos.getInstancia().listaRepuestos.insertarFinal(nuevo);
+                            
+                            // IMPORTANTE: Recargar la tabla para mostrar el nuevo repuesto
+                            recargarTabla(tablaRepuestos, SistemaDatos.getInstancia().listaRepuestos);
+                            
+                            JOptionPane.showMessageDialog(null, "Repuesto agregado correctamente.", "Completado.", JOptionPane.INFORMATION_MESSAGE);
+                            limpiarCampos();
+                            //Código para volver al menú principal
+                            int resultado = JOptionPane.showConfirmDialog(null, "¿Desea ir al menú principal?", "Confirmación", JOptionPane.YES_NO_OPTION);
+
+                            if (resultado == JOptionPane.YES_OPTION) {
+                                jTabbedPane1.setSelectedIndex(0);
+
+                            } else if (resultado == JOptionPane.NO_OPTION) {
+                                JOptionPane.showMessageDialog(null, "Permanecerá en esta sección.");
+                            } else if (resultado == JOptionPane.CLOSED_OPTION) {
+                                JOptionPane.showMessageDialog(null, "Diálogo cerrado sin seleccionar una opción.");
+                            }
+
+                        
+                    
+                
+            
+        
+    //////////////////////////////////////////////////////////////////////                 
                         }
+
                     }
                 }
             }
@@ -1237,7 +1466,7 @@ public class Proveedor extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnEliminarRepuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarRepuestoActionPerformed
-        String idRepuesto = txtIdRepuestoDelete1.getText().trim();
+        String idRepuesto = txtEliminarRepuestoId.getText().trim();
         btnLimpiarCampoDelete.setEnabled(true);
 
         if (idRepuesto.isEmpty()) {
@@ -1255,16 +1484,31 @@ public class Proveedor extends javax.swing.JFrame {
             return;
         }
 
-        //Eliminación
-        int id = Integer.parseInt(idRepuesto);
-        EliminarRepuestoId eliminador = new EliminarRepuestoId();
-        eliminador.eliminarPorId(lista.listaRepuestos, id);
+        //Código para volver al menú principal
+        int resultado = JOptionPane.showConfirmDialog(null, "¿Deseas eliminar el repuesto del sistema?", "Alerta", JOptionPane.WARNING_MESSAGE);
+
+        if (resultado == JOptionPane.YES_OPTION) {
+            //Eliminación
+            int id = Integer.parseInt(idRepuesto);
+            EliminarRepuestoId eliminador = new EliminarRepuestoId();
+            eliminador.eliminarPorId(SistemaDatos.getInstancia().listaRepuestos, id);
+            
+            // IMPORTANTE: Recargar la tabla para reflejar la eliminación
+            recargarTabla(tablaRepuestos, SistemaDatos.getInstancia().listaRepuestos);
+
+        } else if (resultado == JOptionPane.NO_OPTION) {
+            JOptionPane.showMessageDialog(null, "Proceso cancelado.");
+        } else if (resultado == JOptionPane.CLOSED_OPTION) {
+            JOptionPane.showMessageDialog(null, "Diálogo cerrado sin seleccionar una opción.");
+        }
+
+
     }//GEN-LAST:event_btnEliminarRepuestoActionPerformed
 
     private void btnLimpiarCampoDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarCampoDeleteActionPerformed
         txtCargarNombreRepuesto3.setText("");
         txtIdRepuestoDelete1.setText("");
-        txtEliminarRepuesto.setText("");
+        txtEliminarRepuestoId.setText("");
         txtCargarMarcaRepuesto.setText("");
         txtCargarCategoriaRepuesto1.setText("");
         txtCargarPrecioRepuesto.setText("");
@@ -1288,7 +1532,7 @@ public class Proveedor extends javax.swing.JFrame {
                 } else {
 
                     int id = Integer.parseInt(idRepuesto);
-                    Repuesto encontrado = buscador.buscarPorId(lista.listaRepuestos, id);
+                    Repuesto encontrado = buscador.buscarPorId(SistemaDatos.getInstancia().listaRepuestos, id);
 
                     if (encontrado != null) {
                         txtCargarNombreRepuesto3.setText(encontrado.getNombre());
@@ -1304,6 +1548,143 @@ public class Proveedor extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnBuscarParaEliminar1ActionPerformed
 
+    private void btnActualizarRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarRActionPerformed
+        int idRef = Integer.parseInt(txtActualizarRepuesto.getText());
+        String campo = cboSolicitudActualizar.getSelectedItem().toString().trim();
+        String nuevoValor = "";
+
+        switch (campo) {
+
+            case "Precio":
+                nuevoValor = txtActualizarPrecioR.getText().toString().trim();
+                break;
+
+            case "Stock":
+                nuevoValor = spiActualizarStock.getValue().toString().trim();
+                break;
+
+            case "Estado":
+                nuevoValor = cboActualizarEstado.getSelectedItem().toString().trim();
+                break;
+        }
+
+        boolean actualizado = actualizar.actualizarPorId(SistemaDatos.getInstancia().listaRepuestos, idRef, campo, nuevoValor);
+
+        if (actualizado) {
+            // IMPORTANTE: Recargar la tabla para reflejar la actualización
+            recargarTabla(tablaRepuestos, SistemaDatos.getInstancia().listaRepuestos);
+            
+            JOptionPane.showMessageDialog(null, "Repuesto actualizado correctamente.", "Actualización.", JOptionPane.INFORMATION_MESSAGE);
+
+            ocultarDespuesQueActualice();
+        } else {
+            JOptionPane.showMessageDialog(null, "El repuesto no se actualizó correctamente.", "Actualización.", JOptionPane.ERROR_MESSAGE);
+        }
+
+    }//GEN-LAST:event_btnActualizarRActionPerformed
+
+    private void btnReiniciarTablaRepuestosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReiniciarTablaRepuestosActionPerformed
+        recargarTabla(tablaRepuestos, SistemaDatos.getInstancia().listaRepuestos);
+        JOptionPane.showMessageDialog(null, "Tabla refrescada correctamente.", "Actualización.", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_btnReiniciarTablaRepuestosActionPerformed
+
+    private void btnBuscarParaActActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarParaActActionPerformed
+        //30 de noviembre
+        String idRepuesto = txtActualizarRepuesto.getText();
+        txtActualizarRepuesto.setEnabled(true);
+
+        if (idRepuesto.isEmpty() || idRepuesto == null) {
+            JOptionPane.showMessageDialog(null, "El campo está vacío.", "Verificación.", JOptionPane.WARNING_MESSAGE);
+        } else {
+
+            if (!soloNumeros(idRepuesto)) {
+                JOptionPane.showMessageDialog(null, "El ID solo debe contener números.", "Verificación.", JOptionPane.ERROR_MESSAGE);
+            } else {
+
+                if (idRepuesto.length() < 6) {
+                    JOptionPane.showMessageDialog(null, "La longitud es muy corta.", "Verificación.", JOptionPane.ERROR_MESSAGE);
+                } else {
+
+                    int id = Integer.parseInt(idRepuesto);
+                    Repuesto encontrado = buscador.buscarPorId(SistemaDatos.getInstancia().listaRepuestos, id);
+
+                    if (encontrado != null) {
+                        JOptionPane.showMessageDialog(null, "¡Repuesto encontrado existosamente", "Correcto.", JOptionPane.INFORMATION_MESSAGE);
+                        mostrarZonaDeActualizar();
+                        ocultarDespuesDeTodoExitoso();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "¡No se encontró el repuesto!", "Correcto.", JOptionPane.ERROR_MESSAGE);
+                    }
+                } //Else
+            }
+        }
+    }//GEN-LAST:event_btnBuscarParaActActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        txtActualizarRepuesto.setText("");
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void btnCancelarRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarRActionPerformed
+        ocultarZonaDeActualizar();
+        JOptionPane.showMessageDialog(null, "Proceso de actualizar cancelado", "Cancelación.", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_btnCancelarRActionPerformed
+
+    private void cboSolicitudActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboSolicitudActualizarActionPerformed
+
+        String solicitud = cboSolicitudActualizar.getSelectedItem().toString().trim();
+
+        if (solicitud.equalsIgnoreCase("--------------------------")) {
+
+            jPanel6.setVisible(false);
+            txtActualizarPrecioR.setVisible(false);
+            lblActualizarPrecio.setVisible(false);
+            lblDigitaStock.setVisible(false);
+            spiActualizarStock.setVisible(false);
+            lblSelecEstadoN.setVisible(false);
+            cboActualizarEstado.setVisible(false);
+
+        } else if (solicitud.equalsIgnoreCase("Precio")) {
+
+            //Cuando la condición es verdadera
+            jPanel6.setVisible(true);
+            txtActualizarPrecioR.setVisible(true);
+            lblActualizarPrecio.setVisible(true);
+
+            //Para evitar inconsistencias 
+            lblDigitaStock.setVisible(false);
+            spiActualizarStock.setVisible(false);
+            lblSelecEstadoN.setVisible(false);
+            cboActualizarEstado.setVisible(false);
+
+        } else if (solicitud.equalsIgnoreCase("Stock")) {
+
+            //Cuando la condición es verdadera
+            jPanel6.setVisible(true);
+            lblDigitaStock.setVisible(true);
+            spiActualizarStock.setVisible(true);
+
+            //Para evitar inconsistencias
+            txtActualizarPrecioR.setVisible(false);
+            lblActualizarPrecio.setVisible(false);
+            lblSelecEstadoN.setVisible(false);
+            cboActualizarEstado.setVisible(false);
+
+        } else if (solicitud.equalsIgnoreCase("Estado")) {
+
+            //Cuando la condición es verdadera
+            jPanel6.setVisible(true);
+            lblSelecEstadoN.setVisible(true);
+            cboActualizarEstado.setVisible(true);
+
+            //Para evitar inconsistencias
+            txtActualizarPrecioR.setVisible(false);
+            lblActualizarPrecio.setVisible(false);
+            lblDigitaStock.setVisible(false);
+            spiActualizarStock.setVisible(false);
+        }
+
+    }//GEN-LAST:event_cboSolicitudActualizarActionPerformed
+
     //Proveedor p = Sesion.proveedorActual;
     public static void main(String args[]) {
 
@@ -1318,11 +1699,17 @@ public class Proveedor extends javax.swing.JFrame {
     private javax.swing.JPanel PanelActualizar;
     private javax.swing.JPanel PanelAgregar;
     private javax.swing.JPanel PanelNegro2;
+    private javax.swing.JButton btnActualizarR;
+    private javax.swing.JButton btnBuscarParaAct;
     private javax.swing.JButton btnBuscarParaEliminar1;
+    private javax.swing.JButton btnCancelarR;
     private javax.swing.JButton btnEliminarRepuesto;
     private javax.swing.JButton btnLimpiarCampoDelete;
+    private javax.swing.JButton btnReiniciarTablaRepuestos;
+    private javax.swing.JComboBox<String> cboActualizarEstado;
     private javax.swing.JComboBox<String> cboCategoria;
     private javax.swing.JComboBox<String> cboMarcaRepuesto;
+    private javax.swing.JComboBox<String> cboSolicitudActualizar;
     private javax.swing.JLabel iconAgendarCita;
     private javax.swing.JLabel iconAgregarPaciente;
     private javax.swing.JLabel iconCerrarSesion;
@@ -1332,8 +1719,7 @@ public class Proveedor extends javax.swing.JFrame {
     private javax.swing.JLabel iconRepuesto;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -1358,8 +1744,8 @@ public class Proveedor extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -1369,10 +1755,10 @@ public class Proveedor extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JSpinner jspinnerStock;
     private javax.swing.JTextArea jtxtareaDescripcion;
     private javax.swing.JLabel labelAgregarPaciente;
@@ -1381,14 +1767,17 @@ public class Proveedor extends javax.swing.JFrame {
     private javax.swing.JLabel labelEditarPaciente1;
     private javax.swing.JLabel labelMenúOpciones;
     private javax.swing.JLabel labelRecepcionisa1;
+    private javax.swing.JLabel lblActualizarPrecio;
     private javax.swing.JLabel lblCOP;
     private javax.swing.JLabel lblCategoria;
     private javax.swing.JLabel lblDescripcionRepuesto;
+    private javax.swing.JLabel lblDigitaStock;
     private javax.swing.JLabel lblMarcaRepuesto;
+    private javax.swing.JLabel lblNombreProv;
     private javax.swing.JLabel lblNombreRepuesto;
     private javax.swing.JLabel lblPrecioRepuesto;
+    private javax.swing.JLabel lblQuéQuieresActualizar1;
     private javax.swing.JLabel lblRepuesto;
-    private javax.swing.JLabel lblRepuesto1;
     private javax.swing.JLabel lblRepuesto2;
     private javax.swing.JLabel lblRepuesto3;
     private javax.swing.JLabel lblRepuesto4;
@@ -1396,6 +1785,8 @@ public class Proveedor extends javax.swing.JFrame {
     private javax.swing.JLabel lblRepuesto6;
     private javax.swing.JLabel lblRepuesto7;
     private javax.swing.JLabel lblRepuesto8;
+    private javax.swing.JLabel lblRepuesto9;
+    private javax.swing.JLabel lblSelecEstadoN;
     private javax.swing.JLabel lblStock;
     private javax.swing.JPanel panelBtnActualizar;
     private javax.swing.JPanel panelBtnAgregar;
@@ -1421,13 +1812,16 @@ public class Proveedor extends javax.swing.JFrame {
     private javax.swing.JPanel panelGris;
     private javax.swing.JPanel panelMenu;
     private javax.swing.JPanel panelNegro;
+    private javax.swing.JSpinner spiActualizarStock;
+    private javax.swing.JTable tablaRepuestos;
+    private javax.swing.JTextField txtActualizarPrecioR;
+    private javax.swing.JTextField txtActualizarRepuesto;
     private javax.swing.JTextField txtCargarCategoriaRepuesto1;
     private javax.swing.JTextField txtCargarMarcaRepuesto;
     private javax.swing.JTextField txtCargarNombreRepuesto3;
     private javax.swing.JTextField txtCargarPrecioRepuesto;
-    private javax.swing.JTextField txtEliminarRepuesto;
+    private javax.swing.JTextField txtEliminarRepuestoId;
     private javax.swing.JTextField txtIdRepuesto;
-    private javax.swing.JTextField txtIdRepuesto1;
     private javax.swing.JTextField txtIdRepuestoDelete1;
     private javax.swing.JTextField txtNombreRepuesto;
     private javax.swing.JTextField txtPrecio;
@@ -1469,44 +1863,103 @@ public class Proveedor extends javax.swing.JFrame {
         }
     }
 
-    private static void cargarRepuestos() {
-        // === REPUESTOS ===
-        Repuesto repuesto1 = new Repuesto(
-                987654321,
-                "Filtro de aceite",
-                "Filtro de alta eficiencia para motor 1.6",
-                "Bosch",
-                "Motor",
-                45000.0,
-                20
-        );
+    public void limpiarCampos() {
+        txtIdRepuesto.setText("");
+        txtNombreRepuesto.setText("");
+        cboMarcaRepuesto.setSelectedIndex(0);
+        jtxtareaDescripcion.setText("");
+        txtPrecio.setText("");
+        jspinnerStock.setValue(1);
+        cboCategoria.setSelectedIndex(0);
+    }
 
-        Repuesto repuesto2 = new Repuesto(
-                87654321,
-                "Pastillas de freno",
-                "Pastillas cerámicas para alto rendimiento",
-                "Brembo",
-                "Frenos",
-                95000.0,
-                15
-        );
+  
 
-        Repuesto repuesto3 = new Repuesto(
-                12345678,
-                "Bujías de iridio NGK",
-                "Set de 4 bujías NGK Iridium IX",
-                "NGK",
-                "Encendido",
-                120000.0,
-                25
-        );
+    public void cargarTabla(JTable tablaRepuestos, Lista lista) {
+        DefaultTableModel model = (DefaultTableModel) tablaRepuestos.getModel();
+        model.setRowCount(0);
 
-        // === AGREGAR A LA LISTA DOBLEMENTE ENLAZADA ===
-        lista.listaRepuestos.insertarFinal(repuesto1);
-        lista.listaRepuestos.insertarFinal(repuesto2);
-        lista.listaRepuestos.insertarFinal(repuesto3);
+        Nodo actual = lista.getPrimero();
 
-        System.out.println("Repuestos iniciales cargados con éxito.");
+        while (actual != null) {
+            Repuesto repuesto = (Repuesto) actual.getDato();
+            Model.Proveedor proveedor = (Model.Proveedor) repuesto.getProveedor();
+
+            Object[] rowData = new Object[]{
+                repuesto.getCategoria(),
+                repuesto.getNombre(),
+                repuesto.getPrecio(),
+                repuesto.getStock(),
+                proveedor != null ? proveedor.getPrimerNombre() + " " + proveedor.getPrimerApellido() : "Sin proveedor",
+                repuesto.getEstado()
+            };
+
+            model.addRow(rowData);
+            actual = actual.getSiguiente();
+        }
+    }
+
+    public void recargarTabla(JTable tablaRepuestos, Lista lista) {
+        DefaultTableModel model = (DefaultTableModel) tablaRepuestos.getModel();
+        model.setRowCount(0);
+
+        Nodo actual = lista.getPrimero();
+
+        while (actual != null) {
+            Repuesto repuesto = (Repuesto) actual.getDato(); //Saca el nodo y lo convierte a repuesto
+            Model.Proveedor proveedor = (Model.Proveedor) repuesto.getProveedor(); //Saca el proveedor del repuesto y lo castea a proveedor
+
+            Object[] rowData = new Object[]{
+                repuesto.getCategoria(),
+                repuesto.getNombre(),
+                repuesto.getPrecio(),
+                repuesto.getStock(),
+                proveedor != null ? proveedor.getPrimerNombre() + " " + proveedor.getPrimerApellido() : "Sin proveedor",
+                repuesto.getEstado()
+            };
+
+            model.addRow(rowData);
+            actual = actual.getSiguiente();
+        }
+    }
+
+    private void ocultarZonaDeActualizar() {
+        lblQuéQuieresActualizar1.setVisible(false);
+        lblActualizarPrecio.setVisible(false);
+        cboSolicitudActualizar.setVisible(false);
+        btnActualizarR.setVisible(false);
+        btnCancelarR.setVisible(false);
+        jPanel6.setVisible(false);
+        txtActualizarPrecioR.setVisible(false);
+        lblActualizarPrecio.setVisible(false);
+        lblDigitaStock.setVisible(false);
+        spiActualizarStock.setVisible(false);
+        lblSelecEstadoN.setVisible(false);
+        cboActualizarEstado.setVisible(false);
+
+    }
+
+    private void mostrarZonaDeActualizar() {
+        lblQuéQuieresActualizar1.setVisible(true);
+        lblActualizarPrecio.setVisible(true);
+        cboSolicitudActualizar.setVisible(true);
+        btnActualizarR.setVisible(true);
+        btnCancelarR.setVisible(true);
+    }
+
+    private void ocultarDespuesDeTodoExitoso() {
+        lblActualizarPrecio.setVisible(false);
+        txtActualizarPrecioR.setVisible(false);
+    }
+
+    private void ocultarDespuesQueActualice() {
+        cboSolicitudActualizar.setSelectedIndex(0);
+        jPanel6.setVisible(false);
+        btnActualizarR.setVisible(false);
+        btnCancelarR.setVisible(false);
+        lblQuéQuieresActualizar1.setVisible(false);
+        lblActualizarPrecio.setVisible(false);
+        cboSolicitudActualizar.setVisible(false);
     }
 
 }

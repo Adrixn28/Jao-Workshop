@@ -18,7 +18,7 @@ public class RedireccionPorRol {
     private SesionUsuarioActual sesion;
     
     /**
-     * Constructor que inicializa la persistencia de redirección
+     * Constructor que inicializa la persistencia de redirecciónd
      */
     public RedireccionPorRol() {
         this.sesion = SesionUsuarioActual.getInstance();
@@ -106,20 +106,24 @@ public class RedireccionPorRol {
             return false;
         }
         
-        System.out.println("Frame Cliente pendiente de implementar con ID: " + id);
-        
-        // ⭐ PARA TUS COMPAÑEROS: Cuando implementen Cliente.java, cambiar esta línea:
-        // new Cliente(id).setVisible(true);
-        
-        // Por ahora mostrar mensaje informativo
-        JOptionPane.showMessageDialog(frameLogin, 
-            "Cliente ID: " + id + "\\n\\nPara implementar:\\n" +
-            "1. Crear constructor Cliente(String id)\\n" +
-            "2. Descomentar línea en abrirFrameCliente()\\n" +
-            "3. Seguir guía GUIA_IMPLEMENTACION_ID.md", 
-            "Frame Cliente - En Desarrollo", JOptionPane.INFORMATION_MESSAGE);
-        
-        return false; // Retornar false para no cerrar login hasta implementar
+        try {
+            System.out.println("Abriendo frame Cliente con ID: " + id);
+            
+            // Obtener el nombre completo del usuario de la sesión
+            String nombreUsuario = sesion.getNombreUsuarioActual();
+            
+            // Crear y mostrar el frame Cliente con el nombre del usuario
+            new Cliente(nombreUsuario).setVisible(true);
+            
+            return true;
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(frameLogin, 
+                "Error al abrir el frame Cliente: " + e.getMessage(), 
+                "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+            return false;
+        }
     }
     
     /**
@@ -133,20 +137,17 @@ public class RedireccionPorRol {
             return false;
         }
         
-        System.out.println("Frame Recepcionista pendiente de implementar con ID: " + id);
-        
-        // ⭐ PARA TUS COMPAÑEROS: Cuando implementen Recepcionista.java, cambiar esta línea:
-        // new Recepcionista(id).setVisible(true);
-        
-        // Por ahora mostrar mensaje informativo
-        JOptionPane.showMessageDialog(frameLogin, 
-            "Recepcionista ID: " + id + "\\n\\nPara implementar:\\n" +
-            "1. Crear constructor Recepcionista(String id)\\n" +
-            "2. Descomentar línea en abrirFrameRecepcionista()\\n" +
-            "3. Seguir guía GUIA_IMPLEMENTACION_ID.md", 
-            "Frame Recepcionista - En Desarrollo", JOptionPane.INFORMATION_MESSAGE);
-        
-        return false; // Retornar false para no cerrar login hasta implementar
+        try {
+            System.out.println("Abriendo frame Recepcionista con ID: " + id);
+            new Recepcionista(id).setVisible(true);
+            return true;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(frameLogin, 
+                "Error al abrir el frame Recepcionista: " + e.getMessage(), 
+                "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+            return false;
+        }
     }
     
     /**
@@ -160,20 +161,9 @@ public class RedireccionPorRol {
             return false;
         }
         
-        System.out.println("Frame Proveedor pendiente de implementar con ID: " + id);
-        
-        // ⭐ PARA TUS COMPAÑEROS: Cuando implementen Proveedor.java, cambiar esta línea:
-        // new Proveedor(id).setVisible(true);
-        
-        // Por ahora mostrar mensaje informativo
-        JOptionPane.showMessageDialog(frameLogin, 
-            "Proveedor ID: " + id + "\\n\\nPara implementar:\\n" +
-            "1. Crear constructor Proveedor(String id)\\n" +
-            "2. Descomentar línea en abrirFrameProveedor()\\n" +
-            "3. Seguir guía GUIA_IMPLEMENTACION_ID.md", 
-            "Frame Proveedor - En Desarrollo", JOptionPane.INFORMATION_MESSAGE);
-        
-        return false; // Retornar false para no cerrar login hasta implementar
+        System.out.println("Abriendo frame Proveedor con ID: " + id);
+        new Proveedor().setVisible(true);
+        return true;
     }
     
     /**

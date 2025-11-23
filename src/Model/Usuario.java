@@ -1,5 +1,6 @@
 package Model;
 
+
 public class Usuario {
     protected String primerNombre;
     protected String segundoNombre;
@@ -12,7 +13,11 @@ public class Usuario {
     protected String usuario;
     protected String contraseña;
     protected String rol; 
-            
+    
+    //Constructor por default
+    public Usuario(){
+      
+    } 
 
     public Usuario(String primerNombre, String segundoNombre, String primerApellido, 
                   String segundoApellido,String genero, String cedula, String telefono, 

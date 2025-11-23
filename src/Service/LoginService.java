@@ -14,6 +14,12 @@ public class LoginService {
     private static Lista listaRecepcionistas;
     private static Lista listaProveedores;
     
+    // Lista compartida de facturas (accesible desde cualquier parte del sistema)
+    private static Lista listaFacturas;
+    
+    // Singleton de ClienteService para compartir repuestos entre todos los frames
+    private static ClienteService clienteServiceSingleton;
+    
     // Persistencias organizacionales
     private SesionUsuarioActual sesionActual;
     private RedireccionPorRol redireccionRol;
@@ -47,6 +53,13 @@ public class LoginService {
             listaClientes = new Lista();
             listaRecepcionistas = new Lista();
             listaProveedores = new Lista();
+            listaFacturas = new Lista();
+            
+            // Inicializar singleton de ClienteService (compartido entre todos los frames)
+            if (clienteServiceSingleton == null) {
+                clienteServiceSingleton = new ClienteService();
+                System.out.println("ClienteService singleton inicializado.");
+            }
             
             // Agregar algunos usuarios de prueba
             agregarUsuariosPrueba();
@@ -228,6 +241,68 @@ public class LoginService {
         return listaProveedores;
     }
     
+    public Lista getListaFacturas() {
+        if (listaFacturas == null) {
+            listaFacturas = new Lista();
+        }
+        return listaFacturas;
+    }
+    
+    /**
+     * Agrega una factura a la lista compartida
+     */
+    public void agregarFactura(Factura factura) {
+        if (factura != null) {
+            getListaFacturas().insertarFinal(factura);
+            System.out.println("Factura agregada a LoginService: " + factura.getCodigoFactura());
+        }
+    }
+    
+    /**
+     * Busca una factura por código de factura, código de venta o ID de venta
+     */
+    public Factura buscarFacturaPorCualquierCodigo(String codigo) {
+        if (codigo == null || codigo.trim().isEmpty()) {
+            return null;
+        }
+        
+        Lista facturas = getListaFacturas();
+        if (facturas == null || facturas.getPrimero() == null) {
+            return null;
+        }
+        
+        codigo = codigo.trim();
+        Nodo actual = facturas.getPrimero();
+        
+        while (actual != null) {
+            Factura factura = (Factura) actual.getDato();
+            
+            // Buscar por código de factura
+            if (factura.getCodigoFactura().equals(codigo)) {
+                return factura;
+            }
+            
+            // Buscar por código de venta
+            if (factura.getCodigoSerial().equals(codigo)) {
+                return factura;
+            }
+            
+            // Buscar por ID de venta (si es numérico)
+            try {
+                int idVenta = Integer.parseInt(codigo);
+                if (factura.getIdVenta() == idVenta) {
+                    return factura;
+                }
+            } catch (NumberFormatException e) {
+                // No es un número, continuar
+            }
+            
+            actual = actual.getSiguiente();
+        }
+        
+        return null;
+    }
+    
     // ===============================
     // MÉTODOS DE PERSISTENCIA ORGANIZACIONAL
     // ===============================
@@ -315,5 +390,156 @@ public class LoginService {
     public void imprimirEstadoSesion() {
         inicializarPersistenciasLazy();
         sesionActual.imprimirEstadoSesion();
+    }
+    
+    public Proveedor buscarProveedorPorId(String idProveedor) {
+    Nodo actual = listaProveedores.getPrimero();
+    while (actual != null) {
+        Proveedor p = (Proveedor) actual.getDato();
+        if (p.getIdProveedor().equalsIgnoreCase(idProveedor)) {
+            return p;
+        }
+        actual = actual.getSiguiente();
+    }
+    return null;
+}
+    
+    // ===============================
+    // MÉTODOS PARA INTEGRACIÓN CON CLIENTE
+    // ===============================
+    
+    /**
+     * Obtiene el objeto Usuario completo basado en el ID de la sesión actual
+     * @return Usuario logueado o null si no se encuentra
+     */
+    public Usuario getUsuarioActualCompleto() {
+        inicializarPersistenciasLazy();
+        
+        if (!sesionActual.haySesionActiva()) {
+            return null;
+        }
+        
+        String idUsuario = sesionActual.getIdUsuarioActual();
+        String rol = sesionActual.getRolUsuarioActual();
+        
+        return buscarUsuarioPorId(idUsuario, rol);
+    }
+    
+    /**
+     * Busca un usuario por su ID en la lista correspondiente a su rol
+     * @param id ID del usuario a buscar
+     * @param rol Rol del usuario para saber en qué lista buscar
+     * @return Usuario encontrado o null
+     */
+    public Usuario buscarUsuarioPorId(String id, String rol) {
+        Lista lista = obtenerListaPorRol(rol);
+        
+        if (lista == null || lista.getPrimero() == null) {
+            return null;
+        }
+        
+        Nodo actual = lista.getPrimero();
+        while (actual != null) {
+            Usuario usuario = (Usuario) actual.getDato();
+            
+            // Usar el método de ID específico según el rol
+            String usuarioId = null;
+            switch (rol.toLowerCase()) {
+                case "administrador":
+                    usuarioId = ((Administrador) usuario).getIdAdministrador();
+                    break;
+                case "cliente":
+                    usuarioId = ((Cliente) usuario).getIdCliente();
+                    break;
+                case "recepcionista":
+                    usuarioId = ((Recepcionista) usuario).getIdRecepcionista();
+                    break;
+                case "proveedor":
+                    usuarioId = ((Proveedor) usuario).getIdProveedor();
+                    break;
+            }
+            
+            if (usuarioId != null && usuarioId.equals(id)) {
+                return usuario;
+            }
+            actual = actual.getSiguiente();
+        }
+        
+        return null;
+    }
+    
+    /**
+     * Obtiene el nombre completo del usuario actual (Nombre + Apellido)
+     * @return Nombre completo formateado o "Usuario no identificado"
+     */
+    public String getNombreCompletoUsuarioActual() {
+        Usuario usuario = getUsuarioActualCompleto();
+        
+        if (usuario != null) {
+            return usuario.getPrimerNombre() + " " + usuario.getPrimerApellido();
+        } else {
+            return "Usuario no identificado";
+        }
+    }
+    
+    /**
+     * Abre el frame Cliente con la información del usuario logueado
+     * Este método puede ser llamado desde cualquier parte del sistema
+     * @return true si se abrió exitosamente
+     */
+    public boolean abrirFrameCliente() {
+        try {
+            inicializarPersistenciasLazy();
+            
+            if (!sesionActual.haySesionActiva()) {
+                System.out.println("No hay sesión activa para abrir Cliente");
+                return false;
+            }
+            
+            String nombreCompleto = getNombreCompletoUsuarioActual();
+            String rol = sesionActual.getRolUsuarioActual();
+            
+            System.out.println("Abriendo frame Cliente para: " + nombreCompleto + " (" + rol + ")");
+            
+            // Crear Cliente con nombre completo
+            new View.Cliente(nombreCompleto).setVisible(true);
+            
+            return true;
+            
+        } catch (Exception e) {
+            System.err.println("Error al abrir frame Cliente: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    /**
+     * Método de testing para probar la apertura del Cliente con usuario específico
+     * @param nombreUsuario Nombre del usuario para mostrar
+     * @return true si se abrió exitosamente
+     */
+    public static boolean testAbrirCliente(String nombreUsuario) {
+        try {
+            System.out.println("TEST: Abriendo Cliente con usuario: " + nombreUsuario);
+            new View.Cliente(nombreUsuario).setVisible(true);
+            return true;
+        } catch (Exception e) {
+            System.err.println("ERROR en test Cliente: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    /**
+     * Obtiene la instancia compartida de ClienteService (singleton)
+     * Todos los frames deben usar esta instancia para que el stock se actualice correctamente
+     * @return Instancia compartida de ClienteService
+     */
+    public ClienteService getClienteService() {
+        if (clienteServiceSingleton == null) {
+            clienteServiceSingleton = new ClienteService();
+            System.out.println("ClienteService singleton creado.");
+        }
+        return clienteServiceSingleton;
     }
 }
