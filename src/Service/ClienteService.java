@@ -1,12 +1,15 @@
 package Service;
 
 import Model.Repuesto;
+import Percistencia.SistemaDatos;
+import listaDoble.Lista;
+import listaDoble.Nodo;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Servicio para manejar operaciones relacionadas con clientes
- * Incluye datos de ejemplo y operaciones de consulta de repuestos
+ * Carga repuestos desde SistemaDatos (persistencia)
  */
 public class ClienteService {
     
@@ -14,56 +17,73 @@ public class ClienteService {
     
     public ClienteService() {
         this.repuestosDisponibles = new ArrayList<>();
-        inicializarRepuestosDeEjemplo();
+        cargarRepuestosDesdeSistemaDatos();
     }
     
     /**
-     * Inicializar datos de ejemplo de repuestos
-     * En producción esto vendría de una base de datos
+     * Cargar repuestos desde SistemaDatos (persistencia)
+     * Convierte la Lista doble a ArrayList para compatibilidad
      */
-    private void inicializarRepuestosDeEjemplo() {
-        // Motor
-        repuestosDisponibles.add(new Repuesto(1, "Filtro de Aceite", "Filtro de aceite original para motor", "Bosch", "Motor", 25.50, 15));
-        repuestosDisponibles.add(new Repuesto(2, "Bujías NGK", "Juego de 4 bujías de platino", "NGK", "Motor", 45.99, 25));
-        repuestosDisponibles.add(new Repuesto(3, "Correa de Distribución", "Correa de distribución original", "Gates", "Motor", 89.50, 8));
-        repuestosDisponibles.add(new Repuesto(4, "Bomba de Agua", "Bomba de agua con junta", "Hepu", "Motor", 125.00, 6));
-        
-        // Frenos  
-        repuestosDisponibles.add(new Repuesto(5, "Pastillas de Freno", "Pastillas de freno cerámicas delanteras", "Brembo", "Frenos", 85.00, 8));
-        repuestosDisponibles.add(new Repuesto(6, "Discos de Freno", "Par de discos ventilados delanteros", "ATE", "Frenos", 155.75, 4));
-        repuestosDisponibles.add(new Repuesto(7, "Líquido de Frenos", "Líquido DOT 4 - 500ml", "Bosch", "Frenos", 18.99, 30));
-        
-        // Suspensión
-        repuestosDisponibles.add(new Repuesto(8, "Amortiguador Trasero", "Amortiguador trasero para suspensión", "Monroe", "Suspensión", 120.75, 5));
-        repuestosDisponibles.add(new Repuesto(9, "Resorte Delantero", "Resorte espiral delantero", "Eibach", "Suspensión", 95.50, 7));
-        repuestosDisponibles.add(new Repuesto(10, "Rotula de Dirección", "Rotula de dirección izquierda", "TRW", "Suspensión", 65.25, 10));
-        
-        // Eléctrico
-        repuestosDisponibles.add(new Repuesto(11, "Batería 12V", "Batería de 12V 60Ah para automóvil", "Varta", "Eléctrico", 95.00, 12));
-        repuestosDisponibles.add(new Repuesto(12, "Alternador", "Alternador 90A para sistema eléctrico", "Valeo", "Eléctrico", 180.50, 6));
-        repuestosDisponibles.add(new Repuesto(13, "Starter Motor", "Motor de arranque reconstruido", "Bosch", "Eléctrico", 220.00, 3));
-        repuestosDisponibles.add(new Repuesto(14, "Cables de Bujía", "Juego de cables de alta tensión", "NGK", "Eléctrico", 55.75, 18));
-        
-        // Transmisión
-        repuestosDisponibles.add(new Repuesto(15, "Kit de Embrague", "Kit completo de embrague para transmisión manual", "LUK", "Transmisión", 450.00, 3));
-        repuestosDisponibles.add(new Repuesto(16, "Aceite de Transmisión", "Aceite ATF para transmisión automática", "Mobil 1", "Transmisión", 42.99, 14));
-        repuestosDisponibles.add(new Repuesto(17, "Filtro de Transmisión", "Filtro interno para caja automática", "Mann", "Transmisión", 38.50, 9));
-        
-        // Carrocería
-        repuestosDisponibles.add(new Repuesto(18, "Parachoques Delantero", "Parachoques delantero original", "OEM", "Carrocería", 280.00, 2));
-        repuestosDisponibles.add(new Repuesto(19, "Faro Derecho", "Faro delantero derecho con regulación", "Hella", "Carrocería", 165.99, 4));
-        repuestosDisponibles.add(new Repuesto(20, "Espejo Retrovisor", "Espejo lateral izquierdo eléctrico", "TYC", "Carrocería", 89.75, 6));
-        
-        // Lubricantes
-        repuestosDisponibles.add(new Repuesto(21, "Aceite Motor 5W-30", "Aceite sintético para motor 4 litros", "Castrol", "Lubricantes", 35.99, 20));
-        repuestosDisponibles.add(new Repuesto(22, "Aceite Motor 15W-60", "Aceite mineral para motor diesel 5 litros", "Shell", "Lubricantes", 28.75, 25));
+    private void cargarRepuestosDesdeSistemaDatos() {
+        try {
+            // Obtener la instancia de SistemaDatos
+            SistemaDatos sistemaDatos = SistemaDatos.getInstancia();
+            Lista listaRepuestos = sistemaDatos.listaRepuestos;
+            
+            // Si la lista está vacía, no hay repuestos disponibles
+            if (listaRepuestos == null || listaRepuestos.estaVacia()) {
+                System.out.println("⚠️ No hay repuestos disponibles en SistemaDatos");
+                return;
+            }
+            
+            // Recorrer la lista doble y convertir a ArrayList
+            Nodo actual = listaRepuestos.getPrimero();
+            while (actual != null) {
+                Object dato = actual.getDato();
+                if (dato instanceof Repuesto) {
+                    Repuesto repuesto = (Repuesto) dato;
+                    
+                    // Asegurar que el repuesto tenga estado válido
+                    if (repuesto.getEstado() == null || repuesto.getEstado().trim().isEmpty()) {
+                        repuesto.setEstado("Disponible");
+                    }
+                    
+                    // Solo agregar repuestos con estado "Disponible" o que tengan stock > 0
+                    // Esto permite que se muestren repuestos disponibles para venta
+                    if ("Disponible".equalsIgnoreCase(repuesto.getEstado()) || repuesto.getStock() > 0) {
+                        repuestosDisponibles.add(repuesto);
+                    }
+                }
+                actual = actual.getSiguiente();
+            }
+            
+            System.out.println("✅ Repuestos cargados desde SistemaDatos: " + repuestosDisponibles.size() + " repuestos disponibles");
+            
+        } catch (Exception e) {
+            System.err.println("❌ Error al cargar repuestos desde SistemaDatos: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+    
+    /**
+     * Recargar repuestos desde SistemaDatos
+     * Útil cuando se agregan, actualizan o eliminan repuestos desde Proveedor
+     */
+    public void recargarRepuestos() {
+        repuestosDisponibles.clear();
+        cargarRepuestosDesdeSistemaDatos();
+        System.out.println("🔄 Repuestos recargados desde SistemaDatos");
     }
     
     /**
      * Obtener todos los repuestos disponibles
-     * @return Lista de repuestos
+     * IMPORTANTE: Recarga desde SistemaDatos cada vez para obtener los repuestos más actualizados
+     * @return Lista de repuestos actualizada
      */
     public List<Repuesto> obtenerTodosLosRepuestos() {
+        // Recargar desde SistemaDatos para obtener los repuestos más recientes
+        // Esto asegura que cuando se agreguen nuevos repuestos en Proveedor, se vean en Cliente y VentaRecepcionista
+        recargarRepuestos();
         return new ArrayList<>(repuestosDisponibles);
     }
     
