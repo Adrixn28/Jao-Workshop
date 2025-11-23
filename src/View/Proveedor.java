@@ -638,10 +638,10 @@ public class Proveedor extends javax.swing.JFrame {
         );
         PanelNegro2Layout.setVerticalGroup(
             PanelNegro2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 130, Short.MAX_VALUE)
+            .addGap(0, 100, Short.MAX_VALUE)
         );
 
-        getContentPane().add(PanelNegro2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 80, 690, 130));
+        getContentPane().add(PanelNegro2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 80, 690, 100));
 
         panelMenu.setBackground(new java.awt.Color(255, 255, 255));
         panelMenu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -1428,6 +1428,10 @@ public class Proveedor extends javax.swing.JFrame {
                             //Agregar repuesto
                             Repuesto nuevo = new Repuesto(idRepuestoI, nombre, descripcion, marca, categoria, precioD, stock, estado, prov);
                             SistemaDatos.getInstancia().listaRepuestos.insertarFinal(nuevo);
+                            
+                            // IMPORTANTE: Recargar la tabla para mostrar el nuevo repuesto
+                            recargarTabla(tablaRepuestos, SistemaDatos.getInstancia().listaRepuestos);
+                            
                             JOptionPane.showMessageDialog(null, "Repuesto agregado correctamente.", "Completado.", JOptionPane.INFORMATION_MESSAGE);
                             limpiarCampos();
                             //Código para volver al menú principal
@@ -1488,6 +1492,9 @@ public class Proveedor extends javax.swing.JFrame {
             int id = Integer.parseInt(idRepuesto);
             EliminarRepuestoId eliminador = new EliminarRepuestoId();
             eliminador.eliminarPorId(SistemaDatos.getInstancia().listaRepuestos, id);
+            
+            // IMPORTANTE: Recargar la tabla para reflejar la eliminación
+            recargarTabla(tablaRepuestos, SistemaDatos.getInstancia().listaRepuestos);
 
         } else if (resultado == JOptionPane.NO_OPTION) {
             JOptionPane.showMessageDialog(null, "Proceso cancelado.");
@@ -1564,6 +1571,9 @@ public class Proveedor extends javax.swing.JFrame {
         boolean actualizado = actualizar.actualizarPorId(SistemaDatos.getInstancia().listaRepuestos, idRef, campo, nuevoValor);
 
         if (actualizado) {
+            // IMPORTANTE: Recargar la tabla para reflejar la actualización
+            recargarTabla(tablaRepuestos, SistemaDatos.getInstancia().listaRepuestos);
+            
             JOptionPane.showMessageDialog(null, "Repuesto actualizado correctamente.", "Actualización.", JOptionPane.INFORMATION_MESSAGE);
 
             ocultarDespuesQueActualice();
