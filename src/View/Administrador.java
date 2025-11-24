@@ -2040,8 +2040,6 @@ public class Administrador extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        panelGris = new javax.swing.JPanel();
-        labelRecepcionisa1 = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         PanelAdministradorInicio = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
@@ -2055,7 +2053,6 @@ public class Administrador extends javax.swing.JFrame {
         txtGenero = new javax.swing.JTextField();
         lblStock = new javax.swing.JLabel();
         lblPrecioRepuesto = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
         lblNombreRepuesto = new javax.swing.JLabel();
         BtnEditarDatos = new javax.swing.JButton();
         jLabel21 = new javax.swing.JLabel();
@@ -2132,9 +2129,8 @@ public class Administrador extends javax.swing.JFrame {
         btnLimpiarDatosRecepcionista = new javax.swing.JButton();
         BtnCancelarEdicionRecepcionistas = new javax.swing.JButton();
         PanelAdministradorCliente = new javax.swing.JPanel();
-        panelDecoración15 = new javax.swing.JPanel();
-        panelDecoración16 = new javax.swing.JPanel();
-        panelDecoración17 = new javax.swing.JPanel();
+        panelDecoración7 = new javax.swing.JPanel();
+        panelDecoración8 = new javax.swing.JPanel();
         jLabel44 = new javax.swing.JLabel();
         jLabel33 = new javax.swing.JLabel();
         cboGeneroCliente = new javax.swing.JComboBox<>();
@@ -2163,9 +2159,13 @@ public class Administrador extends javax.swing.JFrame {
         btnLimpiarDatosCliente = new javax.swing.JButton();
         lblNombreRepuesto23 = new javax.swing.JLabel();
         BtnCancelarEdicionCliente = new javax.swing.JButton();
-        PanelNegro5 = new javax.swing.JPanel();
+        panelDecoración15 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel34 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setForeground(java.awt.Color.white);
+        setPreferredSize(new java.awt.Dimension(1470, 700));
 
         panelNegro.setBackground(new java.awt.Color(0, 0, 0));
 
@@ -2205,7 +2205,7 @@ public class Administrador extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel8))
                     .addGroup(panelBtnMenuPLayout.createSequentialGroup()
-                        .addGap(70, 70, 70)
+                        .addGap(63, 63, 63)
                         .addComponent(jLabel3)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -2364,7 +2364,7 @@ public class Administrador extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel6))
                     .addGroup(panelBtnCerrarSesionLayout.createSequentialGroup()
-                        .addGap(68, 68, 68)
+                        .addGap(69, 69, 69)
                         .addComponent(labelCerrarSesion)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -2406,7 +2406,7 @@ public class Administrador extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(0, 35, Short.MAX_VALUE))
+                .addGap(0, 102, Short.MAX_VALUE))
         );
 
         panelDecoración1.setBackground(new java.awt.Color(51, 51, 51));
@@ -2451,19 +2451,17 @@ public class Administrador extends javax.swing.JFrame {
         panelNegro.setLayout(panelNegroLayout);
         panelNegroLayout.setHorizontalGroup(
             panelNegroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelBtnMenuP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(panelBtnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(panelBtnAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(panelNegroLayout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(panelNegroLayout.createSequentialGroup()
+                .addGap(52, 52, 52)
+                .addComponent(labelMenúOpciones)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(panelNegroLayout.createSequentialGroup()
                 .addGroup(panelNegroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelNegroLayout.createSequentialGroup()
                         .addGroup(panelNegroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelNegroLayout.createSequentialGroup()
-                                .addGap(110, 110, 110)
-                                .addComponent(iconRecepcinista))
                             .addGroup(panelNegroLayout.createSequentialGroup()
                                 .addGap(118, 118, 118)
                                 .addComponent(jLabel15))
@@ -2471,22 +2469,22 @@ public class Administrador extends javax.swing.JFrame {
                                 .addGap(94, 94, 94)
                                 .addGroup(panelNegroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel13)
-                                    .addComponent(jLabel14))))
+                                    .addComponent(jLabel14)))
+                            .addGroup(panelNegroLayout.createSequentialGroup()
+                                .addGap(110, 110, 110)
+                                .addComponent(iconRecepcinista)))
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(panelBtnCerrarSesion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelNegroLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(labelMenúOpciones)
-                .addGap(63, 63, 63))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelNegroLayout.createSequentialGroup()
-                .addGroup(panelNegroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(panelDecoración2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelDecoración1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelDecoración, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelNegroLayout.createSequentialGroup()
-                .addComponent(panelBtnActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelDecoración2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelDecoración1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelDecoración, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(panelNegroLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(panelNegroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(panelBtnMenuP, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(panelBtnActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(panelBtnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(panelBtnAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(panelBtnCerrarSesion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         panelNegroLayout.setVerticalGroup(
@@ -2505,43 +2503,22 @@ public class Administrador extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelDecoración2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(iconRecepcinista)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
                 .addComponent(labelMenúOpciones)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(iconRecepcinista)
                 .addGap(18, 18, 18)
                 .addComponent(panelBtnMenuP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(panelBtnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(panelBtnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(panelBtnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(87, 87, 87)
-                .addComponent(panelBtnCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addComponent(panelBtnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(89, 89, 89)
+                .addComponent(panelBtnCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
-        );
-
-        panelGris.setBackground(new java.awt.Color(51, 51, 51));
-
-        labelRecepcionisa1.setBackground(new java.awt.Color(255, 255, 255));
-        labelRecepcionisa1.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 75)); // NOI18N
-        labelRecepcionisa1.setForeground(new java.awt.Color(255, 255, 255));
-        labelRecepcionisa1.setText("-Administrador-");
-
-        javax.swing.GroupLayout panelGrisLayout = new javax.swing.GroupLayout(panelGris);
-        panelGris.setLayout(panelGrisLayout);
-        panelGrisLayout.setHorizontalGroup(
-            panelGrisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelGrisLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(labelRecepcionisa1, javax.swing.GroupLayout.PREFERRED_SIZE, 710, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        panelGrisLayout.setVerticalGroup(
-            panelGrisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(labelRecepcionisa1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, Short.MAX_VALUE)
         );
 
         PanelAdministradorInicio.setBackground(new java.awt.Color(255, 255, 255));
@@ -2565,7 +2542,7 @@ public class Administrador extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        PanelAdministradorInicio.add(panelDecoración3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 690, 10));
+        PanelAdministradorInicio.add(panelDecoración3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 710, 10));
 
         panelDecoración4.setBackground(new java.awt.Color(51, 51, 51));
 
@@ -2580,7 +2557,7 @@ public class Administrador extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        PanelAdministradorInicio.add(panelDecoración4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 690, 10));
+        PanelAdministradorInicio.add(panelDecoración4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 710, 10));
 
         panelDecoración5.setBackground(new java.awt.Color(15, 15, 15));
 
@@ -2595,7 +2572,7 @@ public class Administrador extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        PanelAdministradorInicio.add(panelDecoración5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 690, 10));
+        PanelAdministradorInicio.add(panelDecoración5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 710, 10));
 
         lblRepuesto.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 24)); // NOI18N
         lblRepuesto.setForeground(new java.awt.Color(0, 0, 0));
@@ -2638,21 +2615,6 @@ public class Administrador extends javax.swing.JFrame {
         lblPrecioRepuesto.setText("5-Cedula:");
         PanelAdministradorInicio.add(lblPrecioRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 230, -1, -1));
 
-        jPanel2.setBackground(new java.awt.Color(229, 229, 255));
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        PanelAdministradorInicio.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 170, 10, 150));
-
         lblNombreRepuesto.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 24)); // NOI18N
         lblNombreRepuesto.setForeground(new java.awt.Color(0, 0, 0));
         lblNombreRepuesto.setText("2-Apellidos:");
@@ -2669,12 +2631,17 @@ public class Administrador extends javax.swing.JFrame {
         GuardarDatosEditados.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
         GuardarDatosEditados.setForeground(new java.awt.Color(255, 255, 255));
         GuardarDatosEditados.setText("Guardar");
+        GuardarDatosEditados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GuardarDatosEditadosActionPerformed(evt);
+            }
+        });
         PanelAdministradorInicio.add(GuardarDatosEditados, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 370, 150, 30));
 
         jLabel16.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 24)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(0, 0, 0));
         jLabel16.setText("Bienvenido Administrador !!!");
-        PanelAdministradorInicio.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 440, 60));
+        PanelAdministradorInicio.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 440, 60));
 
         jLabel18.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 18)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(0, 0, 0));
@@ -2855,7 +2822,7 @@ public class Administrador extends javax.swing.JFrame {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                true, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -2906,6 +2873,11 @@ public class Administrador extends javax.swing.JFrame {
         btnAgregarProveedor.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
         btnAgregarProveedor.setForeground(new java.awt.Color(255, 255, 255));
         btnAgregarProveedor.setText("Agregar Proveedor");
+        btnAgregarProveedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarProveedorActionPerformed(evt);
+            }
+        });
         PanelAdministrarProveedor.add(btnAgregarProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 430, 200, 30));
 
         txtCorreoProveedor.setBackground(new java.awt.Color(204, 204, 204));
@@ -2944,7 +2916,7 @@ public class Administrador extends javax.swing.JFrame {
         btnLimpiarDatos.setText("Limpiar Datos");
         PanelAdministrarProveedor.add(btnLimpiarDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 390, 200, 30));
 
-        jTabbedPane1.addTab("PROVEEDOR", PanelAdministrarProveedor);
+        jTabbedPane1.addTab("Proveedor", PanelAdministrarProveedor);
 
         PanelAdministradorRecepcionista.setBackground(new java.awt.Color(255, 255, 255));
         PanelAdministradorRecepcionista.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -3068,7 +3040,7 @@ public class Administrador extends javax.swing.JFrame {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                true, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -3178,50 +3150,35 @@ public class Administrador extends javax.swing.JFrame {
         PanelAdministradorCliente.setBackground(new java.awt.Color(255, 255, 255));
         PanelAdministradorCliente.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        panelDecoración15.setBackground(new java.awt.Color(0, 153, 0));
+        panelDecoración7.setBackground(new java.awt.Color(51, 51, 51));
 
-        javax.swing.GroupLayout panelDecoración15Layout = new javax.swing.GroupLayout(panelDecoración15);
-        panelDecoración15.setLayout(panelDecoración15Layout);
-        panelDecoración15Layout.setHorizontalGroup(
-            panelDecoración15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        javax.swing.GroupLayout panelDecoración7Layout = new javax.swing.GroupLayout(panelDecoración7);
+        panelDecoración7.setLayout(panelDecoración7Layout);
+        panelDecoración7Layout.setHorizontalGroup(
+            panelDecoración7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 690, Short.MAX_VALUE)
         );
-        panelDecoración15Layout.setVerticalGroup(
-            panelDecoración15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        PanelAdministradorCliente.add(panelDecoración15, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 690, 10));
-
-        panelDecoración16.setBackground(new java.awt.Color(51, 51, 51));
-
-        javax.swing.GroupLayout panelDecoración16Layout = new javax.swing.GroupLayout(panelDecoración16);
-        panelDecoración16.setLayout(panelDecoración16Layout);
-        panelDecoración16Layout.setHorizontalGroup(
-            panelDecoración16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        panelDecoración16Layout.setVerticalGroup(
-            panelDecoración16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        panelDecoración7Layout.setVerticalGroup(
+            panelDecoración7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        PanelAdministradorCliente.add(panelDecoración16, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 690, 10));
+        PanelAdministradorCliente.add(panelDecoración7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 690, 10));
 
-        panelDecoración17.setBackground(new java.awt.Color(15, 15, 15));
+        panelDecoración8.setBackground(new java.awt.Color(15, 15, 15));
 
-        javax.swing.GroupLayout panelDecoración17Layout = new javax.swing.GroupLayout(panelDecoración17);
-        panelDecoración17.setLayout(panelDecoración17Layout);
-        panelDecoración17Layout.setHorizontalGroup(
-            panelDecoración17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout panelDecoración8Layout = new javax.swing.GroupLayout(panelDecoración8);
+        panelDecoración8.setLayout(panelDecoración8Layout);
+        panelDecoración8Layout.setHorizontalGroup(
+            panelDecoración8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 690, Short.MAX_VALUE)
+        );
+        panelDecoración8Layout.setVerticalGroup(
+            panelDecoración8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
-        panelDecoración17Layout.setVerticalGroup(
-            panelDecoración17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
 
-        PanelAdministradorCliente.add(panelDecoración17, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 690, 10));
+        PanelAdministradorCliente.add(panelDecoración8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 690, 10));
         PanelAdministradorCliente.add(jLabel44, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
         jLabel33.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 1, 20)); // NOI18N
@@ -3254,6 +3211,11 @@ public class Administrador extends javax.swing.JFrame {
         btnEliminarCliente.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
         btnEliminarCliente.setForeground(new java.awt.Color(255, 255, 255));
         btnEliminarCliente.setText("Eliminar Cliente");
+        btnEliminarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarClienteActionPerformed(evt);
+            }
+        });
         PanelAdministradorCliente.add(btnEliminarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 440, -1, 30));
 
         btnGuardarEdicionCliente.setBackground(new java.awt.Color(0, 153, 0));
@@ -3298,7 +3260,7 @@ public class Administrador extends javax.swing.JFrame {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                true, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -3338,17 +3300,17 @@ public class Administrador extends javax.swing.JFrame {
         BtnEditarDatosCliente.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
         BtnEditarDatosCliente.setForeground(new java.awt.Color(255, 255, 255));
         BtnEditarDatosCliente.setText("Editar datos Cliente");
-        BtnEditarDatosCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnEditarDatosClienteActionPerformed(evt);
-            }
-        });
         PanelAdministradorCliente.add(BtnEditarDatosCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 360, 220, -1));
 
         btnAgregarCliente.setBackground(new java.awt.Color(0, 153, 0));
         btnAgregarCliente.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
         btnAgregarCliente.setForeground(new java.awt.Color(255, 255, 255));
         btnAgregarCliente.setText("Agregar Cliente");
+        btnAgregarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarClienteActionPerformed(evt);
+            }
+        });
         PanelAdministradorCliente.add(btnAgregarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 480, 170, 30));
 
         txtCorreoCliente.setBackground(new java.awt.Color(204, 204, 204));
@@ -3396,26 +3358,52 @@ public class Administrador extends javax.swing.JFrame {
         BtnCancelarEdicionCliente.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
         BtnCancelarEdicionCliente.setForeground(new java.awt.Color(255, 255, 255));
         BtnCancelarEdicionCliente.setText("Cancelar Edicion");
-        BtnCancelarEdicionCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelarEdicionClienteActionPerformed(evt);
-            }
-        });
         PanelAdministradorCliente.add(BtnCancelarEdicionCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 400, 220, 30));
+
+        panelDecoración15.setBackground(new java.awt.Color(0, 153, 0));
+
+        javax.swing.GroupLayout panelDecoración15Layout = new javax.swing.GroupLayout(panelDecoración15);
+        panelDecoración15.setLayout(panelDecoración15Layout);
+        panelDecoración15Layout.setHorizontalGroup(
+            panelDecoración15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 690, Short.MAX_VALUE)
+        );
+        panelDecoración15Layout.setVerticalGroup(
+            panelDecoración15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 10, Short.MAX_VALUE)
+        );
+
+        PanelAdministradorCliente.add(panelDecoración15, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 690, 10));
 
         jTabbedPane1.addTab("CLIENTE", PanelAdministradorCliente);
 
-        PanelNegro5.setBackground(new java.awt.Color(15, 15, 15));
+        jPanel2.setBackground(new java.awt.Color(51, 51, 51));
+        jPanel2.setForeground(new java.awt.Color(51, 51, 51));
 
-        javax.swing.GroupLayout PanelNegro5Layout = new javax.swing.GroupLayout(PanelNegro5);
-        PanelNegro5.setLayout(PanelNegro5Layout);
-        PanelNegro5Layout.setHorizontalGroup(
-            PanelNegro5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 735, Short.MAX_VALUE)
+        jLabel34.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel34.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 1, 24)); // NOI18N
+        jLabel34.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel34.setText("                   ADMINISTRADOR");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGap(0, 17, Short.MAX_VALUE)
+                    .addComponent(jLabel34, javax.swing.GroupLayout.PREFERRED_SIZE, 690, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 18, Short.MAX_VALUE)))
         );
-        PanelNegro5Layout.setVerticalGroup(
-            PanelNegro5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 76, Short.MAX_VALUE)
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 82, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGap(0, 26, Short.MAX_VALUE)
+                    .addComponent(jLabel34, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 26, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -3423,36 +3411,25 @@ public class Administrador extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(0, 4, Short.MAX_VALUE)
+                .addGap(4, 4, 4)
                 .addComponent(panelNegro, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(PanelNegro5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jTabbedPane1))
                 .addContainerGap())
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 357, Short.MAX_VALUE)
-                    .addComponent(panelGris, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 19, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(panelNegro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelNegro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(PanelNegro5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 552, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(60, 60, 60))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 20, Short.MAX_VALUE)
-                    .addComponent(panelGris, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 695, Short.MAX_VALUE)))
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 620, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -3498,6 +3475,14 @@ public class Administrador extends javax.swing.JFrame {
     private void btnGuardarEdicionProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarEdicionProveedorActionPerformed
         guardarEdicionProveedor();
     }//GEN-LAST:event_btnGuardarEdicionProveedorActionPerformed
+    
+    private void btnAgregarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarClienteActionPerformed
+        agregarCliente();
+    }//GEN-LAST:event_btnAgregarClienteActionPerformed
+    
+    private void btnAgregarProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarProveedorActionPerformed
+        agregarProveedor();
+    }//GEN-LAST:event_btnAgregarProveedorActionPerformed
     
     private void btnGuardarEdicionRecepcionistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarEdicionRecepcionistaActionPerformed
         guardarEdicionRecepcionista();
@@ -3586,6 +3571,10 @@ public class Administrador extends javax.swing.JFrame {
         
         System.out.println("BtnEditarDatosRecepcionistaActionPerformed ejecutado - Estado final: " + estadoEdicionRecepcionista);
     }//GEN-LAST:event_BtnEditarDatosRecepcionistaActionPerformed
+
+    private void btnEliminarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarClienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEliminarClienteActionPerformed
 
     // ========================================
     // MÉTODOS PARA EDICIÓN DE ADMINISTRADOR
@@ -3785,10 +3774,6 @@ public class Administrador extends javax.swing.JFrame {
     private javax.swing.JPanel PanelAdministradorInicio;
     private javax.swing.JPanel PanelAdministradorRecepcionista;
     private javax.swing.JPanel PanelAdministrarProveedor;
-    private javax.swing.JPanel PanelNegro2;
-    private javax.swing.JPanel PanelNegro3;
-    private javax.swing.JPanel PanelNegro4;
-    private javax.swing.JPanel PanelNegro5;
     private javax.swing.JButton btnAgregarCliente;
     private javax.swing.JButton btnAgregarProveedor;
     private javax.swing.JButton btnAgregarRecepcionista;
@@ -3826,6 +3811,7 @@ public class Administrador extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel44;
     private javax.swing.JLabel jLabel50;
@@ -3847,7 +3833,6 @@ public class Administrador extends javax.swing.JFrame {
     private javax.swing.JLabel labelEditarPaciente;
     private javax.swing.JLabel labelEditarPaciente1;
     private javax.swing.JLabel labelMenúOpciones;
-    private javax.swing.JLabel labelRecepcionisa1;
     private javax.swing.JLabel lblDescripcionRepuesto;
     private javax.swing.JLabel lblMarcaRepuesto;
     private javax.swing.JLabel lblMarcaRepuesto2;
@@ -3891,8 +3876,6 @@ public class Administrador extends javax.swing.JFrame {
     private javax.swing.JPanel panelDecoración10;
     private javax.swing.JPanel panelDecoración11;
     private javax.swing.JPanel panelDecoración15;
-    private javax.swing.JPanel panelDecoración16;
-    private javax.swing.JPanel panelDecoración17;
     private javax.swing.JPanel panelDecoración18;
     private javax.swing.JPanel panelDecoración19;
     private javax.swing.JPanel panelDecoración2;
@@ -3900,8 +3883,9 @@ public class Administrador extends javax.swing.JFrame {
     private javax.swing.JPanel panelDecoración3;
     private javax.swing.JPanel panelDecoración4;
     private javax.swing.JPanel panelDecoración5;
+    private javax.swing.JPanel panelDecoración7;
+    private javax.swing.JPanel panelDecoración8;
     private javax.swing.JPanel panelDecoración9;
-    private javax.swing.JPanel panelGris;
     private javax.swing.JPanel panelNegro;
     private javax.swing.JTextField txtAniosExperienciaProveedor;
     private javax.swing.JTextField txtAniosExperienciaRecepcionista;

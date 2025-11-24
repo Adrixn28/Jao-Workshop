@@ -394,7 +394,7 @@ public class Recepcionista extends javax.swing.JFrame {
                 .addComponent(iconCerrarSesion)
                 .addGap(50, 50, 50)
                 .addComponent(labelCerrarSesion)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(60, Short.MAX_VALUE))
         );
         panelBtnCerrarSesionLayout.setVerticalGroup(
             panelBtnCerrarSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -548,7 +548,6 @@ public class Recepcionista extends javax.swing.JFrame {
                             .addComponent(panelBtnMenuP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(iconRecepcinista))
-                    .addComponent(panelBtnCerrarSesion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(panelNegroLayout.createSequentialGroup()
                         .addGroup(panelNegroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelNegroLayout.createSequentialGroup()
@@ -556,7 +555,8 @@ public class Recepcionista extends javax.swing.JFrame {
                                 .addComponent(jLabel13))
                             .addGroup(panelNegroLayout.createSequentialGroup()
                                 .addGap(80, 80, 80)
-                                .addComponent(jLabel15)))
+                                .addComponent(jLabel15))
+                            .addComponent(panelBtnCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(panelNegroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1119,6 +1119,11 @@ public class Recepcionista extends javax.swing.JFrame {
         btnCancelar.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
         btnCancelar.setForeground(new java.awt.Color(255, 255, 255));
         btnCancelar.setText("X");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
         panelEliminar.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 160, 80, 30));
 
         jLabel30.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buscar.png"))); // NOI18N
@@ -1262,12 +1267,22 @@ public class Recepcionista extends javax.swing.JFrame {
         btnEliminarCliente.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 12)); // NOI18N
         btnEliminarCliente.setForeground(new java.awt.Color(255, 255, 255));
         btnEliminarCliente.setText("ELIMINAR CLIENTE");
+        btnEliminarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarClienteActionPerformed(evt);
+            }
+        });
         panelEliminar.add(btnEliminarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 340, 160, 30));
 
         btnCancelarEliminacion.setBackground(new java.awt.Color(204, 0, 0));
         btnCancelarEliminacion.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 12)); // NOI18N
         btnCancelarEliminacion.setForeground(new java.awt.Color(255, 255, 255));
         btnCancelarEliminacion.setText("CANCELAR ELIMINACION\n\n");
+        btnCancelarEliminacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarEliminacionActionPerformed(evt);
+            }
+        });
         panelEliminar.add(btnCancelarEliminacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 410, -1, -1));
 
         panelVentaRecepcionista.addTab("Eliminar", panelEliminar);
@@ -1325,11 +1340,29 @@ public class Recepcionista extends javax.swing.JFrame {
                     || txtSegundoApellidoCliente.getText().trim().isEmpty()
                     || txtCedulaCliente.getText().trim().isEmpty()
                     || cboGeneroCliente.getSelectedItem().toString().equals("Seleccionar")
-                    || txtTelefonoCliente.getText().trim().isEmpty()) {
+                    || txtTelefonoCliente.getText().trim().isEmpty()
+                    || txtUsuarioCliente.getText().trim().isEmpty()
+                    || txtContraseñaCliente.getText().trim().isEmpty()) {
 
-                JOptionPane.showMessageDialog(this, "Hay campos que están vacíos", 
+                JOptionPane.showMessageDialog(this, 
+                    "Todos los campos son obligatorios.\n" +
+                    "Por favor, complete toda la información.", 
                     "Campos Incompletos", JOptionPane.WARNING_MESSAGE);
                 return;
+            }
+
+            // Validar formatos de campos
+            if (!validarFormatosCamposCliente()) {
+                return; // Si la validación falla, el método ya muestra el mensaje de error
+            }
+
+            // Validar duplicados usando persistencia
+            if (!administradorService.validarClienteSinDuplicados(
+                    txtUsuarioCliente.getText().trim(),
+                    txtCorreoCliente.getText().trim(),
+                    txtTelefonoCliente.getText().trim(),
+                    txtCedulaCliente.getText().trim())) {
+                return; // Si hay duplicados, el método ya muestra el mensaje de error
             }
 
             // Generar ID automático
@@ -1523,9 +1556,15 @@ public class Recepcionista extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarClienteActionPerformed
 
     private void btnCancelarEliminacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarEliminacionActionPerformed
+        // Limpiar solo los JTextField
         limpiarCamposClienteEliminar();
-        JOptionPane.showMessageDialog(this, "Eliminación cancelada.");
     }//GEN-LAST:event_btnCancelarEliminacionActionPerformed
+    
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        // Limpiar solo el campo de búsqueda
+        txtIdClienteEliminar.setText("");
+        System.out.println("Campo de búsqueda limpiado");
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void txtIdClienteActualizar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdClienteActualizar1ActionPerformed
         // Este campo parece estar duplicado, no se usa
@@ -1614,6 +1653,140 @@ public class Recepcionista extends javax.swing.JFrame {
     // ========================================
     // MÉTODOS PARA GESTIONAR CLIENTES
     // ========================================
+    
+    /**
+     * Valida los formatos de los campos de cliente antes de agregar
+     * @return true si todos los formatos son válidos, false si hay errores
+     */
+    private boolean validarFormatosCamposCliente() {
+        String primerNombre = txtPrimerNombreCliente.getText().trim();
+        String segundoNombre = txtSegundoNombreCliente.getText().trim();
+        String primerApellido = txtPrimerApellidoCliente.getText().trim();
+        String segundoApellido = txtSegundoApellidoCliente.getText().trim();
+        String correo = txtCorreoCliente.getText().trim();
+        String telefono = txtTelefonoCliente.getText().trim();
+        String cedula = txtCedulaCliente.getText().trim();
+        String usuario = txtUsuarioCliente.getText().trim();
+        String contraseña = txtContraseñaCliente.getText().trim();
+        
+        // Validar que primer nombre solo contenga letras y espacios
+        if (!primerNombre.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+")) {
+            JOptionPane.showMessageDialog(this, 
+                "El primer nombre solo puede contener letras y espacios.\n" +
+                "No se permiten números ni caracteres especiales.", 
+                "Formato de Nombre Inválido", JOptionPane.ERROR_MESSAGE);
+            txtPrimerNombreCliente.requestFocus();
+            return false;
+        }
+        
+        // Validar segundo nombre (si no está vacío)
+        if (!segundoNombre.isEmpty() && !segundoNombre.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+")) {
+            JOptionPane.showMessageDialog(this, 
+                "El segundo nombre solo puede contener letras y espacios.\n" +
+                "No se permiten números ni caracteres especiales.", 
+                "Formato de Nombre Inválido", JOptionPane.ERROR_MESSAGE);
+            txtSegundoNombreCliente.requestFocus();
+            return false;
+        }
+        
+        // Validar que primer apellido solo contenga letras y espacios
+        if (!primerApellido.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+")) {
+            JOptionPane.showMessageDialog(this, 
+                "El primer apellido solo puede contener letras y espacios.\n" +
+                "No se permiten números ni caracteres especiales.", 
+                "Formato de Apellido Inválido", JOptionPane.ERROR_MESSAGE);
+            txtPrimerApellidoCliente.requestFocus();
+            return false;
+        }
+        
+        // Validar segundo apellido (si no está vacío)
+        if (!segundoApellido.isEmpty() && !segundoApellido.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+")) {
+            JOptionPane.showMessageDialog(this, 
+                "El segundo apellido solo puede contener letras y espacios.\n" +
+                "No se permiten números ni caracteres especiales.", 
+                "Formato de Apellido Inválido", JOptionPane.ERROR_MESSAGE);
+            txtSegundoApellidoCliente.requestFocus();
+            return false;
+        }
+        
+        // Validar que el correo contenga @
+        if (!correo.isEmpty() && !correo.contains("@")) {
+            JOptionPane.showMessageDialog(this, 
+                "El correo electrónico debe contener el símbolo '@'.\n" +
+                "Ejemplo: usuario@dominio.com", 
+                "Formato de Correo Inválido", JOptionPane.ERROR_MESSAGE);
+            txtCorreoCliente.requestFocus();
+            return false;
+        }
+        
+        // Validar formato más completo del correo (si no está vacío)
+        if (!correo.isEmpty() && !correo.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")) {
+            JOptionPane.showMessageDialog(this, 
+                "El formato del correo electrónico no es válido.\n" +
+                "Ejemplo: usuario@dominio.com", 
+                "Formato de Correo Inválido", JOptionPane.ERROR_MESSAGE);
+            txtCorreoCliente.requestFocus();
+            return false;
+        }
+        
+        // Validar que teléfono solo contenga números
+        if (!telefono.matches("\\d+")) {
+            JOptionPane.showMessageDialog(this, 
+                "El teléfono solo puede contener números.\n" +
+                "No se permiten letras, espacios ni caracteres especiales.", 
+                "Formato de Teléfono Inválido", JOptionPane.ERROR_MESSAGE);
+            txtTelefonoCliente.requestFocus();
+            return false;
+        }
+
+        // Validar longitud del teléfono (10 dígitos)
+        if (telefono.length() != 10) {
+            JOptionPane.showMessageDialog(this, 
+                "El teléfono debe tener 10 dígitos.", 
+                "Longitud de Teléfono Inválida", JOptionPane.ERROR_MESSAGE);
+            txtTelefonoCliente.requestFocus();
+            return false;
+        }
+        
+        // Validar que cédula solo contenga números
+        if (!cedula.matches("\\d+")) {
+            JOptionPane.showMessageDialog(this, 
+                "La cédula solo puede contener números.\n" +
+                "No se permiten letras, espacios ni caracteres especiales.", 
+                "Formato de Cédula Inválido", JOptionPane.ERROR_MESSAGE);
+            txtCedulaCliente.requestFocus();
+            return false;
+        }
+        
+        // Validar longitud de la cédula (entre 6 y 15 dígitos)
+        if (cedula.length() < 6 || cedula.length() > 15) {
+            JOptionPane.showMessageDialog(this, 
+                "La cédula debe tener entre 6 y 15 dígitos.", 
+                "Longitud de Cédula Inválida", JOptionPane.ERROR_MESSAGE);
+            txtCedulaCliente.requestFocus();
+            return false;
+        }
+        
+        // Validar que usuario no esté vacío y tenga al menos 3 caracteres
+        if (usuario.length() < 3) {
+            JOptionPane.showMessageDialog(this, 
+                "El usuario debe tener al menos 3 caracteres.", 
+                "Usuario Inválido", JOptionPane.ERROR_MESSAGE);
+            txtUsuarioCliente.requestFocus();
+            return false;
+        }
+        
+        // Validar que contraseña no esté vacía y tenga al menos 4 caracteres
+        if (contraseña.length() < 4) {
+            JOptionPane.showMessageDialog(this, 
+                "La contraseña debe tener al menos 4 caracteres.", 
+                "Contraseña Inválida", JOptionPane.ERROR_MESSAGE);
+            txtContraseñaCliente.requestFocus();
+            return false;
+        }
+        
+        return true;
+    }
     
     /**
      * Carga los clientes en la tabla (método mantenido para compatibilidad)
@@ -1741,11 +1914,11 @@ public class Recepcionista extends javax.swing.JFrame {
     }
     
     /**
-     * Elimina el cliente del sistema
+     * Elimina el cliente del sistema (igual que en Administrador)
      */
     private void eliminarCliente() {
         try {
-            // Validar que haya una cédula ingresada
+            // Validar que haya una cédula ingresada (en Recepcionista se busca por cédula)
             String cedula = txtIdClienteEliminar.getText().trim();
             if (cedula.isEmpty()) {
                 JOptionPane.showMessageDialog(this, 
@@ -1754,7 +1927,7 @@ public class Recepcionista extends javax.swing.JFrame {
                 return;
             }
             
-            // Buscar el cliente por cédula para obtener su ID y mostrar sus datos en la confirmación
+            // Buscar el cliente por cédula para obtener su ID
             Model.Cliente cliente = administradorService.buscarClientePorCedula(cedula);
             if (cliente == null) {
                 JOptionPane.showMessageDialog(this, 
@@ -1763,30 +1936,24 @@ public class Recepcionista extends javax.swing.JFrame {
                 return;
             }
             
-            // Obtener el ID del cliente encontrado para eliminarlo
             String idCliente = cliente.getIdCliente();
+            String nombreCliente = cliente.getPrimerNombre() + " " + cliente.getPrimerApellido();
             
-            // Confirmar eliminación
             int confirmacion = JOptionPane.showConfirmDialog(this,
-                "¿Está seguro de que desea eliminar al cliente?\n\n" +
-                "ID: " + cliente.getIdCliente() + "\n" +
-                "Nombre: " + cliente.getPrimerNombre() + " " + cliente.getPrimerApellido() + "\n" +
-                "Cédula: " + cliente.getCedula() + "\n\n" +
+                "¿Está seguro de que desea eliminar al cliente?\n" +
+                "ID: " + idCliente + "\n" +
+                "Nombre: " + nombreCliente + "\n\n" +
                 "Esta acción no se puede deshacer.",
                 "Confirmar Eliminación",
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.WARNING_MESSAGE);
             
             if (confirmacion == JOptionPane.YES_OPTION) {
-                // Eliminar el cliente usando el ID (reutilizando AdministradorService)
                 boolean eliminado = administradorService.eliminarCliente(idCliente);
                 
                 if (eliminado) {
-                    // Actualizar tabla
                     cargarClientesEnTabla();
-                    // Limpiar campos
                     limpiarCamposClienteEliminar();
-                    
                     JOptionPane.showMessageDialog(this, 
                         "Cliente eliminado exitosamente.", 
                         "Éxito", JOptionPane.INFORMATION_MESSAGE);
