@@ -177,7 +177,20 @@ public class Bievenida extends javax.swing.JFrame {
         jMsj8.setForeground(new java.awt.Color(0, 0, 0));
         jMsj8.setText("KAWASAKI | YAMAHA | BAJAJ | HONDA | HERO");
 
-        icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/logoPrincipalGrande.png"))); // NOI18N
+        // Cargar imagen con manejo de errores
+        try {
+            java.net.URL imageURL = getClass().getResource("/Resources/logoPrincipalGrande.png");
+            if (imageURL != null) {
+                icon.setIcon(new javax.swing.ImageIcon(imageURL));
+            } else {
+                // Si no encuentra la imagen, usar texto alternativo
+                icon.setText("JaoWorkshop");
+                System.out.println("Advertencia: No se pudo cargar la imagen logoPrincipalGrande.png");
+            }
+        } catch (Exception e) {
+            icon.setText("JaoWorkshop");
+            System.out.println("Error al cargar imagen: " + e.getMessage());
+        }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);

@@ -1,10 +1,21 @@
 package View;
 
+import Service.LoginService;
+import Model.*;
+import javax.swing.JOptionPane;
+
 public class Login extends javax.swing.JFrame {
+    
+    private LoginService loginService;
 
     public Login() {
         initComponents();
         setLocationRelativeTo(null);
+        
+        // ⭐ Inicializar solo LoginService (incluye persistencias internamente)
+        System.out.println("Inicializando LoginService...");
+        loginService = new LoginService();
+        System.out.println("LoginService inicializado correctamente.");
     }
 
     @SuppressWarnings("unchecked")
@@ -26,8 +37,8 @@ public class Login extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         pfContraseña = new javax.swing.JPasswordField();
-        BtnIngresar = new javax.swing.JButton();
         BtnRegresarMenu = new javax.swing.JButton();
+        BtnIngresar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -43,10 +54,10 @@ public class Login extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(66, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(83, 83, 83)
                 .addComponent(lblJaoWorkshop)
-                .addGap(58, 58, 58))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -133,17 +144,6 @@ public class Login extends javax.swing.JFrame {
         pfContraseña.setFont(new java.awt.Font("JetBrains Mono", 0, 18)); // NOI18N
         pfContraseña.setForeground(new java.awt.Color(0, 0, 0));
 
-        BtnIngresar.setBackground(new java.awt.Color(0, 153, 0));
-        BtnIngresar.setFont(new java.awt.Font("JetBrains Mono", 0, 18)); // NOI18N
-        BtnIngresar.setForeground(new java.awt.Color(255, 255, 255));
-        BtnIngresar.setText("INGRESAR");
-        BtnIngresar.setToolTipText("");
-        BtnIngresar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnIngresarActionPerformed(evt);
-            }
-        });
-
         BtnRegresarMenu.setBackground(new java.awt.Color(204, 0, 0));
         BtnRegresarMenu.setFont(new java.awt.Font("JetBrains Mono", 0, 18)); // NOI18N
         BtnRegresarMenu.setForeground(new java.awt.Color(255, 255, 255));
@@ -154,41 +154,54 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
+        BtnIngresar.setBackground(new java.awt.Color(0, 153, 0));
+        BtnIngresar.setFont(new java.awt.Font("JetBrains Mono", 0, 18)); // NOI18N
+        BtnIngresar.setForeground(new java.awt.Color(255, 255, 255));
+        BtnIngresar.setText("INGRESAR");
+        BtnIngresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnIngresarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout fondoPrinipalLayout = new javax.swing.GroupLayout(fondoPrinipal);
         fondoPrinipal.setLayout(fondoPrinipalLayout);
         fondoPrinipalLayout.setHorizontalGroup(
             fondoPrinipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(fondoPrinipalLayout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(fondoPrinipalLayout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addGroup(fondoPrinipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 382, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, fondoPrinipalLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(fondoPrinipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(cboRol, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(fondoPrinipalLayout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addComponent(BtnIngresar)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel4))
+                    .addGroup(fondoPrinipalLayout.createSequentialGroup()
+                        .addComponent(jLabel5)
                         .addGap(18, 18, 18)
-                        .addComponent(BtnRegresarMenu))
-                    .addGroup(fondoPrinipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(cboRol, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel2)))
+                .addGap(28, 28, 28))
+            .addGroup(fondoPrinipalLayout.createSequentialGroup()
+                .addGroup(fondoPrinipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(fondoPrinipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(fondoPrinipalLayout.createSequentialGroup()
-                            .addComponent(jLabel1)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jLabel4)))
-                    .addGroup(fondoPrinipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(pfContraseña, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGap(45, 45, 45)
+                            .addComponent(BtnRegresarMenu))
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, fondoPrinipalLayout.createSequentialGroup()
+                            .addGap(72, 72, 72)
+                            .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, fondoPrinipalLayout.createSequentialGroup()
+                            .addGap(48, 48, 48)
                             .addComponent(jLabel7)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addComponent(txtUsuario, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(fondoPrinipalLayout.createSequentialGroup()
-                            .addComponent(jLabel5)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jLabel2))))
+                            .addGap(18, 18, 18)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(fondoPrinipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(BtnIngresar)
+                        .addComponent(pfContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         fondoPrinipalLayout.setVerticalGroup(
             fondoPrinipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -203,12 +216,12 @@ public class Login extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cboRol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(fondoPrinipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(fondoPrinipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel2)
                     .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(19, 19, 19)
                 .addGroup(fondoPrinipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel6)
                     .addComponent(jLabel7))
@@ -216,9 +229,9 @@ public class Login extends javax.swing.JFrame {
                 .addComponent(pfContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(fondoPrinipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(BtnIngresar)
-                    .addComponent(BtnRegresarMenu))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+                    .addComponent(BtnRegresarMenu)
+                    .addComponent(BtnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -242,7 +255,14 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnRegresarMenuActionPerformed
 
     private void cboRolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboRolActionPerformed
-        // TODO add your handling code here:
+        String rolSeleccionado = (String) cboRol.getSelectedItem();
+        
+        // Opcional: Mostrar información sobre usuarios registrados para el rol seleccionado
+        if (!rolSeleccionado.equals("Rol sin especificar")) {
+            // Esta línea imprime en consola para propósitos de debugging
+            System.out.println("Rol seleccionado: " + rolSeleccionado);
+            loginService.mostrarUsuariosPorRol(rolSeleccionado);
+        }
     }//GEN-LAST:event_cboRolActionPerformed
 
     private void txtUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsuarioActionPerformed
@@ -250,7 +270,79 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_txtUsuarioActionPerformed
 
     private void BtnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnIngresarActionPerformed
-        // TODO add your handling code here:
+        // Obtener los datos del formulario
+        String usuario = txtUsuario.getText().trim();
+        String contraseña = new String(pfContraseña.getPassword()).trim();
+        String rolSeleccionado = (String) cboRol.getSelectedItem();
+        
+        System.out.println("=== INICIO LOGIN ===");
+        System.out.println("Usuario: '" + usuario + "'");
+        System.out.println("Contraseña: '" + contraseña + "'");
+        System.out.println("Rol: '" + rolSeleccionado + "'");
+        System.out.println("LoginService es null? " + (loginService == null));
+        
+        // Validaciones básicas
+        if (usuario.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor, ingrese su usuario.", 
+                                        "Campo requerido", JOptionPane.WARNING_MESSAGE);
+            txtUsuario.requestFocus();
+            return;
+        }
+        
+        if (contraseña.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor, ingrese su contraseña.", 
+                                        "Campo requerido", JOptionPane.WARNING_MESSAGE);
+            pfContraseña.requestFocus();
+            return;
+        }
+        
+        if (rolSeleccionado.equals("Rol sin especificar")) {
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione su rol.", 
+                                        "Rol requerido", JOptionPane.WARNING_MESSAGE);
+            cboRol.requestFocus();
+            return;
+        }
+        
+        // Intentar autenticación usando las listas enlazadas
+        System.out.println("Llamando a autenticarUsuario...");
+        Usuario usuarioAutenticado = loginService.autenticarUsuario(usuario, contraseña, rolSeleccionado);
+        System.out.println("Resultado autenticación: " + (usuarioAutenticado != null ? "ÉXITO" : "FALLO"));
+        
+        if (usuarioAutenticado != null) {
+            // Login exitoso
+            JOptionPane.showMessageDialog(this, 
+                "¡Bienvenido " + usuarioAutenticado.getPrimerNombre() + " " + 
+                usuarioAutenticado.getPrimerApellido() + "!\n" +
+                "Rol: " + usuarioAutenticado.getRol(), 
+                "Login Exitoso", JOptionPane.INFORMATION_MESSAGE);
+            
+            // ⭐ Establecer sesión usando LoginService
+            System.out.println("Estableciendo sesión para usuario: " + usuario);
+            loginService.establecerSesion(usuario, usuarioAutenticado.getRol());
+            
+            // ⭐ Redireccionar usando LoginService
+            System.out.println("Iniciando redirección...");
+            boolean redireccionExitosa = loginService.redirigirSegunRol(this);
+            
+            // Solo cerrar login si la redirección fue exitosa
+            if (redireccionExitosa) {
+                System.out.println("Redirección exitosa. Cerrando login.");
+                this.dispose();
+            } else {
+                System.out.println("Redirección no completada. Manteniendo login abierto.");
+            }
+            
+        } else {
+            // Login fallido
+            JOptionPane.showMessageDialog(this, 
+                "Usuario, contraseña o rol incorrectos.\n" +
+                "Verifique sus credenciales e intente nuevamente.", 
+                "Error de Autenticación", JOptionPane.ERROR_MESSAGE);
+            
+            // Limpiar campos por seguridad
+            pfContraseña.setText("");
+            txtUsuario.requestFocus();
+        }
     }//GEN-LAST:event_BtnIngresarActionPerformed
 
     /**
@@ -288,6 +380,8 @@ public class Login extends javax.swing.JFrame {
             }
         });
     }
+    
+    // ⭐ Método deprecated eliminado - ahora se usa LoginService.redirigirSegunRol()
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnIngresar;
