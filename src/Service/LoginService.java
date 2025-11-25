@@ -309,6 +309,7 @@ public class LoginService {
     
     /**
      * Establece la sesión del usuario logueado
+     * @author Osvaldo
      * @param nombreUsuario Nombre de usuario
      * @param rol Rol del usuario
      */
@@ -320,6 +321,7 @@ public class LoginService {
     
     /**
      * Redirige según el rol usando las persistencias
+     * @author Osvaldo
      * @param frameLogin Frame de login a cerrar
      * @return true si redirigió exitosamente
      */
@@ -331,6 +333,7 @@ public class LoginService {
     
     /**
      * Cierra la sesión actual
+     * @author Osvaldo
      */
     public void cerrarSesion() {
         System.out.println("LoginService: Cerrando sesión...");
@@ -340,6 +343,7 @@ public class LoginService {
     
     /**
      * Verifica si hay una sesión activa
+     * @author Osvaldo
      * @return true si hay sesión activa
      */
     public boolean haySesionActiva() {
@@ -349,6 +353,7 @@ public class LoginService {
     
     /**
      * Obtiene el ID del usuario actual
+     * @author Osvaldo
      * @return ID del usuario logueado o null
      */
     public String getIdUsuarioActual() {
@@ -358,15 +363,17 @@ public class LoginService {
     
     /**
      * Obtiene el rol del usuario actual
+     * @author Osvaldo
      * @return Rol del usuario logueado o null
      */
     public String getRolUsuarioActual() {
         inicializarPersistenciasLazy();
         return sesionActual.getRolUsuarioActual();
     }
-    
+
     /**
-     * Obtiene el nombre del usuario actual
+     * Obtiene el nombre del usuario actual 
+     * @author Osvaldo
      * @return Nombre del usuario logueado o null
      */
     public String getNombreUsuarioActual() {
@@ -376,6 +383,7 @@ public class LoginService {
     
     /**
      * Cierra sesión y vuelve al login desde cualquier frame
+     * @author Osvaldo
      * @param frameActual Frame actual a cerrar
      */
     public void cerrarSesionYVolverLogin(javax.swing.JFrame frameActual) {
@@ -386,6 +394,7 @@ public class LoginService {
     
     /**
      * Imprime el estado actual de la sesión (para debug)
+     * @author Osvaldo
      */
     public void imprimirEstadoSesion() {
         inicializarPersistenciasLazy();
@@ -410,6 +419,7 @@ public class LoginService {
     
     /**
      * Obtiene el objeto Usuario completo basado en el ID de la sesión actual
+     * @author Osvaldo
      * @return Usuario logueado o null si no se encuentra
      */
     public Usuario getUsuarioActualCompleto() {
@@ -427,6 +437,7 @@ public class LoginService {
     
     /**
      * Busca un usuario por su ID en la lista correspondiente a su rol
+     * @author Osvaldo
      * @param id ID del usuario a buscar
      * @param rol Rol del usuario para saber en qué lista buscar
      * @return Usuario encontrado o null
@@ -485,6 +496,7 @@ public class LoginService {
     /**
      * Abre el frame Cliente con la información del usuario logueado
      * Este método puede ser llamado desde cualquier parte del sistema
+     * @author Osvaldo
      * @return true si se abrió exitosamente
      */
     public boolean abrirFrameCliente() {
@@ -515,6 +527,7 @@ public class LoginService {
     
     /**
      * Método de testing para probar la apertura del Cliente con usuario específico
+     * @author Osvaldo
      * @param nombreUsuario Nombre del usuario para mostrar
      * @return true si se abrió exitosamente
      */
@@ -533,6 +546,7 @@ public class LoginService {
     /**
      * Obtiene la instancia compartida de ClienteService (singleton)
      * Todos los frames deben usar esta instancia para que el stock se actualice correctamente
+     * @author Osvaldo
      * @return Instancia compartida de ClienteService
      */
     public ClienteService getClienteService() {

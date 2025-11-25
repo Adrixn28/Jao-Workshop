@@ -5,18 +5,17 @@ import java.util.Date;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * Generador de códigos únicos para ventas y facturas
- * Maneja la secuencia de códigos VEN y FACT
+ * Clase para generar códigos únicos de ventas y facturas
+ * @author Osvaldo Pacheco
  */
 public class GeneradorCodigos {
     
+    // Contadores para generar números secuenciales únicos
     private static AtomicInteger contadorVentas = new AtomicInteger(1);
     private static AtomicInteger contadorFacturas = new AtomicInteger(1);
     
     /**
-     * Genera un código único para venta
-     * Formato: VEN001, VEN002, etc.
-     * @return Código de venta único
+     * Genera código de venta en formato VEN001, VEN002, etc.
      */
     public static String generarCodigoVenta() {
         int numero = contadorVentas.getAndIncrement();
@@ -24,9 +23,7 @@ public class GeneradorCodigos {
     }
     
     /**
-     * Genera un código único para factura
-     * Formato: FACT001, FACT002, etc.
-     * @return Código de factura único
+     * Genera código de factura en formato FACT001, FACT002, etc.
      */
     public static String generarCodigoFactura() {
         int numero = contadorFacturas.getAndIncrement();
@@ -34,9 +31,8 @@ public class GeneradorCodigos {
     }
     
     /**
-     * Genera un número de venta con timestamp
-     * Formato: VEN001_20251107143022
-     * @return Número completo de venta
+     * Genera número de venta completo con fecha y hora
+     * Ejemplo: VEN001_20251107143022
      */
     public static String generarNumeroVentaCompleto() {
         String codigo = generarCodigoVenta();
@@ -45,9 +41,8 @@ public class GeneradorCodigos {
     }
     
     /**
-     * Genera un número de factura con timestamp
-     * Formato: FACT001_20251107143022
-     * @return Número completo de factura
+     * Genera número de factura completo con fecha y hora
+     * Ejemplo: FACT001_20251107143022
      */
     public static String generarNumeroFacturaCompleto() {
         String codigo = generarCodigoFactura();
@@ -56,7 +51,8 @@ public class GeneradorCodigos {
     }
     
     /**
-     * Reinicia los contadores (para testing)
+     * Reinicia los contadores a 1
+     * Útil para reiniciar la numeración cuando sea necesario
      */
     public static void reiniciarContadores() {
         contadorVentas.set(1);
@@ -64,16 +60,14 @@ public class GeneradorCodigos {
     }
     
     /**
-     * Obtiene el próximo número de venta sin incrementar
-     * @return Próximo número de venta
+     * Obtiene el próximo número de venta sin incrementar el contador
      */
     public static int getProximoNumeroVenta() {
         return contadorVentas.get();
     }
     
     /**
-     * Obtiene el próximo número de factura sin incrementar
-     * @return Próximo número de factura
+     * Obtiene el próximo número de factura sin incrementar el contador
      */
     public static int getProximoNumeroFactura() {
         return contadorFacturas.get();

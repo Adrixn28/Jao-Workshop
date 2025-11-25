@@ -232,7 +232,7 @@ public class Recepcionista extends javax.swing.JFrame {
         panelDecoración.setLayout(panelDecoraciónLayout);
         panelDecoraciónLayout.setHorizontalGroup(
             panelDecoraciónLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 289, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         panelDecoraciónLayout.setVerticalGroup(
             panelDecoraciónLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -445,7 +445,7 @@ public class Recepcionista extends javax.swing.JFrame {
         panelDecoración1.setLayout(panelDecoración1Layout);
         panelDecoración1Layout.setHorizontalGroup(
             panelDecoración1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 289, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         panelDecoración1Layout.setVerticalGroup(
             panelDecoración1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -465,7 +465,7 @@ public class Recepcionista extends javax.swing.JFrame {
             .addGroup(panelDecoración2Layout.createSequentialGroup()
                 .addGap(34, 34, 34)
                 .addComponent(labelMenúOpciones)
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
         panelDecoración2Layout.setVerticalGroup(
             panelDecoración2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -533,9 +533,10 @@ public class Recepcionista extends javax.swing.JFrame {
             .addGroup(panelNegroLayout.createSequentialGroup()
                 .addGroup(panelNegroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(panelDecoración1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(panelDecoración2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(panelDecoración, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelNegroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(panelDecoración, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(panelDecoración1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(panelDecoración2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(panelNegroLayout.createSequentialGroup()
                 .addGroup(panelNegroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -572,17 +573,17 @@ public class Recepcionista extends javax.swing.JFrame {
                 .addComponent(jLabel15)
                 .addGap(39, 39, 39)
                 .addComponent(jLabel13)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(panelDecoración, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelDecoración1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelDecoración2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(panelNegroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelNegroLayout.createSequentialGroup()
-                        .addGap(44, 44, 44)
+                        .addGap(123, 123, 123)
                         .addComponent(iconRecepcinista))
                     .addGroup(panelNegroLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(panelDecoración, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(panelDecoración1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(panelDecoración2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(panelBtnMenuP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(20, 20, 20)
@@ -604,7 +605,7 @@ public class Recepcionista extends javax.swing.JFrame {
                     .addContainerGap(620, Short.MAX_VALUE)))
         );
 
-        getContentPane().add(panelNegro, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 290, 660));
+        getContentPane().add(panelNegro, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, 660));
 
         panelGris.setBackground(new java.awt.Color(51, 51, 51));
 
@@ -618,9 +619,9 @@ public class Recepcionista extends javax.swing.JFrame {
         panelGrisLayout.setHorizontalGroup(
             panelGrisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelGrisLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(34, Short.MAX_VALUE)
                 .addComponent(labelRecepcionisa1)
-                .addGap(48, 48, 48))
+                .addGap(20, 20, 20))
         );
         panelGrisLayout.setVerticalGroup(
             panelGrisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -629,7 +630,7 @@ public class Recepcionista extends javax.swing.JFrame {
                 .addComponent(labelRecepcionisa1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, Short.MAX_VALUE))
         );
 
-        getContentPane().add(panelGris, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 0, 690, 80));
+        getContentPane().add(panelGris, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 0, 720, 80));
 
         PanelNegro2.setBackground(new java.awt.Color(15, 15, 15));
 
@@ -637,14 +638,14 @@ public class Recepcionista extends javax.swing.JFrame {
         PanelNegro2.setLayout(PanelNegro2Layout);
         PanelNegro2Layout.setHorizontalGroup(
             PanelNegro2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 690, Short.MAX_VALUE)
+            .addGap(0, 710, Short.MAX_VALUE)
         );
         PanelNegro2Layout.setVerticalGroup(
             PanelNegro2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+            .addGap(0, 130, Short.MAX_VALUE)
         );
 
-        getContentPane().add(PanelNegro2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 80, 690, 100));
+        getContentPane().add(PanelNegro2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 80, 710, 130));
 
         PanelFacturas.setBackground(new java.awt.Color(255, 255, 255));
         PanelFacturas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -1119,11 +1120,6 @@ public class Recepcionista extends javax.swing.JFrame {
         btnCancelar.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 14)); // NOI18N
         btnCancelar.setForeground(new java.awt.Color(255, 255, 255));
         btnCancelar.setText("X");
-        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelarActionPerformed(evt);
-            }
-        });
         panelEliminar.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 160, 80, 30));
 
         jLabel30.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buscar.png"))); // NOI18N
@@ -1267,22 +1263,12 @@ public class Recepcionista extends javax.swing.JFrame {
         btnEliminarCliente.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 12)); // NOI18N
         btnEliminarCliente.setForeground(new java.awt.Color(255, 255, 255));
         btnEliminarCliente.setText("ELIMINAR CLIENTE");
-        btnEliminarCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEliminarClienteActionPerformed(evt);
-            }
-        });
         panelEliminar.add(btnEliminarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 340, 160, 30));
 
         btnCancelarEliminacion.setBackground(new java.awt.Color(204, 0, 0));
         btnCancelarEliminacion.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 12)); // NOI18N
         btnCancelarEliminacion.setForeground(new java.awt.Color(255, 255, 255));
         btnCancelarEliminacion.setText("CANCELAR ELIMINACION\n\n");
-        btnCancelarEliminacion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelarEliminacionActionPerformed(evt);
-            }
-        });
         panelEliminar.add(btnCancelarEliminacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 410, -1, -1));
 
         panelVentaRecepcionista.addTab("Eliminar", panelEliminar);
